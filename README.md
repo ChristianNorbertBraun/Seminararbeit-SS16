@@ -1,0 +1,3 @@
+# Termpaper
+
+## Rigging, Skinning, Rendering
