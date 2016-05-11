@@ -32,6 +32,15 @@ buildNumber.properties
 kpa.server.iml
 src/main/js/node_modules
 velocity.log
+/build/**
+**/*.aux
+**/*.lof
+**/*.log
+**/*.lot
+**/*.out
+**/*.gz
+**/*.toc
+**/*.pdf
 
 #Eclipse
 .classpath
