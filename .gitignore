@@ -41,6 +41,8 @@ velocity.log
 **/*.gz
 **/*.toc
 **/*.pdf
+**/*.blg
+**/*.bbl
 
 #Eclipse
 .classpath
