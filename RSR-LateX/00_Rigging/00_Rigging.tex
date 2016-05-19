@@ -4,7 +4,7 @@
 Rigging ist ein Teil der Computeranimation, wobei die Skelettanimation eines der am häufig genutzten Methoden ist.\\
 Bei dieser Methode wird ein hierarchisch aufgebautes Skelett, ein 3D-Modell, welches im weiteren Verlauf als Mesh bezeichnet wird, und die Bewegungsdaten einzelner Punkte des Skeletts benötigt. Diese markanten Punkte, können zum Beispiel die Gelenke oder das Ende eines Fingers sein. Der Begriff Bewegungsdaten steht hier als Synonym für die 3D-Koordinaten im zeitlichen Verlauf einer Bewegung. Diese Koordinaten repräsentieren einzelne Marker welche mit einem Motion Capturing System aufgenommen wurden. \\
 Beim Rigging wird nun das Skelett mit dem Mesh verbunden. Wie sich das Mesh dann während einer Bewegung verformt, ist Teil des Skinning-Prozesses.
-Rigging lässt sich in 2 Hauptbereiche einteilen:
+Rigging lässt sich in zwei Hauptbereiche einteilen:
 \begin{itemize}
 	\item Manuelles Riggen
 	\item Automatisches Riggen
@@ -16,6 +16,21 @@ Diese Ausarbeitung behandelt das Thema automatisches Riggen. Auch dieser Unterpu
 	\item \nameref{sec:skeleton-embedding}
 \end{itemize}
 Es gibt auch Ansätze \cite{combination}, welche beide Methoden verbindet. Im weiteren Verlauf wird jedoch nur auf \nameref{sec:skeleton-extraction} und \nameref{sec:skeleton-embedding} eingegangen. Wobei der Schwerpunkt eindeutig auf \nameref{sec:skeleton-embedding} liegt.
+Das Ziel des automatischen Riggings liegt darin, das der Prozess vereinfacht und beschleunigt wird. Bisher war die Plazierung des Skellets im Mesh für Anfänger schwierig. Der automatisierte Rigging-Vorgang wird oft an drei Kenngrößen bemessen:
+
+\begin{itemize}
+	\item Performanz: Der Vorgang sollte nicht länger dauern als das manuelle Rigging.
+	\item Allgemeingültigkeit: Der Vorgang sollte nicht auf bestimmte Modelle, z. B. humanuide Formen, begrenzt sein.
+	\item Selbstständigkeit: Die benötigte Interaktion mit dem Benutzer sollte möglichst gering sein.
+\end{itemize}
+In der nachfolgenden Ausarbeitung werden die einzelnen Verfahren mithilfe dieser drei Aspekten evaluiert.\\
+Um die Verwechslungsgefahr zu minimieren werden noch folgende Begriffe eingeführt:
+\begin{itemize}
+	\item Animation Skelett: Hierarchisches Skelett mit Knochen und Gelenken.
+	\item Kurven Skelett: Mittelachse eines Meshs.
+\end{itemize}
+\newpage
+
 
 \subsection{Skelett-Extraktion}
 \label{sec:skeleton-extraction}
