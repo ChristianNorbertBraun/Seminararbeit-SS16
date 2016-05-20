@@ -1,6 +1,7 @@
 \newpage
 \section{Rigging}
 \subsection{Was ist Rigging?}
+\label{sec:whats_rigging}
 Rigging ist ein Teil der Computeranimation, wobei die Skelettanimation eines der am häufig genutzten Methoden ist.\\
 Bei dieser Methode wird ein hierarchisch aufgebautes Skelett, ein 3D-Modell, welches im weiteren Verlauf als Mesh bezeichnet wird, und die Bewegungsdaten einzelner Punkte des Skeletts benötigt. Diese markanten Punkte, können zum Beispiel die Gelenke oder das Ende eines Fingers sein. Der Begriff Bewegungsdaten steht hier als Synonym für die 3D-Koordinaten im zeitlichen Verlauf einer Bewegung. Diese Koordinaten repräsentieren einzelne Marker welche mit einem Motion Capturing System aufgenommen wurden. \\
 Beim Rigging wird nun das Skelett mit dem Mesh verbunden. Wie sich das Mesh dann während einer Bewegung verformt, ist Teil des Skinning-Prozesses.
@@ -36,6 +37,7 @@ Um die Verwechslungsgefahr zu minimieren werden noch folgende Begriffe eingeführ
 \label{sec:skeleton-extraction}
 
 \subsubsection{Einführung}
+Der Abschnitt über die Skelett-Extraktion stützt sich auf das Paper von J. Pan ET AL. \cite{extraction}.
 Für die Skelett-Extraktion wird kein animations Skelett im vorraus benötigt. Dieses wird aus dem Mesh extrahiert. Für diese Extraktion werden die Mittelachsen einzelner Mesh-Segmente benötigt. Bei einer Hand zum Beispiel die Achsen der fünf Finger, des Handtellers und des Armansatzes.\\
 Um die Mittelachsen eines 3D Körpers zu bestimmen wird eine geometrische Form, die 3D-Silhouette eingeführt. Eine 3D-Silhouette im nachfolgenden auch nur als Silhouette bezeichnet, ist eine zwei dimensionale Projektion des Meshs, wobei die Tiefeninformationen (Koordinate auf der Z-Achse) nicht verloren geht, sondern mit abgespeichert wird.\\
 Wurde eine geeignete Projektion gefunden (\ref{sec:projection_detection}), wird eine \nameref{sec:global_search} durchgeführt. Diese Suche findet alle Punkte des Meshs ohne darauf zu achten, ob diese verbunden sind. Sind alle Punkte gefunden, wird eine \nameref{sec:local_search} ausgeführt, diese verbindet nun die Punkte und Berücksichtigt deren Verbindung zum Mesh. Im Anschluss wird bei der \nameref{sec:curve_skeleton_extraction} die Mittelachsen bestimmt und das Kurven Skelett extrahiert. In Abbildung \ref{extraction_fig1} a) kann man diese Mittelachse sehen, die blaue Achse. Die rote und gelbe Linie repräsentieren jeweils eine Projektion des Meshs.\\
@@ -73,14 +75,30 @@ $q(x,y,z)$ steht für den momentanen Punkt und $q_{i}(x,y,z)$ für einen der Nachb
 
 \subsubsection{Lokale Suche}
 \label{sec:local_search}
+Abbildung \ref{extraction_fig1} (b) zeigt wie die Lokale Suche abläuft.
 Für die lokale Suche werden nun alle Punkte der Menge $C''_{i}$ miteinander verbunden. Um die Punkte miteinander zu verbinden wird wie folgt vorgagangen: \\
-1. Der Punkt $c''_{i}(x,y,z)$ wird als Startpunkt $c_{i1}(x,y,z)$ definiert.
+1. Der Punkt $c''_{i}(x,y,z)$ wird als Startpunkt $c_{i1}(x,y,z)$ definiert und es werden alle verbunden Nachbarpunkte aus V gesucht.\\
+2. Es wird der Punkt $c_{i2}(x,y,z)$ gesucht, welcher den größten Winkel $\angle c_{i2}c''_{i}c_{ij}$ besitzt. $c_{ij}$ ist der Vorgänger ovn $c''_{i}$\\
+3. Ausgehend von $c_{i2}$ wird nun wieder der Punkt gesucht welcher den größten Winkel $\angle c_{i3}c_{i2}c_{i1}$ besitzt.\\
+4. Wiederhole Schritt 3 solange bis man wieder bei $c''_{i}(x,y,z)$ angekommen ist oder der Abstand zwischen $c_{ij}(x,y,z)$ und $c''_{i}(x,y,z)$ kleiner als der Radius r ist der mit der Formel \ref{radius} bestimmt wurde.\\ 
 
 \subsubsection{Kurven Skelett Extraktion}
 \label{sec:curve_skeleton_extraction}
+Mithilfe der in den oberen beiden Abschnitten gefunden Punktmenge wird nun mithilfe der Delaunay-Triangulation ein Dreiecksnetz erstellt. Dieses kann man in Abbildung \ref{extraction_fig1} (c) sehen. Anhand dieser Dreiecke können nun an allen Kanten, welche nicht die Außenfläschen des Meshs berühren Mittelpunktbestimmungen vorgenommen werden. Dafür wird berechnet: $ m_{k} \left( \frac{x_{i} + x_{j}}{2},\frac{y_{i} + y_{j}}{2},\frac{z_{i} + z_{j}}{2} \right)  $. Diese Mittelpunkte werden nun verbunden und wir erhalten eine Mittelachse für die aktuelle Projektion. Diese liegt jedoch noch nicht zentral im Mesh, hierfür muss man für jeden Teilbereiches des Meshs die vorher beschriebenen Vorgänge wiederholen. Dieses mal müssen die Projektionen orthogonal zu der ersten Projektion liegen. Teilbereiche des Meshs sind in diesem Beispiel je ein Finger der Hand, der Handteller oder der Armansatz. (Siehe Abbildung \ref{extraction_fig1} (d))\\
+Wurde die Prozedur für jeden Teilbereichs des Meshs wiederholt, werden beide erzeugte Mittelachsen übereinander gelegt und dadurch entsteht eine Mittelachse die wirklich mittig im Mesh liegt. 
 
 \subsubsection{Animation Skelett Erzeugung}
 \label{sec:animation_skeleton_creation}
+Das bei der \nameref{sec:curve_skeleton_extraction} erzeugete Skelett ist eine gute Annäherung, kann jedoch bei der Computer Animation nicht verwendet werden. Um es brauchbar zu machen müssen die einzelnen Mittelachse noch begradigt werden. Dies wird in Abblidung \ref{extraction_fig1}(e) dargestellt.\\
+Zu guter letzt fehlen noch die Gelenke. Die ersten Gelenke werden an die Anfangs- und Endpunkte der erzeugten Mittelachsen gesetzt. Jedoch ist es möglich das zwischen diesen beiden Punkten noch mehr Gelenke existieren. Um diese zu erzeugen wird der Verlauf des Kurven Skeletts betrachtet. Gibt es dort Scheitelpunkte mit einem Winkel über 18°, so wird dieser auch als Gelenk markiert.
+Der große Nachteil dieser Methode ist, das möglicherweise nicht alle Gelenke gefunden werden können. Für dieses Vorgehen ist es zum Beispiel nicht möglich einen Ellenbogen zu erkennen, wenn der Arm voll ausgestreckt ist. Deswegen ist es von Vorteil wenn man das selbe Modell in mehereren Posen riggen lässt.
+
+\subsubsection{Zusammenfassung}
+\label{conclusion_extraction}
+Um die \nameref{sec:skeleton-extraction} zu evaluieren, werden die 3 Kenngrößen welche im Abschnitt \nameref{sec:whats_rigging} aufgelistet wurden herangezogen. PAN ET AL gibt an, das er seine Methode mit fünf verschiedenen Modellen getestet hat. Wobei die Zeiten zwischen 3.6 und 15.1 Sekunden lagen. Weiterhin kann man dem Paper \cite{extraction} entnehmen das der entwickelte Algorithmus mit O(N) läuft. Jedoch besitzt der Algorithmus einen Flaschenhals. Das finden der optimalen Silhouette.\\
+Im Bereich der Allgemeingültigkeit steht PAN ET AL gut dar. Jedoch hat diese Methode auch Nachteile. Da das Verfahren sich auf das finden von Mittelachsen stützt, muss das Mesh aus annähernd zylindrichen Teilen bestehen. Auch spielt die Überdeckung eine tragende Rolle beim finden der Mittelachsen. Probleme würde zum Beispiel ein Cartoon-Modell eines sehr muskulösen Mannes bereiten, da durch die Muskeln die Achse verschoben wäre.\\
+Im Bereich der Selbstständigkeit, kommt vieles auf das vorgegebene Mesh an. Hierbei sind die Pose und Überdeckung wichtige Kriterien.
+Nicht nur im die Mittelachsen zu finden, sondern auch um die Gelenke zu finden. Wird beispielsweise ein Mesh einer Faust versucht zu riggen, so werden die einzelnen Finger nicht erkannt, sonder das Mesh als ganzes genommen, das erzeugte Skelett würde entfernt an ein L erinnern.
 
 
 \begin{figure}[t]
