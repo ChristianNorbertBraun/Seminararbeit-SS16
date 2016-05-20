@@ -35,7 +35,61 @@ Um die Verwechslungsgefahr zu minimieren werden noch folgende Begriffe eingeführ
 \subsection{Skelett-Extraktion}
 \label{sec:skeleton-extraction}
 
-Bisschen was über extraktion
+\subsubsection{Einführung}
+Für die Skelett-Extraktion wird kein animations Skelett im vorraus benötigt. Dieses wird aus dem Mesh extrahiert. Für diese Extraktion werden die Mittelachsen einzelner Mesh-Segmente benötigt. Bei einer Hand zum Beispiel die Achsen der fünf Finger, des Handtellers und des Armansatzes.\\
+Um die Mittelachsen eines 3D Körpers zu bestimmen wird eine geometrische Form, die 3D-Silhouette eingeführt. Eine 3D-Silhouette im nachfolgenden auch nur als Silhouette bezeichnet, ist eine zwei dimensionale Projektion des Meshs, wobei die Tiefeninformationen (Koordinate auf der Z-Achse) nicht verloren geht, sondern mit abgespeichert wird.\\
+Wurde eine geeignete Projektion gefunden (\ref{sec:projection_detection}), wird eine \nameref{sec:global_search} durchgeführt. Diese Suche findet alle Punkte des Meshs ohne darauf zu achten, ob diese verbunden sind. Sind alle Punkte gefunden, wird eine \nameref{sec:local_search} ausgeführt, diese verbindet nun die Punkte und Berücksichtigt deren Verbindung zum Mesh. Im Anschluss wird bei der \nameref{sec:curve_skeleton_extraction} die Mittelachsen bestimmt und das Kurven Skelett extrahiert. In Abbildung \ref{extraction_fig1} a) kann man diese Mittelachse sehen, die blaue Achse. Die rote und gelbe Linie repräsentieren jeweils eine Projektion des Meshs.\\
+Um dieses angenäherte Skelett für die Computer Animation nutzbar zu machen werden im letzten Schritt (\ref{sec:animation_skeleton_creation}) noch die Gelenke eingefügt und die Achsen begradigt.
+\subsubsection{Projektionsfindung}
+\label{sec:projection_detection}
+Die optimale Projektion hat möglichst wenig Verdeckung und das maximum an Oberfläsche.\\
+Mathematisch kann die Silhouette wie folgt beschrieben werden.\\
+
+\begin{equation}
+\label{3d_silhouette}
+C\{c_{i}(x,y,z) \vert c_{i}(x,y,z)\in V, c'_{i}(x,y) \in C', C' \subset P, x_{c_{i}} = x_{c'_{i}}, y_{c_{i}} = y_{c'_{i}} \}
+\end{equation}
+Symbol-Erläuterung:
+\begin{itemize}
+	\item C: Menge der Punkte der Silhouette
+	\item V: Menge der Punkte des Meshs
+	\item P: Menge der Punkte der Projektion	
+\end{itemize}
+
+\subsubsection{Globale Suche}
+\label{sec:global_search}
+Für die Globale suche muss zunächst einmal der Punkt mit dem größten Y-Wert aus der Menge P bestimmt werden. Dier Punkt ist unser Startpunkt. Wurde dieser Punkt ermittelt, werden nun alle Nachbarpunkte gesucht, welche in einem Radius r liegen. Wobei r ein experimenteller Wert ist welcher dem maximalen euklidischen Abstand des Startpunktes ($P_{1}$) mit seinen Nachbarpunkten entspricht.\\
+Um den nächsten Punkt bestimmen zu können nutzt man den Vektor $\overrightarrow{OX}$ mit dem Startpunkt als Ursprung und den Winkel von $-\pi$ bis $\pi$. Der Punkt, welcher mit dem kleinsten Winkel mit dem Vektor verbunden ist, ist der nächste Punkt. Nun werden wieder alle Nachbarpunkte zu Punkt 2 ($P_{2}$), welche in r liegen gesucht. der Punkt mit dem größten Winkel $\angle P_{1}P_{2}P_{3}$ ist der gesuchte Punkt.\\
+Jetzt wird das Suchen nach Nachbarpunkten und das Bestimmen des Punktes mit dem größten Winkel solange wiederholt, bis man wieder beim Startpunkt angekommen ist.\\
+Durch den oben genannten Vorgang konnte die 2D Silhouette C' bestimmt werden.
+Anschließend wird zu jedem Punkt $ c'_{i}(x,y) \in C' $ die jeweils gespeicherte Z-Koordinate hinzugefügt. Dadurch entsteht die Menge der 3D Punkte $ C'' \{c''_{i}(x,y,z) \in C'', x_{c''} = x_{c'}, y_{c''} = y_{c'} \} $ //
+Zur mathematischen Bestimmung des Radius r kann folgende Gleichung herangezogen werden:
+\begin{equation}
+\label{radius}
+r= max \Vert q_{i}(x,y,z) - q(x,y,z)\Vert
+\end{equation}
+$q(x,y,z)$ steht für den momentanen Punkt und $q_{i}(x,y,z)$ für einen der Nachbarpunkte.
+
+
+\subsubsection{Lokale Suche}
+\label{sec:local_search}
+Für die lokale Suche werden nun alle Punkte der Menge $C''_{i}$ miteinander verbunden. Um die Punkte miteinander zu verbinden wird wie folgt vorgagangen: \\
+1. Der Punkt $c''_{i}(x,y,z)$ wird als Startpunkt $c_{i1}(x,y,z)$ definiert.
+
+\subsubsection{Kurven Skelett Extraktion}
+\label{sec:curve_skeleton_extraction}
+
+\subsubsection{Animation Skelett Erzeugung}
+\label{sec:animation_skeleton_creation}
+
+
+\begin{figure}[t]
+	\includegraphics[width=13cm]{00_Rigging/Pictures/extraction_pic1.png}
+	\caption[Schritte der Animation Skelett Extraktion]{ (a) 3D-Silhouetten (rot/gelb) und Mittelachse (blau), (b) Globale und Lokale Suche, (c) Findung der Mittelachse einer Silhouette (d) Zweiten Silhouetten für die einzelnen Bereiche der Hand, (e) Begradigung der Mittelachse, (f) Vergleich des Kurven Skeletts vor und nach der Mittelachsenbegradigung. Entnommen aus \cite{extraction}}
+	\label{extraction_fig1}
+\end{figure}
+
+
 \subsection{Skelett-Einbindung}
 \label{sec:skeleton-embedding}
 
