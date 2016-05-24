@@ -2,15 +2,16 @@
 \section{Rigging}
 \subsection{Was ist Rigging?}
 \label{sec:whats_rigging}
-Rigging ist ein Teil der Computeranimation, wobei die Skelettanimation eines der am häufig genutzten Methoden ist.\\
-Bei dieser Methode wird ein hierarchisch aufgebautes Skelett, ein 3D-Modell, welches im weiteren Verlauf als Mesh bezeichnet wird, und die Bewegungsdaten einzelner Punkte des Skeletts benötigt. Diese markanten Punkte, können zum Beispiel die Gelenke oder das Ende eines Fingers sein. Der Begriff Bewegungsdaten steht hier als Synonym für die 3D-Koordinaten im zeitlichen Verlauf einer Bewegung. Diese Koordinaten repräsentieren einzelne Marker welche mit einem Motion Capturing System aufgenommen wurden. \\
+Rigging ist ein Teil der Computeranimation, wobei die Skelettanimation eines der am häufig genutzten Methoden ist. Bei dieser Methode wird ein hierarchisch aufgebautes Skelett, ein 3D-Modell, welches im weiteren Verlauf als Mesh bezeichnet wird, und die Bewegungsdaten einzelner Punkte des Skeletts benötigt. Diese markanten Punkte, können zum Beispiel die Gelenke oder das Ende eines Fingers sein. Der Begriff Bewegungsdaten steht hier als Synonym für die 3D-Koordinaten im zeitlichen Verlauf einer Bewegung. Diese Koordinaten repräsentieren einzelne Marker welche mit einem Motion Capturing System aufgenommen wurden.
+
 Beim Rigging wird nun das Skelett mit dem Mesh verbunden. Wie sich das Mesh dann während einer Bewegung verformt, ist Teil des Skinning-Prozesses.
 Rigging lässt sich in zwei Hauptbereiche einteilen:
 \begin{itemize}
 	\item Manuelles Riggen
 	\item Automatisches Riggen
 \end{itemize}
-Für das manuelle Riggen benötigt man spezielle 3D Modellierungs Software wie Maya oder Blender. Ein erfahrener Fachmann muss hierbei manuell das Skelett im Mesh plazieren.\\
+Für das manuelle Riggen benötigt man spezielle 3D Modellierungs Software wie Maya oder Blender. Ein erfahrener Fachmann muss hierbei manuell das Skelett im Mesh plazieren.
+
 Diese Ausarbeitung behandelt das Thema automatisches Riggen. Auch dieser Unterpunkt des Riggings lässt sich weiter aufteilen.
 \begin{itemize}
 	\item \nameref{sec:skeleton-extraction}
@@ -24,7 +25,8 @@ Das Ziel des automatischen Riggings liegt darin, das der Prozess vereinfacht und
 	\item Allgemeingültigkeit: Der Vorgang sollte nicht auf bestimmte Modelle, z. B. humanuide Formen, begrenzt sein.
 	\item Selbstständigkeit: Die benötigte Interaktion mit dem Benutzer sollte möglichst gering sein.
 \end{itemize}
-In der nachfolgenden Ausarbeitung werden die einzelnen Verfahren mithilfe dieser drei Aspekten evaluiert.\\
+In der nachfolgenden Ausarbeitung werden die einzelnen Verfahren mithilfe dieser drei Aspekten evaluiert.
+
 Um die Verwechslungsgefahr zu minimieren werden noch folgende Begriffe eingeführt:
 \begin{itemize}
 	\item Animation Skelett: Hierarchisches Skelett mit Knochen und Gelenken.
@@ -38,65 +40,81 @@ Um die Verwechslungsgefahr zu minimieren werden noch folgende Begriffe eingeführ
 
 \subsubsection{Einführung}
 Der Abschnitt über die Skelett-Extraktion stützt sich auf das Paper von J. Pan ET AL. \cite{extraction}.
-Für die Skelett-Extraktion wird kein animations Skelett im vorraus benötigt. Dieses wird aus dem Mesh extrahiert. Für diese Extraktion werden die Mittelachsen einzelner Mesh-Segmente benötigt. Bei einer Hand zum Beispiel die Achsen der fünf Finger, des Handtellers und des Armansatzes.\\
-Um die Mittelachsen eines 3D Körpers zu bestimmen wird eine geometrische Form, die 3D-Silhouette eingeführt. Eine 3D-Silhouette im nachfolgenden auch nur als Silhouette bezeichnet, ist eine zwei dimensionale Projektion des Meshs, wobei die Tiefeninformationen (Koordinate auf der Z-Achse) nicht verloren geht, sondern mit abgespeichert wird.\\
-Wurde eine geeignete Projektion gefunden (\ref{sec:projection_detection}), wird eine \nameref{sec:global_search} durchgeführt. Diese Suche findet alle Punkte des Meshs ohne darauf zu achten, ob diese verbunden sind. Sind alle Punkte gefunden, wird eine \nameref{sec:local_search} ausgeführt, diese verbindet nun die Punkte und Berücksichtigt deren Verbindung zum Mesh. Im Anschluss wird bei der \nameref{sec:curve_skeleton_extraction} die Mittelachsen bestimmt und das Kurven Skelett extrahiert. In Abbildung \ref{extraction_fig1} a) kann man diese Mittelachse sehen, die blaue Achse. Die rote und gelbe Linie repräsentieren jeweils eine Projektion des Meshs.\\
+Für die Skelett-Extraktion wird kein animations Skelett im vorraus benötigt. Dieses wird aus dem Mesh extrahiert. Für diese Extraktion werden die Mittelachsen einzelner Mesh-Segmente benötigt. Bei einer Hand zum Beispiel die Achsen der fünf Finger, des Handtellers und des Armansatzes.
+
+Um die Mittelachsen eines 3D Körpers zu bestimmen wird eine geometrische Form, die 3D-Silhouette eingeführt. Eine 3D-Silhouette im nachfolgenden auch nur als Silhouette bezeichnet, ist eine zwei dimensionale Projektion des Meshs, wobei die Tiefeninformationen (Koordinate auf der Z-Achse) nicht verloren geht, sondern mit abgespeichert wird.
+
+Wurde eine geeignete Projektion gefunden (\ref{sec:projection_detection}), wird eine \nameref{sec:global_search} durchgeführt. Diese Suche findet alle Punkte des Meshs ohne darauf zu achten, ob diese verbunden sind. Sind alle Punkte gefunden, wird eine \nameref{sec:local_search} ausgeführt, diese verbindet nun die Punkte und Berücksichtigt deren Verbindung zum Mesh. Im Anschluss wird bei der \nameref{sec:curve_skeleton_extraction} die Mittelachsen bestimmt und das Kurven Skelett extrahiert. In Abbildung \ref{extraction_fig1} a) kann man diese Mittelachse sehen, die blaue Achse. Die rote und gelbe Linie repräsentieren jeweils eine Projektion des Meshs.
+
 Um dieses angenäherte Skelett für die Computer Animation nutzbar zu machen werden im letzten Schritt (\ref{sec:animation_skeleton_creation}) noch die Gelenke eingefügt und die Achsen begradigt.
+
 \subsubsection{Projektionsfindung}
 \label{sec:projection_detection}
-Die optimale Projektion hat möglichst wenig Verdeckung und das maximum an Oberfläsche.\\
-Mathematisch kann die Silhouette wie folgt beschrieben werden.\\
+Die optimale Projektion hat möglichst wenig Verdeckung und das maximum an Oberfläsche.
 
+Mathematisch kann die Silhouette wie folgt beschrieben werden:
 \begin{equation}
 \label{3d_silhouette}
 C\{c_{i}(x,y,z) \vert c_{i}(x,y,z)\in V, c'_{i}(x,y) \in C', C' \subset P, x_{c_{i}} = x_{c'_{i}}, y_{c_{i}} = y_{c'_{i}} \}
 \end{equation}
 Symbol-Erläuterung:
 \begin{itemize}
-	\item C: Menge der Punkte der Silhouette
-	\item V: Menge der Punkte des Meshs
-	\item P: Menge der Punkte der Projektion	
+	\item $C$: Menge der Punkte der Silhouette
+	\item $V$: Menge der Punkte des Meshs
+	\item $P$: Menge der Punkte der Projektion	
 \end{itemize}
 
 \subsubsection{Globale Suche}
 \label{sec:global_search}
-Für die Globale suche muss zunächst einmal der Punkt mit dem größten Y-Wert aus der Menge P bestimmt werden. Dier Punkt ist unser Startpunkt. Wurde dieser Punkt ermittelt, werden nun alle Nachbarpunkte gesucht, welche in einem Radius r liegen. Wobei r ein experimenteller Wert ist welcher dem maximalen euklidischen Abstand des Startpunktes ($P_{1}$) mit seinen Nachbarpunkten entspricht.\\
-Um den nächsten Punkt bestimmen zu können nutzt man den Vektor $\overrightarrow{OX}$ mit dem Startpunkt als Ursprung und den Winkel von $-\pi$ bis $\pi$. Der Punkt, welcher mit dem kleinsten Winkel mit dem Vektor verbunden ist, ist der nächste Punkt. Nun werden wieder alle Nachbarpunkte zu Punkt 2 ($P_{2}$), welche in r liegen gesucht. der Punkt mit dem größten Winkel $\angle P_{1}P_{2}P_{3}$ ist der gesuchte Punkt.\\
-Jetzt wird das Suchen nach Nachbarpunkten und das Bestimmen des Punktes mit dem größten Winkel solange wiederholt, bis man wieder beim Startpunkt angekommen ist.\\
-Durch den oben genannten Vorgang konnte die 2D Silhouette C' bestimmt werden.
-Anschließend wird zu jedem Punkt $ c'_{i}(x,y) \in C' $ die jeweils gespeicherte Z-Koordinate hinzugefügt. Dadurch entsteht die Menge der 3D Punkte $ C'' \{c''_{i}(x,y,z) \in C'', x_{c''} = x_{c'}, y_{c''} = y_{c'} \} $ //
-Zur mathematischen Bestimmung des Radius r kann folgende Gleichung herangezogen werden:
+Für die Globale suche muss zunächst einmal der Punkt mit dem größten Y-Wert aus der Menge $P$ bestimmt werden. Dier Punkt ist unser Startpunkt. Wurde dieser Punkt ermittelt, werden nun alle Nachbarpunkte gesucht, welche in einem Radius $r$ liegen. Wobei $r$ ein experimenteller Wert ist welcher dem maximalen euklidischen Abstand des Startpunktes ($P_{1}$) mit seinen Nachbarpunkten entspricht.
+
+Um den nächsten Punkt bestimmen zu können nutzt man den Vektor $\overrightarrow{OX}$ mit dem Startpunkt als Ursprung und den Winkel von $-\pi$ bis $\pi$. Der Punkt, welcher mit dem kleinsten Winkel mit dem Vektor verbunden ist, ist der nächste Punkt. Nun werden wieder alle Nachbarpunkte zu Punkt 2 ($P_{2}$), welche in $r$ liegen gesucht. Der Punkt mit dem größten Winkel $\angle P_{1}P_{2}P_{3}$ ist der gesuchte Punkt.
+
+Jetzt wird das Suchen nach Nachbarpunkten und das Bestimmen des Punktes mit dem größten Winkel solange wiederholt, bis man wieder beim Startpunkt angekommen ist.
+
+Durch den oben genannten Vorgang konnte die 2D Silhouette $C'$ bestimmt werden.
+Anschließend wird zu jedem Punkt $ c'_{i}(x,y) \in C' $ die jeweils gespeicherte Z-Koordinate hinzugefügt. Dadurch entsteht die Menge der 3D Punkte $ C'' \{c''_{i}(x,y,z) \in C'', x_{c''} = x_{c'}, y_{c''} = y_{c'} \} $.
+
+Zur mathematischen Bestimmung des Radius $r$ kann folgende Gleichung herangezogen werden:
 \begin{equation}
 \label{radius}
 r= max \Vert q_{i}(x,y,z) - q(x,y,z)\Vert
 \end{equation}
 $q(x,y,z)$ steht für den momentanen Punkt und $q_{i}(x,y,z)$ für einen der Nachbarpunkte.
 
-
 \subsubsection{Lokale Suche}
 \label{sec:local_search}
 Abbildung \ref{extraction_fig1} (b) zeigt wie die Lokale Suche abläuft.
-Für die lokale Suche werden nun alle Punkte der Menge $C''_{i}$ miteinander verbunden. Um die Punkte miteinander zu verbinden wird wie folgt vorgagangen: \\
-1. Der Punkt $c''_{i}(x,y,z)$ wird als Startpunkt $c_{i1}(x,y,z)$ definiert und es werden alle verbunden Nachbarpunkte aus V gesucht.\\
-2. Es wird der Punkt $c_{i2}(x,y,z)$ gesucht, welcher den größten Winkel $\angle c_{i2}c''_{i}c_{ij}$ besitzt. $c_{ij}$ ist der Vorgänger ovn $c''_{i}$\\
-3. Ausgehend von $c_{i2}$ wird nun wieder der Punkt gesucht welcher den größten Winkel $\angle c_{i3}c_{i2}c_{i1}$ besitzt.\\
-4. Wiederhole Schritt 3 solange bis man wieder bei $c''_{i}(x,y,z)$ angekommen ist oder der Abstand zwischen $c_{ij}(x,y,z)$ und $c''_{i}(x,y,z)$ kleiner als der Radius r ist der mit der Formel \ref{radius} bestimmt wurde.\\ 
+Für die lokale Suche werden nun alle Punkte der Menge $C''_{i}$ miteinander verbunden. Um die Punkte miteinander zu verbinden wird wie folgt vorgagangen: 
+
+1. Der Punkt $c''_{i}(x,y,z)$ wird als Startpunkt $c_{i1}(x,y,z)$ definiert und es werden alle verbunden Nachbarpunkte aus V gesucht.
+
+2. Es wird der Punkt $c_{i2}(x,y,z)$ gesucht, welcher den größten Winkel $\angle c_{i2}c''_{i}c_{ij}$ besitzt. $c_{ij}$ ist der Vorgänger von $c''_{i}$
+
+3. Ausgehend von $c_{i2}$ wird nun wieder der Punkt gesucht welcher den größten Winkel $\angle c_{i3}c_{i2}c_{i1}$ besitzt.
+
+4. Wiederhole Schritt 3 solange bis man wieder bei $c''_{i}(x,y,z)$ angekommen ist oder der Abstand zwischen $c_{ij}(x,y,z)$ und $c''_{i}(x,y,z)$ kleiner als der Radius $r$ ist der mit der Formel \ref{radius} bestimmt wurde.
+
 
 \subsubsection{Kurven Skelett Extraktion}
 \label{sec:curve_skeleton_extraction}
-Mithilfe der in den oberen beiden Abschnitten gefunden Punktmenge wird nun mithilfe der Delaunay-Triangulation ein Dreiecksnetz erstellt. Dieses kann man in Abbildung \ref{extraction_fig1} (c) sehen. Anhand dieser Dreiecke können nun an allen Kanten, welche nicht die Außenfläschen des Meshs berühren Mittelpunktbestimmungen vorgenommen werden. Dafür wird berechnet: $ m_{k} \left( \frac{x_{i} + x_{j}}{2},\frac{y_{i} + y_{j}}{2},\frac{z_{i} + z_{j}}{2} \right)  $. Diese Mittelpunkte werden nun verbunden und wir erhalten eine Mittelachse für die aktuelle Projektion. Diese liegt jedoch noch nicht zentral im Mesh, hierfür muss man für jeden Teilbereiches des Meshs die vorher beschriebenen Vorgänge wiederholen. Dieses mal müssen die Projektionen orthogonal zu der ersten Projektion liegen. Teilbereiche des Meshs sind in diesem Beispiel je ein Finger der Hand, der Handteller oder der Armansatz. (Siehe Abbildung \ref{extraction_fig1} (d))\\
+Mithilfe der in den oberen beiden Abschnitten gefunden Punktmenge wird nun mithilfe der Delaunay-Triangulation ein Dreiecksnetz erstellt. Dieses kann man in Abbildung \ref{extraction_fig1} (c) sehen. Anhand dieser Dreiecke können nun an allen Kanten, welche nicht die Außenfläschen des Meshs berühren Mittelpunktbestimmungen vorgenommen werden. Dafür wird berechnet: $ m_{k} \left( \frac{x_{i} + x_{j}}{2},\frac{y_{i} + y_{j}}{2},\frac{z_{i} + z_{j}}{2} \right)  $. Diese Mittelpunkte werden nun verbunden und wir erhalten eine Mittelachse für die aktuelle Projektion. Diese liegt jedoch noch nicht zentral im Mesh, hierfür muss man für jeden Teilbereiches des Meshs die vorher beschriebenen Vorgänge wiederholen. Dieses mal müssen die Projektionen orthogonal zu der ersten Projektion liegen. Teilbereiche des Meshs sind in diesem Beispiel je ein Finger der Hand, der Handteller oder der Armansatz. (Siehe Abbildung \ref{extraction_fig1} (d))
+
 Wurde die Prozedur für jeden Teilbereichs des Meshs wiederholt, werden beide erzeugte Mittelachsen übereinander gelegt und dadurch entsteht eine Mittelachse die wirklich mittig im Mesh liegt. 
 
 \subsubsection{Animation Skelett Erzeugung}
 \label{sec:animation_skeleton_creation}
-Das bei der \nameref{sec:curve_skeleton_extraction} erzeugete Skelett ist eine gute Annäherung, kann jedoch bei der Computer Animation nicht verwendet werden. Um es brauchbar zu machen müssen die einzelnen Mittelachse noch begradigt werden. Dies wird in Abblidung \ref{extraction_fig1}(e) dargestellt.\\
+Das bei der \nameref{sec:curve_skeleton_extraction} erzeugete Skelett ist eine gute Annäherung, kann jedoch bei der Computer Animation nicht verwendet werden. Um es brauchbar zu machen müssen die einzelnen Mittelachse noch begradigt werden. Dies wird in Abblidung \ref{extraction_fig1}(e) dargestellt.
+
 Zu guter letzt fehlen noch die Gelenke. Die ersten Gelenke werden an die Anfangs- und Endpunkte der erzeugten Mittelachsen gesetzt. Jedoch ist es möglich das zwischen diesen beiden Punkten noch mehr Gelenke existieren. Um diese zu erzeugen wird der Verlauf des Kurven Skeletts betrachtet. Gibt es dort Scheitelpunkte mit einem Winkel über 18°, so wird dieser auch als Gelenk markiert.
 Der große Nachteil dieser Methode ist, das möglicherweise nicht alle Gelenke gefunden werden können. Für dieses Vorgehen ist es zum Beispiel nicht möglich einen Ellenbogen zu erkennen, wenn der Arm voll ausgestreckt ist. Deswegen ist es von Vorteil wenn man das selbe Modell in mehereren Posen riggen lässt.
 
 \subsubsection{Zusammenfassung}
 \label{conclusion_extraction}
-Um die \nameref{sec:skeleton-extraction} zu evaluieren, werden die 3 Kenngrößen welche im Abschnitt \nameref{sec:whats_rigging} aufgelistet wurden herangezogen. PAN ET AL gibt an, das er seine Methode mit fünf verschiedenen Modellen getestet hat. Wobei die Zeiten zwischen 3.6 und 15.1 Sekunden lagen. Weiterhin kann man dem Paper \cite{extraction} entnehmen das der entwickelte Algorithmus mit O(N) läuft. Jedoch besitzt der Algorithmus einen Flaschenhals. Das finden der optimalen Silhouette.\\
-Im Bereich der Allgemeingültigkeit steht PAN ET AL gut dar. Jedoch hat diese Methode auch Nachteile. Da das Verfahren sich auf das finden von Mittelachsen stützt, muss das Mesh aus annähernd zylindrichen Teilen bestehen. Auch spielt die Überdeckung eine tragende Rolle beim finden der Mittelachsen. Probleme würde zum Beispiel ein Cartoon-Modell eines sehr muskulösen Mannes bereiten, da durch die Muskeln die Achse verschoben wäre.\\
+Um die \nameref{sec:skeleton-extraction} zu evaluieren, werden die 3 Kenngrößen welche im Abschnitt \nameref{sec:whats_rigging} aufgelistet wurden herangezogen. PAN ET AL gibt an, das er seine Methode mit fünf verschiedenen Modellen getestet hat. Wobei die Zeiten zwischen 3.6 und 15.1 Sekunden lagen. Weiterhin kann man dem Paper \cite{extraction} entnehmen das der entwickelte Algorithmus mit O(N) läuft. Jedoch besitzt der Algorithmus einen Flaschenhals. Das finden der optimalen Silhouette.
+
+Im Bereich der Allgemeingültigkeit steht PAN ET AL gut dar. Jedoch hat diese Methode auch Nachteile. Da das Verfahren sich auf das finden von Mittelachsen stützt, muss das Mesh aus annähernd zylindrichen Teilen bestehen. Auch spielt die Überdeckung eine tragende Rolle beim finden der Mittelachsen. Probleme würde zum Beispiel ein Cartoon-Modell eines sehr muskulösen Mannes bereiten, da durch die Muskeln die Achse verschoben wäre.
+
 Im Bereich der Selbstständigkeit, kommt vieles auf das vorgegebene Mesh an. Hierbei sind die Pose und Überdeckung wichtige Kriterien.
 Nicht nur im die Mittelachsen zu finden, sondern auch um die Gelenke zu finden. Wird beispielsweise ein Mesh einer Faust versucht zu riggen, so werden die einzelnen Finger nicht erkannt, sonder das Mesh als ganzes genommen, das erzeugte Skelett würde entfernt an ein L erinnern.
 
@@ -110,174 +128,3 @@ Nicht nur im die Mittelachsen zu finden, sondern auch um die Gelenke zu finden. 
 
 \subsection{Skelett-Einbindung}
 \label{sec:skeleton-embedding}
-
-Dieser Abschnitt führt in einige LaTeX-Elemente ein.
-\cite{embedding, extraction}
-Sehr schön in LaTeX ist die Literaturverwaltung. Literaturzitate
-einzelner \cite{Deinzer00:VSC} oder mehrere Referenzen
-\cite{Graessl:02:EDD,Bronstein97,catmull74b,POVRAY:WEB} sind einfach
-einzubinden. Auch das Literaturverzeichnis ist mit bibtex immer
-konsistent.
-
-\begin{figure}[t]
-\includegraphics[width=5cm]{smiley.png}
-\caption{Bildunterschrift für den Smiley. Die Nummerierung erfoglt automatisch}
-\label{bildref}
-\end{figure}
-
-Bilder werden von LaTeX automatisch an geeignete Positionen
-gesetzt. Diese können natürlich im Text referenziert werden: Der
-Smiley ist in Bild~\ref{bildref}. Tabellen können auch referenziert
-werden: Die zwei Musterstudenten sind in Tabelle~\ref{tabref} aufgeführt.
-
-\begin{table}[t]
-\begin{center}
-\begin{tabular}{|l||l|l|}\hline
-Matrikelnummer & Vorname & Nachname \\\hline\hline
-12345 & Heinz & Mustermann \\\hline
-23456 & Maria & Mstermann \\\hline
-\end{tabular}
-\end{center}
-\caption{Tabellenunterschrift einer zentrierten Tabelle}
-\label{tabref}
-\end{table}
-
-Die große Stärke von LaTeX sind die Möglichkeiten Formeln zu
-setzen. Dabei kann man Formeln automatisch nummerieren lassen:
-
-\begin{equation}
-\label{formel}
-f_{i,j}=
-\sum_{x=0}^{N-1} \sum_{y=0}^{N-1}
-\frac{2 \cdot C(x)\cdot C(y)}{N} \cdot 
-F_{x,y} \cdot 
-\cos \left( \frac{(2i+1) \cdot x \cdot \pi}{2 \cdot N} \right) \cdot
-\cos \left( \frac{(2j+1) \cdot y \cdot \pi}{2 \cdot N} \right)
-\end{equation}
-
-Formeln im Fließtext binden sich sehr einfach ein. So kann man den
-bekannten Pythagoras schreiben als $a^2 + b^2 = c^2$. Für die gleiche
-Formel wie (\ref{formel}) ohne automatische Nummerierung erhält man,
-indem man die Umgebung, in der sie sich befindet, anpasst:
-
-\[
-f_{i,j}=
-\sum_{x=0}^{N-1} \sum_{y=0}^{N-1}
-\frac{2 \cdot C(x)\cdot C(y)}{N} \cdot 
-F_{x,y} \cdot 
-\cos \left( \frac{(2i+1) \cdot x \cdot \pi}{2 \cdot N} \right) \cdot
-\cos \left( \frac{(2j+1) \cdot y \cdot \pi}{2 \cdot N} \right)
-\]
-
-
-Absätze werden durch Leerzeilen abgegrenzt.
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula 
-eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient 
-montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque 
-eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, 
-fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, 
-imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. 
-Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate 
-eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, 
-enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus 
-viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam 
-ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. 
-Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper 
-libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, 
-luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt 
-tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam 
-sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit 
-amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum 
-sodales, augue velit cursus nunc, 
-
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium 
-doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore 
-veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam 
-voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia 
-consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque 
-porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci 
-velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore 
-magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum 
-exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi 
-consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit 
-esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo 
-voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos 
-ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos 
-dolores et quas molestias excepturi sint occaecati cupiditate non provident, 
-similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et 
-dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam 
-libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo 
-minus id quod maxime placeat facere 
-
-Li Europan lingues es membres del sam familie. Lor separat existentie es un 
-myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li 
-lingues differe solmen in li grammatica, li pronunciation e li plu commun 
-vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa 
-continuar payar custosi traductores. At solmen va esser necessi far uniform 
-grammatica, pronunciation e plu sommun paroles. Ma quande lingues coalesce, li 
-grammatica del resultant lingue es plu simplic e regulari quam ti del coalescent 
-lingues. Li nov lingua franca va esser plu simplic e regulari quam li existent 
-Europan lingues. It va esser tam simplic quam Occidental in fact, it va esser 
-Occidental. A un Angleso it va semblar un simplificat Angles, quam un skeptic 
-Cambridge amico dit me que Occidental es. Li Europan lingues es membres del sam 
-familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, 
-litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, 
-li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de 
-un nov lingua franca: On refusa continuar payar custosi traductores. At solmen 
-va esser necessi far uniform grammatica, pronunciation e plu sommun paroles. 
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula 
-eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient 
-montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque 
-eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, 
-fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, 
-imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. 
-Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate 
-eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, 
-enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus 
-viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam 
-ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. 
-Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper 
-libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, 
-luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt 
-tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam 
-sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit 
-amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum 
-sodales, augue velit cursus nunc, 
-
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium 
-doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore 
-veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam 
-voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia 
-consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque 
-porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci 
-velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore 
-magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum 
-exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi 
-consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit 
-esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo 
-voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos 
-ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos 
-dolores et quas molestias excepturi sint occaecati cupiditate non provident, 
-similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et 
-dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam 
-libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo 
-minus id quod maxime placeat facere 
-
-Li Europan lingues es membres del sam familie. Lor separat existentie es un 
-myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li 
-lingues differe solmen in li grammatica, li pronunciation e li plu commun 
-vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa 
-continuar payar custosi traductores. At solmen va esser necessi far uniform 
-grammatica, pronunciation e plu sommun paroles. Ma quande lingues coalesce, li 
-grammatica del resultant lingue es plu simplic e regulari quam ti del coalescent 
-lingues. Li nov lingua franca va esser plu simplic e regulari quam li existent 
-Europan lingues. It va esser tam simplic quam Occidental in fact, it va esser 
-Occidental. A un Angleso it va semblar un simplificat Angles, quam un skeptic 
-Cambridge amico dit me que Occidental es. Li Europan lingues es membres del sam 
-familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, 
-litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, 
-li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de 
-un nov lingua franca: On refusa continuar payar custosi traductores. At solmen 
-va esser necessi far uniform grammatica, pronunciation e plu sommun paroles. 
