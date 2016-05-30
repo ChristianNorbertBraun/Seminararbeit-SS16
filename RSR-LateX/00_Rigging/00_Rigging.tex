@@ -166,7 +166,7 @@ Anhand der erzeugten Kugeln, wird nun der Graph abgeleitet. Jeder Mittelpunkt is
 \begin{figure}[t]
 	\centering
 	\includegraphics[]{00_Rigging/Pictures/gabriel.png}
-		\caption[Erklärung von Gabriel Nachbarn]{ links) $a$ und $b$ sind Gabriel Nachbarn da der Punkt $c$ nicht in dem Kreis mit dem Radius $\overline{ab}$ liegt. rechts) Die Punkte $a$ und $b$ sind keine Gabriel Nachbarn, da $c$ im aufgespannten Kreis liegt. Entnommen von \url{https://en.wikipedia.org/wiki/Gabriel_graph}}
+		\caption[Erklärung von Gabriel Nachbarn]{ links) $a$ und $b$ sind Gabriel Nachbarn da der Punkt $c$ nicht in dem Kreis mit dem Radius $\overline{ab}$ liegt. Quelle: von Vectorisation: BethNaught. Original: ALM scientist at en.wikipedia [Public domain oder Public domain], via Wikimedia Commons \url{https://commons.wikimedia.org/wiki/File:Gabriel_Pairs.JPG} rechts) Die Punkte $a$ und $b$ sind keine Gabriel Nachbarn, da $c$ im aufgespannten Kreis liegt. Quelle: von Vectorisation: BethNaught. Original: ALM scientist at en.wikipedia [Public domain oder Public domain], via Wikimedia Commons \url{https://commons.wikimedia.org/wiki/File:Not_Gabriel_Pairs.svgh}}
 		\label{gabriel}
 \end{figure}
 
@@ -185,4 +185,35 @@ Die Strafffunktionen haben großen Einfluss auf die Qualität des Ergebnisses und 
 	\item unmögliche Knochenausrichtungen
 	\item Gelenke, welche im Graph nah beieinander im orginalem Skelett jedoch weit entfernt liegen
 \end{itemize}
-Für jede dieser Möglichkeiten wurde eine Funktion $f$ aufgestellt. Diese Funktionen wurden manuell erzeugt 
+Um das optmimale Gewicht für jede dieser Straffunktionen zu finden, wurde versucht ein maximaler Breiter-Rand-Klassifikator ("{}margin linear classifier"{}) zu finden. Dieser Klassifikator versucht den Abstand zwischen der besten "{}schlechten"{} und der schlechtesten "{}guten"{} Einbettung zu maximieren.
+\begin{equation}
+\label{weight}
+\min_{i=1}^{n}\Gamma^T q_{i} - \min_{i=1}^{m}\Gamma^T p_{i}
+\end{equation}
+$p$ ("{}gut"{}) und $q$ ("{}schlecht"{}) sind Vektoren welche die Einbettungen repäsentieren. Der Vektor $\Gamma$ enthält das Gewicht, $n$ und $m$ stehen für die Anzahl der "{}guten"{} bzw. "{}schlechten"{} Einbettungen. Idealerweise sollte $\Gamma$ so gewählt werden, das die Gleichung gegen $1$ geht. 
+
+Um die beste Einbettung zu finden wird Schritt für Schritt vorgegangen. Es wird an einem Punkt gestartet und die beste parzielle Einbettung zum nächsten Gelenk gesucht. Dies geschieht so lange, bis das komplette Skelett eingebunden ist.
+
+Zum Schluss wird das ganze Skelett nocheinmal optimiert. Sprich die wegreduzierten Gelenke aus dem orginal Skelett werden wieder eingebunden, Knochenproportionen werden  hergestellt. Abbildung \ref{embedding_fig3} zeigt diese Optimierung. Dies geschieht ähnlich wie das Einbinden des Skeletts mit Straffunktionen. Diese Funktionen sind dieses mal jedoch anderst definiert. 
+
+\begin{figure}[t]
+	\includegraphics[]{00_Rigging/Pictures/embedding_pic3.png}
+	\caption[Vergleich: Eingebundenes Skelett vor und nach der Optimierung]{Eingebundenes Skelett vor (blau) und nach (rot) der Optimierung. Entnommen aus \cite{embedding}}
+	\label{embedding_fig3}
+\end{figure}
+
+\subsubsection{Zusammenfassung}
+\label{sec:conclusion_embedding}
+Analog zu \ref{conclusion_extraction} wird diese Rigging Methode anhand der 3 Kenngrößen evaluiert.
+Der von Baran und Popovic vorgestellte Algorithmus fällt unter die Komplexität von $O(N^2)$, sie geben an, dass sie 16 verschiedene Modelle getestet haben. Die Modelle konnten in einer Zeit zwischen 12.6 und 77.1 Sekunden gerigged werden.
+
+Bei der Allgemeingültigkeit ist der Algorithmus stark eingeschränkt auf das vorgegebene Skelett, in diesem Fall auf humanuide Modelle. Ein weiterer Nachteil ist ebenfalls das kleine Modelle mit vielen kleinen Knochen (z.B. Schlangen) zu Problemen führen. Da diese durch die Straffunktionen ausgeschlossen werden. 
+Von den 16 getesteten Modellen, siehe Abbildung \ref{embedding_fig4} wurden die meisten korrekt gerigged. Nur bei Modell 7, 10 und 13 kam es zu Problemen, diese konnten jedoch durch kleine Hinweise für die korekte Gelenkplazierung durch den Benutzer gelöst werden.
+
+Im Bereich der Selbständigkeit ist zu sagen, das die Pose des Modells stark Eingeschränkt. Diese muss sich möglichst an dem Skelett orientieren, sonst würden die Straffunktionen dafür sorgen, dass die Einbindungen als wegen der Gelenk- und Knochenstellungen als "{}schlecht"{} markiert werden. Außerdem erwartet der Algorithmus, dass das Modell mit beiden Füßen am Boden steht.
+\begin{figure}[t]
+	\includegraphics[]{00_Rigging/Pictures/embedding_pic4.png}
+	\caption[Ergebnisse der Skelett-Einbindung]{Ergebnisse der Skelett-Einbindung. Entnommen aus \cite{embedding}}
+	\label{embedding_fig4}
+\end{figure}
+
