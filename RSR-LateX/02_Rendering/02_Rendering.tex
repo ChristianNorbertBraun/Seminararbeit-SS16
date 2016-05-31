@@ -1,37 +1,23 @@
 \section{Rendering in Filmen}
 \subsection{Abstrakt}
 \label{sec:renderingAbstrakt}
-Rendering bezeichnet im Allgemeinen das Erstellen eines zweidimensionalen Bildes aus einer dreidimensionalen Szene oder eines Objektes unter Berücksichtigung physikalische Größen wie Licht, Schatten und Materialien. \cite{renderingDefinition}. Dieser Prozess findet in einer Vielzahl von unterschiedlichen Bereichen Anwendungsfälle. Zum einen in der Darstellung von Computerspielen, bei Konstruktionen in CAD-Programmen aber auch bei CGI in aktuellen Filmen. 
-Jeder Anwendungsfall hat andere Anforderungen und Prioritäten an das Rendering. Während Computerspiele vor Allem ein schnelles Erzeugen von Bildern benötigen, kommt es in Filmen auf eine möglichst reale und detailreiche Darstellung an. Das Folgende Kapitel beschäftigt sich mit den besonderen Anforderungen an das Rendering im Film. Hierbei wird sowohl die Erstellung komplett synthetischer Filme wie Cars oder Monster AG als auch das Einbetten synthetischer Objekte in reale Bilder betrachtet.
-
-\subsection{Einführung}
-
+Rendering bezeichnet im Allgemeinen das Erstellen eines zweidimensionalen Bildes aus einer dreidimensionalen Szene oder eines Objektes unter Berücksichtigung physikalische Größen wie Licht, Schatten und Materialien \cite{renderingDefinition}. Dieser Prozess findet in einer Vielzahl von unterschiedlichen Bereichen Anwendungsfälle. Zum einen in der Darstellung von Computerspielen, bei Konstruktionen in CAD-Programmen aber auch bei CGI in aktuellen Filmen. 
+Jeder Anwendungsfall hat andere Anforderungen und Prioritäten an das Rendering. Während Computerspiele vor Allem ein schnelles Erzeugen von Bildern benötigen, kommt es in Filmen auf eine möglichst reale und detailreiche Darstellung an. Das folgende Kapitel beschäftigt sich mit den besonderen Anforderungen an das Rendering im Film. Hierbei wird sowohl die Erstellung komplett synthetischer Filme wie Cars~\ref{cars} oder Monster AG als auch das Einbetten synthetischer Objekte in reale Bilder betrachtet.
 
 \begin{figure}[t]
-\includegraphics[width=5cm]{smiley.png}
-\caption{Bildunterschrift für den Smiley. Die Nummerierung erfoglt automatisch}
-\label{bildref}
+	\includegraphics[width=13cm]{02_Rendering/img/cars.png}
+	\caption[Bild aus dem Film Cars]{Bild aus dem Film Cars. Entnommen aus \cite{cars}}
+	\label{cars}
 \end{figure}
 
-Bilder werden von LaTeX automatisch an geeignete Positionen
-gesetzt. Diese können natürlich im Text referenziert werden: Der
-Smiley ist in Bild~\ref{bildref}. Tabellen können auch referenziert
-werden: Die zwei Musterstudenten sind in Tabelle~\ref{tabref} aufgeführt.
+\subsection{Einführung}
+Die Anforderungen an das Rendering in Filmen sind vielfältig. Die Bilder müssen in einer angemessenen Zeit gerendert werden und trotzdem einen hohen Detailgrad aufweisen. Zusätzlich müssen sich Licht und Materialien im Filmkontext korrekt verhalten um dem Betrachter das Gefühl einer realistischen Szene zu geben. Das heißt es müssen Reflexionen, Brechungen von Licht, sowie Schatten und Materialeigenschaften wie Transparenz berücksichtigt werden. All das kann bereits bei relativ kleinen Objekten zu aufwendigen Berechnungen führen. Beim Film arbeiten wir jedoch mit sehr komplexen Szenen, welche aus vielen Objekten bestehen. Aus diesen Szenen müssen für eine Sekunde Film 24 hochauflösende Bilder erstellt werden. Im folgenden werden zunächst grundlegende Eigenschaften von Beleuchtung und Materialien erörtert, um dann unter Berücksichtigung der oben genannten Anforderungen, auf die Erzeugung einer komplett synthetischen Szene als auch das Einfügen eines synthetischen Charakters in eine reale Szene einzugehen.
 
-\begin{table}[t]
-\begin{center}
-\begin{tabular}{|l||l|l|}\hline
-Matrikelnummer & Vorname & Nachname \\\hline\hline
-12345 & Heinz & Mustermann \\\hline
-23456 & Maria & Mstermann \\\hline
-\end{tabular}
-\end{center}
-\caption{Tabellenunterschrift einer zentrierten Tabelle}
-\label{tabref}
-\end{table}
+\subsection{Licht}
+Jede Rendering Technik versucht das gleiche physikalische Phänomen abzubilden. Nämlich die Streuung von Licht \cite{renderingEquation}. Wie viel Licht sich an einem Punkt im Raum befindet ergibt sich zum einen aus dem direkt von einer Lichtquelle einfallenden Licht, als auch durch das Licht, welches von umliegenden Punkten auf den Punkt reflektiert wird. Diese beiden Faktoren werden mit Hilfe lokaler Reflexionsmodelle beziehungsweise Globaler Beleuchtungsmodelle angenähert. Aktuelle Rendering Techniken bedienen sich sowohl der lokalen Reflexions- als auch globaler Beleuchtungsmodelle.
 
-Die große Stärke von LaTeX sind die Möglichkeiten Formeln zu
-setzen. Dabei kann man Formeln automatisch nummerieren lassen:
+\subsubsection{Lokale Reflexionsmodelle}
+Alan Watt beschreibt in seinem Buch 3D Computergrafik lokale Reflexionsmodelle als eine Möglichkeit den Betrag der direkten Beleuchtung an einem Punkt zu ermitteln \cite{localLight}. Dieser Wert wird durch eine Bi-Directional Reflection Distribution Function (BRDF) kategorisiert. Dabei wird Anhand der Richtung der einfallenden Lichtstrahlen   
 
 \begin{equation}
 \label{formel}
@@ -42,7 +28,6 @@ F_{x,y} \cdot
 \cos \left( \frac{(2i+1) \cdot x \cdot \pi}{2 \cdot N} \right) \cdot
 \cos \left( \frac{(2j+1) \cdot y \cdot \pi}{2 \cdot N} \right)
 \end{equation}
-
 Formeln im Fließtext binden sich sehr einfach ein. So kann man den
 bekannten Pythagoras schreiben als $a^2 + b^2 = c^2$. Für die gleiche
 Formel wie (\ref{formel}) ohne automatische Nummerierung erhält man,

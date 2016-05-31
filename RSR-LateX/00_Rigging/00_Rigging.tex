@@ -17,7 +17,7 @@ Diese Ausarbeitung behandelt das Thema automatisches Riggen. Auch dieser Unterpu
 	\item \nameref{sec:skeleton-extraction}
 	\item \nameref{sec:skeleton-embedding}
 \end{itemize}
-Es gibt auch Ansätze \cite{combination}, welche beide Methoden verbindet. Im weiteren Verlauf wird jedoch nur auf \nameref{sec:skeleton-extraction} und \nameref{sec:skeleton-embedding} eingegangen.
+Es gibt auch Ansätze \cite{combination}, welche beide Methoden verbindet. Im weiteren Verlauf wird jedoch nur auf \nameref{sec:skeleton-extraction} und \nameref{sec:skeleton-embedding} eingegangen. Wobei der Schwerpunkt eindeutig auf \nameref{sec:skeleton-embedding} liegt.
 Das Ziel des automatischen Riggings liegt darin, das der Prozess vereinfacht und beschleunigt wird. Bisher war die Plazierung des Skellets im Mesh für Anfänger schwierig. Der automatisierte Rigging-Vorgang wird oft an drei Kenngrößen bemessen:
 
 \begin{itemize}
@@ -128,92 +128,3 @@ Nicht nur im die Mittelachsen zu finden, sondern auch um die Gelenke zu finden. 
 
 \subsection{Skelett-Einbindung}
 \label{sec:skeleton-embedding}
-
-
-\subsubsection{Einführung}
-Der nachfolgende Absatz behandelt das Thema der \nameref{sec:skeleton-embedding} welches sich auf die Ausarbeitung von Ilya Baran und Jovan Popovic \cite{embedding} stützt.
-
-Für diese Rigging-Methode benötigt man ein vorgefertigtes Animations Skelett sowie ein Mesh. Um dieses Skelett bestmöglich in dem Modell zu plazieren, muss man ein Graph-Optimierungs-Problem lösen. Um die Optimierung zu vereinfachen, wird das Volumen in mehreren Schritten reduziert. Am Ende erhalten wir einen Graphen, auf welchen unser vorgefertigetes Animations Skelett gemapped werden kann.
-In Abbildung \ref{embedding_fig1} ist das Skelett einbinden vereinfacht graphisch dargestellt.
-\begin{figure}[t]
-	\centering
-	\includegraphics[]{00_Rigging/Pictures/embedding_pic1.png}
-	\caption[Vereinfachte Darstellung der Skelett-Einbindung]{Vereinfachte Darstellung der Skelett-Einbindung. Entnommen aus \cite{embedding}}
-	\label{embedding_fig1}
-\end{figure}
-
-\begin{figure}[t]
-	\includegraphics[]{00_Rigging/Pictures/embedding_pic2.png}
-	\caption[Schrittweise Darstellung wie ein Graph im Modell gefunden wird]{ a) Mediale Fläschen b) Dichteste Kugelpackung c) Erzeugter Graph d) Orginal und vereinfachtes Skelett. Entnommen aus \cite{embedding}}
-	\label{embedding_fig2}
-\end{figure}
-
-\subsubsection{Volumenreduktion I}
-\label{sec:medial_surface}
-Der erste Schritt zur Volumenreduzierung ist das finden der medialen Fläschen. Diese sind ein equivalent der Mittelachse von zweidimensionalen Fläschen im dreidimensionalen Raum. Ein Punkt liegt auf dieser Fläsche, wenn er mehr als eine minimale Distanz von sich zur Körperoberfläsche besitzt.
-Man erwartet das dass eingebettede Skelett auf dieser Fläsche zu finden ist. In Abbildung \ref{embedding_fig2} a) sind diese medialen Fläschen eines Meshs zu sehen.
-
-\subsubsection{Volumenreduktion II}
-\label{sec:sphere_packing}
-Um das Volumen weiter zu reduzieren wird ein Graph erstellt, welcher die Gelenke als Knoten und die Knochen als Kanten hat. Um diesen Graph zu erzeugen wird eine Methode ähnlich der Methode zur Findung Dichtesten Kugelpackung\footnote{\label{foot:1}Bei dieser Methode wird versucht Kugeln mit dem Gleichen Radius in einem dreidimensionalen Körper zu plazieren, wobei die Kugeln sich nur berühren aber nicht überlappen dürfen. Ziel dieses Verfahrns ist es, einen möglichst minimalen Freiraum zwischen den Kugeln zu finden.} verwendet. Jedoch dürfen sich bei dieser Methode die Kugeln überlappen.
-
-Jeder Punkt auf der medialen Fläsche dient als Mittelpunkt einer Kugel und hat als Radius seine Distanz zur Oberfläsche des Meshs. Als Startpunkt wird der Punkt genommen, wessen Distanz zur Oberfläsche am größten ist. Es dürfen nur Kugeln hinzugefügt werden, welche nicht den Mittelpunkt einer anderen Kugel umschließen. 
-
-\subsubsection{Graph-Erzeugung}
-\label{sec:graph_generating}
-Anhand der erzeugten Kugeln, wird nun der Graph abgeleitet. Jeder Mittelpunkt ist ein Knoten im Graph. Sich schneidenten Kugeln oder Gabriel Nachbarn (Erklärung: Abbildung \ref{gabriel}) repräsentieren die Kanten im Graph. Jeder der erzeugten Knoten ist ein potenzieller Knoten und jede Kante ist eine potenzielle Verbindung (Knochen) im Skelett.
-
-\begin{figure}[t]
-	\centering
-	\includegraphics[]{00_Rigging/Pictures/gabriel.png}
-		\caption[Erklärung von Gabriel Nachbarn]{ links) $a$ und $b$ sind Gabriel Nachbarn da der Punkt $c$ nicht in dem Kreis mit dem Radius $\overline{ab}$ liegt. Quelle: von Vectorisation: BethNaught. Original: ALM scientist at en.wikipedia [Public domain oder Public domain], via Wikimedia Commons \url{https://commons.wikimedia.org/wiki/File:Gabriel_Pairs.JPG} rechts) Die Punkte $a$ und $b$ sind keine Gabriel Nachbarn, da $c$ im aufgespannten Kreis liegt. Quelle: von Vectorisation: BethNaught. Original: ALM scientist at en.wikipedia [Public domain oder Public domain], via Wikimedia Commons \url{https://commons.wikimedia.org/wiki/File:Not_Gabriel_Pairs.svgh}}
-		\label{gabriel}
-\end{figure}
-
-\subsubsection{Kontinuierliche Optimierung der Skelett-Einbindung}
-\label{optimal_skeleton_embetting}
-Um das vorgegebene Skelett nun in das Modell einzubinden, wird der erzeugte Graph $G = (V, E)$ benötigt. Der erste Schritt hierbei ist es das vorgegebene Skelett zu vereinfachen. Das orginal Skelett hat $s$ Gelenke das reduzierte Skelett $r$ Gelenke. 
-Es können alle Gelenke zweiten Grades (Knie, Elebogen, ...) reduziert werden. Diese Reduktion der Gelenke wird benötigt um die Freiheitsgrade der Straffunktionen (penalty functions) zu reduzieren.
-
-Die Strafffunktionen haben großen Einfluss auf die Qualität des Ergebnisses und der Selbständigkeit des gesamten Verfahrens. Sie sind dafür da, um ungeeignete Skelett-Einbindungen zu verhindern. Als ungeeignete Möglichkeiten können folgende Einbettungen betrachtet werden:
-\begin{itemize}
-	\item kurze Knochen
-	\item unmögliche Gelenkstellungen
-	\item unterschiedliche Knochenlängen bei symmetrisch gekennzeichneten Knochen
-	\item Gelenke welche als Füße markiert wurden sind nicht in Bodennähe
-	\item Knochenstränge mit der Länge 0
-	\item unmögliche Knochenausrichtungen
-	\item Gelenke, welche im Graph nah beieinander im orginalem Skelett jedoch weit entfernt liegen
-\end{itemize}
-Um das optmimale Gewicht für jede dieser Straffunktionen zu finden, wurde versucht ein maximaler Breiter-Rand-Klassifikator ("{}margin linear classifier"{}) zu finden. Dieser Klassifikator versucht den Abstand zwischen der besten "{}schlechten"{} und der schlechtesten "{}guten"{} Einbettung zu maximieren.
-\begin{equation}
-\label{weight}
-\min_{i=1}^{n}\Gamma^T q_{i} - \min_{i=1}^{m}\Gamma^T p_{i}
-\end{equation}
-$p$ ("{}gut"{}) und $q$ ("{}schlecht"{}) sind Vektoren welche die Einbettungen repäsentieren. Der Vektor $\Gamma$ enthält das Gewicht, $n$ und $m$ stehen für die Anzahl der "{}guten"{} bzw. "{}schlechten"{} Einbettungen. Idealerweise sollte $\Gamma$ so gewählt werden, das die Gleichung gegen $1$ geht. 
-
-Um die beste Einbettung zu finden wird Schritt für Schritt vorgegangen. Es wird an einem Punkt gestartet und die beste parzielle Einbettung zum nächsten Gelenk gesucht. Dies geschieht so lange, bis das komplette Skelett eingebunden ist.
-
-Zum Schluss wird das ganze Skelett nocheinmal optimiert. Sprich die wegreduzierten Gelenke aus dem orginal Skelett werden wieder eingebunden, Knochenproportionen werden  hergestellt. Abbildung \ref{embedding_fig3} zeigt diese Optimierung. Dies geschieht ähnlich wie das Einbinden des Skeletts mit Straffunktionen. Diese Funktionen sind dieses mal jedoch anderst definiert. 
-
-\begin{figure}[t]
-	\includegraphics[]{00_Rigging/Pictures/embedding_pic3.png}
-	\caption[Vergleich: Eingebundenes Skelett vor und nach der Optimierung]{Eingebundenes Skelett vor (blau) und nach (rot) der Optimierung. Entnommen aus \cite{embedding}}
-	\label{embedding_fig3}
-\end{figure}
-
-\subsubsection{Zusammenfassung}
-\label{sec:conclusion_embedding}
-Analog zu \ref{conclusion_extraction} wird diese Rigging Methode anhand der 3 Kenngrößen evaluiert.
-Der von Baran und Popovic vorgestellte Algorithmus fällt unter die Komplexität von $O(N^2)$, sie geben an, dass sie 16 verschiedene Modelle getestet haben. Die Modelle konnten in einer Zeit zwischen 12.6 und 77.1 Sekunden gerigged werden.
-
-Bei der Allgemeingültigkeit ist der Algorithmus stark eingeschränkt auf das vorgegebene Skelett, in diesem Fall auf humanuide Modelle. Ein weiterer Nachteil ist ebenfalls das kleine Modelle mit vielen kleinen Knochen (z.B. Schlangen) zu Problemen führen. Da diese durch die Straffunktionen ausgeschlossen werden. 
-Von den 16 getesteten Modellen, siehe Abbildung \ref{embedding_fig4} wurden die meisten korrekt gerigged. Nur bei Modell 7, 10 und 13 kam es zu Problemen, diese konnten jedoch durch kleine Hinweise für die korekte Gelenkplazierung durch den Benutzer gelöst werden.
-
-Im Bereich der Selbständigkeit ist zu sagen, das die Pose des Modells stark Eingeschränkt. Diese muss sich möglichst an dem Skelett orientieren, sonst würden die Straffunktionen dafür sorgen, dass die Einbindungen als wegen der Gelenk- und Knochenstellungen als "{}schlecht"{} markiert werden. Außerdem erwartet der Algorithmus, dass das Modell mit beiden Füßen am Boden steht.
-\begin{figure}[t]
-	\includegraphics[]{00_Rigging/Pictures/embedding_pic4.png}
-	\caption[Ergebnisse der Skelett-Einbindung]{Ergebnisse der Skelett-Einbindung. Entnommen aus \cite{embedding}}
-	\label{embedding_fig4}
-\end{figure}
-
