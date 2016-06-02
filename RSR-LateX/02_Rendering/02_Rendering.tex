@@ -1,3 +1,4 @@
+\newpage
 \section{Rendering im Film}
 \subsection{Einleitung}
 \label{sec:introduction}
@@ -57,13 +58,13 @@ Ein mit der Blinn-Phong BRDF gerendertes Dreieck ist in Abbildung \ref{blinnPhon
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.5\linewidth]{02_Rendering/img/lambertian.jpg}
+  \includegraphics[width=.9\linewidth]{02_Rendering/img/lambertian.jpg}
   \caption[Lambertsches Dreieck]{Lambertsche BRDF}
   \label{lambert}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.5\linewidth]{02_Rendering/img/glossy.jpg}
+  \includegraphics[width=.9\linewidth]{02_Rendering/img/glossy.jpg}
   \caption[Blinn-Phong Dreieck]{Blinn-Phong BRDF}
   \label{blinnPhong}
 \end{subfigure}
@@ -96,7 +97,39 @@ Wie bereits erwähnt ist die Rendering Gleichung analytisch nicht berechenbar. Da
 	
 	\item \textbf{Bild Qualität.} Die gerenderten Bilder dürfen keine Treppen-  oder Facettenartefakte aufweisen.
 	
-	\item \textbf{Flexibilität.} Im Laufe der Zeit werden immer neue und bessere Rendering Techniken entwickelt werden. Eine aktuelle Rendering Technik sollte flexibel genug sein neue Methodiken in den bestehenden Rendering Prozess zu integrieren.
+	\item \textbf{Flexibilität.} Im Laufe der Zeit werden immer neue und bessere Rendering Methoden entwickelt. Eine aktuelle Rendering Technik sollte flexibel genug sein neue Methodiken in den bestehenden Rendering Prozess zu integrieren.
 \end{itemize}
-
 Im Folgenden werden zwei Rendering Techniken besprochen, welche eine Annäherung an die durch die Rendering Gleichung beschriebene Globale Beleuchtung ermöglichen und die oben genannten Anforderungen erfüllen. Die Techniken werden bereits zur Erzegung synthetischer Filme eingesetzt und werden in den von Pixar Animation Studios bereit gestellten Paper \cite{cars} und \cite{REYES} beschrieben.
+
+\subsubsection{Die Reyes Bild Rendering Architektur}
+Reyes ist eine bei Pixar Animation Studios eingesetztes Rendering Technik. Sie stellt eine schnelle und hochqualitative Lösung zum Rendern komplexer Bilder dar. Hierbei bezieht sich schnell darauf, dass ein Spielfilm in in etwa einem Jahr gerendert werden kann. Hochqualitativ, weil synthetisch erzeugte Bilder nicht von realen Fotos zu unterscheiden sind und komplex weil Reyes auf grafisch sehr aufwendige Szenen angewendet werden kann.
+
+Dies gelingt Reyes, da es immer nur kleine Teile der Szene im Hauptspeicher halten muss. Dieses Prinzip wird auch geometrische Lokalität genannt. Berechnungen geometrischer Primitiven werden ohne Abhängigkeit anderer geometrischen Primitiven im Raum durchgeführt.In vielen Fällen können globale Berechnungen durch Textur-Maps angenähert werden. Reflexionen können zum Beispiel durch Umgebungs-Maps dargestellt werden. Beim Mapping-Vorgang werden die Punkte der Map im Texturraum den Punkten des Polygons zugeordnet. Umgebungs-Maps können vor dem eigentlichen Rendering Prozess berechnet werden und bei gleichbleibenden Blickwinkel beliebig oft wiederverwendet werden. Ein tieferer Einblick in Textur- und Umgebungs-Maps ist in \cite{maps} zu finden. 
+Rendering Techniken wie Ray Tracing oder Radiosity müssen hingegen immer Zugriff auf die gesamte Szene zum shaden eines einzelnen Punktes haben. Denn hier muss Licht über die ganze Szene verfolgt werden und kann nicht im Voraus berechnet werden. Komplexe Szenen können leicht die Kapazität des Hauptspeichers übersteigen. Aus diesem Grund kam Ray Tracing zum Rendern von Filmen lange nicht in Frage.
+
+Da der Algorithmus von Reyes immer nur ein Objekt nacheinander einließt tritt dieses Speicherproblem nicht auf.
+Der Algorithmus für jedes Objekt ist in \ref{reyesAlgo} beschrieben.
+\begin{figure}[t]
+\centering
+	\includegraphics[width=.5\linewidth]{02_Rendering/img/reyesalgo.png}
+	\caption[Reyes Rendering Algorithmus]{ Schritte im Reyes Renderer zum rendern eines Objektes Entnommen aus \cite{REYES}.}
+	\label{reyesAlgo}
+\centering
+\end{figure}
+Vor Beginn wird ein Z Buffer für die gesamte Szene benötigt. So kann die Sichtbarkeit der Objekte überprüft werden.
+Nach dem Einlesen wird jedes Objekt auf eine einheitliche, geometrische Form reduziert. Diese Form wird Mikropolygone genannt. Alle Shading Operationen finden auf Basis dieser kleinsten Einheit statt. Diese Umwandlung wird Dicing genannt. Es werden jedoch nur Objekte gediced, welche sich komplett im sichtbaren Bereich befinden. Objekte, welche als ganzes nicht sichtbar sind, werden verworfen. Befindet sich jedoch ein Objekt nur zum Teil im Sichtfeld des Betrachters, findet vor dem Dicing eine gröbere Unterteilung statt. Diese Unterteilung nennt sich Spliting und hat als Ergebnis immer Patches welche sich auf den Texturraum mappen lassen. Die Patches werden dann erneut nach ihrer diceability überprüft. Erst wenn ein Patch komplett sichtbar ist, wird er gediced. Nicht sichtbare Patches werden verworfen. Sind alle sichtbaren Teile eines Objektes in Mikropolygone aufgeteilt, so findet das Shading in Form von Texturemapping statt. Nach einem anti-aliasing Prozess wird dann das Bild erzeugt. In Abbildung \ref{sphere} ist eine Kugel zu sehen, welche den Algorithmus bis zum Dicing durchlaufen ist.
+
+Über eine Back Door wird den Anwendern ermöglicht auch eigene Shader in den Rendering Prozess zu integrieren.
+
+\begin{figure}[t]
+\centering
+	\includegraphics[width=.5\linewidth]{02_Rendering/img/sphere.png}
+	\caption[Spliting und Dicing am Beispiel einer Kugel]{ Spliting und Dicing am Beispiel einer Kugel. Entnommen aus \cite{REYES}.}
+	\label{sphere}
+\centering
+\end{figure}
+
+Die Reyes Rendering Technik bringt viele Vorteile mit sich. Das Shading findet auf simplen einheitlichen Formen statt. Es muss immer nur ein kleiner Teil der Szene im Hauptspeicher gehalten werden, so können nahezu beliebig komplexe Szenen gerendert werden. Durch das Anwenden von Textur-Maps können reelle Materialien und Reflexionseigenschaften mit einem vertretbaren Aufwand berechnet werden und Berechnungen wie Clipping entfallen.
+Die Reyes Bild Rendering Architektur 
+
+

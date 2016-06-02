@@ -17,7 +17,7 @@ Diese Ausarbeitung behandelt das Thema automatisches Riggen. Auch dieser Unterpu
 	\item \nameref{sec:skeleton-extraction}
 	\item \nameref{sec:skeleton-embedding}
 \end{itemize}
-Es gibt auch Ansätze, welche beide Methoden verbindet \cite{combination}. Im weiteren Verlauf wird jedoch nur auf \nameref{sec:skeleton-extraction} und \nameref{sec:skeleton-embedding} eingegangen.
+Es gibt auch Ansätze \cite{combination}, welche beide Methoden verbindet. Im weiteren Verlauf wird jedoch nur auf \nameref{sec:skeleton-extraction} und \nameref{sec:skeleton-embedding} eingegangen.
 Das Ziel des automatischen Riggings liegt darin, dass der Prozess vereinfacht und beschleunigt wird. Bisher war die Plazierung des Skellets im Mesh für Anfänger schwierig. Der automatisierte Rigging-Vorgang wird oft an drei Kenngrößen bemessen:
 
 \begin{itemize}
@@ -39,7 +39,7 @@ Um die Verwechslungsgefahr zu minimieren werden noch folgende Begriffe eingeführ
 \label{sec:skeleton-extraction}
 
 \subsubsection{Einführung}
-Der Abschnitt über die Skelett-Extraktion stützt sich auf das Paper von J. Pan et al. \cite{extraction}.
+Der Abschnitt über die Skelett-Extraktion stützt sich auf das Paper von J. Pan ET AL. \cite{extraction}.
 Für die Skelett-Extraktion wird kein animations Skelett im vorraus benötigt. Dieses wird aus dem Mesh extrahiert. Für diese Extraktion werden die Mittelachsen einzelner Mesh-Segmente benötigt. Bei einer Hand zum Beispiel die Achsen der fünf Finger, des Handtellers und des Armansatzes.
 
 Um die Mittelachsen eines 3D Körpers zu bestimmen wird eine geometrische Form, die 3D-Silhouette, eingeführt. Eine 3D-Silhouette im nachfolgenden auch nur als Silhouette bezeichnet, ist eine zweidimensionale Projektion des Meshs, wobei die Tiefeninformationen (Koordinate auf der Z-Achse) nicht verloren geht, sondern mit abgespeichert wird.
@@ -82,8 +82,6 @@ r= max \Vert q_{i}(x,y,z) - q(x,y,z)\Vert
 \end{equation}
 $q(x,y,z)$ steht für den momentanen Punkt und $q_{i}(x,y,z)$ für einen der Nachbarpunkte.
 
-Für ein bessers Verständnis kann man sich auch den Artikel von R.A. Jarvis zum Thema zur Identifikation von convexen Hüllen in einem endlichen Set von Punkten \cite{convex} anschauen. Der signifikante Unterschied zwischen den beiden Methoden ist jedoch folgender. In der oben genanten Methode ist die Suche auf den Radius $r$ begrenzt.
-
 \subsubsection{Lokale Suche}
 \label{sec:local_search}
 Abbildung \ref{extraction_fig1} (b) zeigt wie die Lokale Suche abläuft.
@@ -100,7 +98,7 @@ Für die lokale Suche werden nun alle Punkte der Menge $C''_{i}$ miteinander verb
 
 \subsubsection{Kurven Skelett Extraktion}
 \label{sec:curve_skeleton_extraction}
-Die in den oberen beiden Abschnitten gefunden Punktmenge wird nun herangezogen um mithilfe der Delaunay-Triangulation ein Dreiecksnetz zu erstellt \cite{delaunay}. Dieses kann man in Abbildung \ref{extraction_fig1} (c) sehen. Anhand dieser Dreiecke können nun an allen Kanten, welche nicht die Außenfläschen des Meshs berühren, Mittelpunktbestimmungen vorgenommen werden. Dafür wird berechnet: $ m_{k} \left( \frac{x_{i} + x_{j}}{2},\frac{y_{i} + y_{j}}{2},\frac{z_{i} + z_{j}}{2} \right)  $. Diese Mittelpunkte werden nun verbunden und wir erhalten eine Mittelachse für die aktuelle Projektion. Diese liegt jedoch noch nicht zentral im Mesh, hierfür muss man für jeden Teilbereiches des Meshs die vorher beschriebenen Vorgänge wiederholen. Dieses mal müssen die Projektionen orthogonal zu der ersten Projektion liegen. Teilbereiche des Meshs sind in diesem Beispiel je ein Finger der Hand, der Handteller oder der Armansatz. (Siehe Abbildung \ref{extraction_fig1} (d))
+Die in den oberen beiden Abschnitten gefunden Punktmenge wird nun herangezogen um mithilfe der Delaunay-Triangulation ein Dreiecksnetz zu erstellt. Dieses kann man in Abbildung \ref{extraction_fig1} (c) sehen. Anhand dieser Dreiecke können nun an allen Kanten, welche nicht die Außenfläschen des Meshs berühren, Mittelpunktbestimmungen vorgenommen werden. Dafür wird berechnet: $ m_{k} \left( \frac{x_{i} + x_{j}}{2},\frac{y_{i} + y_{j}}{2},\frac{z_{i} + z_{j}}{2} \right)  $. Diese Mittelpunkte werden nun verbunden und wir erhalten eine Mittelachse für die aktuelle Projektion. Diese liegt jedoch noch nicht zentral im Mesh, hierfür muss man für jeden Teilbereiches des Meshs die vorher beschriebenen Vorgänge wiederholen. Dieses mal müssen die Projektionen orthogonal zu der ersten Projektion liegen. Teilbereiche des Meshs sind in diesem Beispiel je ein Finger der Hand, der Handteller oder der Armansatz. (Siehe Abbildung \ref{extraction_fig1} (d))
 
 Wurde die Prozedur für jeden Teilbereichs des Meshs wiederholt, werden beide erzeugte Mittelachsen übereinander gelegt und dadurch entsteht eine Mittelachse die wirklich mittig im Mesh liegt. 
 
@@ -113,9 +111,9 @@ Der große Nachteil dieser Methode ist, das möglicherweise nicht alle Gelenke gef
 
 \subsubsection{Zusammenfassung}
 \label{conclusion_extraction}
-Um die \nameref{sec:skeleton-extraction} zu evaluieren, werden die 3 Kenngrößen welche im Abschnitt \ref{sec:whats_rigging} aufgelistet wurden herangezogen. PAN et al gibt an, das er seine Methode mit fünf verschiedenen Modellen getestet hat. Wobei die Zeiten zwischen 3.6 und 15.1 Sekunden lagen. Weiterhin kann man dem Paper \cite{extraction} entnehmen das der entwickelte Algorithmus mit O(N) läuft. Jedoch besitzt der Algorithmus einen Flaschenhals. Das finden der optimalen Silhouette.
+Um die \nameref{sec:skeleton-extraction} zu evaluieren, werden die 3 Kenngrößen welche im Abschnitt \ref{sec:whats_rigging} aufgelistet wurden herangezogen. PAN ET AL gibt an, das er seine Methode mit fünf verschiedenen Modellen getestet hat. Wobei die Zeiten zwischen 3.6 und 15.1 Sekunden lagen. Weiterhin kann man dem Paper \cite{extraction} entnehmen das der entwickelte Algorithmus mit O(N) läuft. Jedoch besitzt der Algorithmus einen Flaschenhals. Das finden der optimalen Silhouette.
 
-Im Bereich der Allgemeingültigkeit steht PAN et al gut dar. Jedoch hat diese Methode auch Nachteile. Da das Verfahren sich auf das finden von Mittelachsen stützt, muss das Mesh aus annähernd zylindrichen Teilen bestehen. Auch spielt die Überdeckung eine tragende Rolle beim finden der Mittelachsen. Probleme würde zum Beispiel ein Cartoon-Modell eines sehr muskulösen Mannes bereiten, da durch die Muskeln die Achse verschoben wäre.
+Im Bereich der Allgemeingültigkeit steht PAN ET AL gut dar. Jedoch hat diese Methode auch Nachteile. Da das Verfahren sich auf das finden von Mittelachsen stützt, muss das Mesh aus annähernd zylindrichen Teilen bestehen. Auch spielt die Überdeckung eine tragende Rolle beim finden der Mittelachsen. Probleme würde zum Beispiel ein Cartoon-Modell eines sehr muskulösen Mannes bereiten, da durch die Muskeln die Achse verschoben wäre.
 
 Im Bereich der Selbstständigkeit, kommt vieles auf das vorgegebene Mesh an. Hierbei sind die Pose und Überdeckung wichtige Kriterien.
 Nicht nur im die Mittelachsen zu finden, sondern auch um die Gelenke zu finden. Wird beispielsweise ein Mesh einer Faust versucht zu riggen, so werden die einzelnen Finger nicht erkannt, sonder das Mesh als ganzes genommen, das erzeugte Skelett würde entfernt an ein L erinnern.
@@ -168,7 +166,7 @@ Anhand der erzeugten Kugeln, wird nun der Graph abgeleitet. Jeder Mittelpunkt is
 \begin{figure}[t]
 	\centering
 	\includegraphics[]{00_Rigging/Pictures/gabriel.png}
-		\caption[Erklärung von Gabriel Nachbarn]{ links) $a$, $b$ und $b$, $c$ sind Gabriel Nachbarn. Die Punkte $a$ und $c$ jedoch nicht. Da der Kreis mit dem Durchmesser $\overline{ac}$ den Punkt $b$ beinhaltet. Nachempfunden aus \cite{gabriel_neighbor}}
+		\caption[Erklärung von Gabriel Nachbarn]{ links) $a$ und $b$ sind Gabriel Nachbarn da der Punkt $c$ nicht in dem Kreis mit dem Radius $\overline{ab}$ liegt. Quelle: von Vectorisation: BethNaught. Original: ALM scientist at en.wikipedia [Public domain oder Public domain], via Wikimedia Commons \url{https://commons.wikimedia.org/wiki/File:Gabriel_Pairs.JPG} rechts) Die Punkte $a$ und $b$ sind keine Gabriel Nachbarn, da $c$ im aufgespannten Kreis liegt. Quelle: von Vectorisation: BethNaught. Original: ALM scientist at en.wikipedia [Public domain oder Public domain], via Wikimedia Commons \url{https://commons.wikimedia.org/wiki/File:Not_Gabriel_Pairs.svgh}}
 		\label{gabriel}
 \end{figure}
 
