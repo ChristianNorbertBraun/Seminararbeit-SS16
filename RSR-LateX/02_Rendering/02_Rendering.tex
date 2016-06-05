@@ -2,10 +2,10 @@
 \section{Rendering im Film}
 \subsection{Einleitung}
 \label{sec:introduction}
-Ist der Charakter korrekt geriggt und geskinnt muss er nun noch entsprechend seiner Eigenschaften korrekt gerendert werden. Rendering bezeichnet im Allgemeinen das Erstellen eines zweidimensionalen Bildes aus einer dreidimensionalen Szene oder eines Objektes unter Berücksichtigung physikalische Größen wie Licht, Schatten und Materialien \cite{renderingDefinition}. Dieser Prozess findet in einer Vielzahl von unterschiedlichen Bereichen Anwendungsfälle. Zum einen in der Darstellung von Computerspielen, bei Konstruktionen in CAD-Programmen aber auch bei CGI in aktuellen Filmen. 
+Ist der Charakter korrekt geriggt und geskinnt muss er nun noch entsprechend seiner Eigenschaften korrekt gerendert werden. Rendering bezeichnet im Allgemeinen das Erstellen eines zweidimensionalen Bildes aus einer dreidimensionalen Szene oder eines Objektes unter Berücksichtigung physikalische Größen wie Licht, Schatten und Materialien \cite{renderingDefinition}. Dabei werden die Objekte in kleine Polygone wie zum Beispiel Dreiecke unterteilt, um eine einheitliche Form für die benötigten Operationen des Renderings zu haben. Bereits kleine Modelle, können so aus mehreren tausend Polygonen bestehen. Rendering wird in einer Vielzahl von unterschiedlichen Bereichen angewendet. Zum einen in der Darstellung von Computerspielen, bei Konstruktionen in CAD-Programmen aber auch bei CGI in aktuellen Filmen. 
 Jeder Anwendungsfall hat andere Anforderungen und Prioritäten an das Rendering. Während Computerspiele vor Allem ein schnelles Erzeugen von Bildern benötigen, kommt es in Filmen auf eine möglichst reale und detailreiche Darstellung an. Das folgende Kapitel beschäftigt sich mit den besonderen Anforderungen an das Rendering im Film. 
 
-Hier müssen die Bilder in einer angemessenen Zeit gerendert werden und trotzdem einen hohen Detailgrad aufweisen. Zusätzlich müssen sich Licht und Materialien im Filmkontext korrekt verhalten und dem Betrachter das Gefühl einer realistischen Szene geben. Das heißt es müssen Reflexionen, Brechungen von Licht, sowie Schatten und Materialeigenschaften wie Transparenz berücksichtigt werden. All das kann bereits bei relativ kleinen Objekten zu aufwendigen Berechnungen führen. Beim Film arbeiten wir jedoch mit sehr komplexen Szenen, welche aus vielen Objekten bestehen. Aus diesen Szenen müssen für eine Sekunde Film 24 hochauflösende Bilder erstellt werden. Im Folgenden werden zunächst grundlegende Eigenschaften von Beleuchtung und Materialien erörtert, um dann unter Berücksichtigung der oben genannten Anforderungen, auf die Erzeugung einer komplett synthetischen Szene wie in \ref{cars} als auch das Einfügen unseres synthetischen Charakters in eine reale Szene einzugehen.
+Hier müssen die Bilder in einer angemessenen Zeit gerendert werden und trotzdem einen hohen Detailgrad aufweisen. Zusätzlich müssen sich Licht und Materialien im Filmkontext korrekt verhalten und dem Betrachter das Gefühl einer realistischen Szene geben. Das heißt es müssen Reflexionen, Brechungen von Licht, sowie Schatten und Materialeigenschaften wie Transparenz berücksichtigt werden. All das kann bereits bei relativ kleinen Objekten zu aufwendigen Berechnungen führen. Beim Film wird jedoch mit sehr komplexen Szenen gearbeitet, welche aus vielen Objekten bestehen. Aus diesen Szenen müssen für eine Sekunde Film 24 hochauflösende Bilder erstellt werden. Im Folgenden werden zunächst grundlegende Eigenschaften von Beleuchtung und Materialien erörtert, um dann unter Berücksichtigung der oben genannten Anforderungen, auf die Erzeugung einer komplett synthetischen Szene wie in Abbildung \ref{cars} als auch das Einfügen unseres synthetischen Charakters in eine reale Szene einzugehen.
 
 \begin{figure}[t]
 	\includegraphics[width=13cm]{02_Rendering/img/cars.png}
@@ -24,7 +24,7 @@ In der Realität verhalten sich verschiedene Materialien bei gleicher Beleuchtung
 \label{BRDFEq}
 BRDF=f(\theta in, \phi in, \theta ref, \phi ref) = f(L, V)
 \end{equation}
-Dabei beschreiben $\phi in$ beziehungsweise $\phi ref$ den Einfallswinkel sowie $\theta in$ und $\theta ref$ den Brechungswinkel der Strahlen. Die aus \cite{localLightCite} entnommene Grafik \ref{BRDF} verdeutlicht die Beziehung der Parameter.
+Dabei beschreiben $\phi in$ beziehungsweise $\phi ref$ den Einfallswinkel sowie $\theta in$ und $\theta ref$ den Brechungswinkel der Strahlen. Die aus \cite{localLightCite} entnommene Abbildung \ref{BRDF} verdeutlicht die Beziehung der Parameter.
 \begin{figure}[t]
 	\includegraphics[width=13cm]{02_Rendering/img/brdf.jpg}
 	\caption[BRDF]{BRDF zur Beschreibung des Verhältnisses des einfallenden Lichts $L$ und des reflektierten Lichts $V$}
@@ -33,7 +33,7 @@ Dabei beschreiben $\phi in$ beziehungsweise $\phi ref$ den Einfallswinkel sowie 
 Um die unterschiedlichen Reflexionseigenschaften von Materialien zu simulieren werden verschiedene BRDFs modelliert. Die Kombination von einzelnen berechneten spekularen beziehungsweise diffusen Komponenten simuliert das Verhalten realer Oberflächen. Im Folgenden werden zwei Modelle zur Reflexion vorgestellt wie sie in \cite{brdf, brdf2} beschrieben sind.
 
 \begin{itemize}
-	\item \textbf{Lambertsche Reflexion.} Bei der Lambertschen Reflexion geht man davon aus, dass eine beleuchtete Oberfläche bei gleicher Lichtintensität in jede Richtung mit der gleichen Intensität reflektiert. Sie ist damit gut zur Darstellung diffuser Reflexionen also matter Oberflächen wie Papier geeignet. Da die Lambertsche BRDF nur von der Intensität des einfallenden Lichts abhängt, kann sie ohne Berücksichtigung der Reflexionsrichtung berechnet werden. Die Intensität des reflektierten Lichts ergibt sich durch $I_{D} =\omega_{i} \cdot NCI_{L}$. Durch das Skalarprodukt der Richtung des eintreffenden Lichtstrahls $\omega_{i}$ mit der Normalen der Fläche $N$ geht bei einem steil eintreffenden Lichtstrahl ein höherer Wert der Farbe $C$ entsprechend der Lichtintensität $I_{L}$ in die Intensität des reflektierten Lichtstrahls $I_D$ ein. Ein mit einer Lambertschen BRDF erstelltes Dreieck ist in \ref{lambert} zu sehen.
+	\item \textbf{Lambertsche Reflexion.} Bei der Lambertschen Reflexion geht man davon aus, dass eine beleuchtete Oberfläche bei gleicher Lichtintensität in jede Richtung mit der gleichen Intensität reflektiert. Sie ist damit gut zur Darstellung diffuser Reflexionen also matter Oberflächen wie Papier geeignet. Da die Lambertsche BRDF nur von der Intensität des einfallenden Lichts abhängt, kann sie ohne Berücksichtigung der Reflexionsrichtung berechnet werden. Die Intensität des reflektierten Lichts ergibt sich durch $I_{D} =\omega_{i} \cdot NCI_{L}$. Durch das Skalarprodukt der Richtung des eintreffenden Lichtstrahls $\omega_{i}$ mit der Normalen der Fläche $N$ geht bei einem steil eintreffenden Lichtstrahl ein höherer Wert der Farbe $C$ entsprechend der Lichtintensität $I_{L}$ in die Intensität des reflektierten Lichtstrahls $I_D$ ein. Ein mit einer Lambertschen BRDF erstelltes Dreieck ist in Abbildung \ref{lambert} zu sehen.
 	
 	\item \textbf{Blinn-Phong Model.} Das Blinn-Phong Model basiert auf der Lambertschen Reflexion. Jedoch wird ein optisches Glanzlicht hinzugefügt wenn die Normale der Fläche etwa in der Mitte zwischen eingehenden und reflektierten Licht liegt. Es werden also diffuse und spekulare Reflexionen eingesetzt um zum Beispiel Metalle darzustellen. Die Blinn-Phong BRDF lässt sich wie folgt berechnen:
 
@@ -84,7 +84,7 @@ Die Lichtintensität am Punkt $x$ ergibt sich aus dem Licht welches von $x'$ auf 
 Mit Hilfe der Rendering Gleichung kann also theoretisch die globale Beleuchtung eines jeden Punktes abhängig von allen anderen Punkten berechnet werden. Dabei handelt es sich um ein blickwinkelunabhängiges Ergebnis. Das heißt die Werte werden ohne Berücksichtigung der Position des Betrachters berechnet. Leider ist das Integral der Rendering Gleichung so komplex, dass es analytisch nicht gelöst werden kann. Es gibt aber Algorithmen welche die Komplexität reduzieren und Ergebnisse liefern, welche sich an die Rendering Gleichung annähern.
 
 \subsection{Rendering Techniken}
-Wie bereits erwähnt ist die Rendering Gleichung analytisch nicht berechenbar. Da jedoch in der Realität Reflexionen zwischen Oberflächen einen großteil der Beleuchtung einer Szene ausmachen, kann die globale Beleuchtung im Rendering nicht vernachlässigt werden. Gerade im Film wird sie zur realistischen Darstellung von Objekten benötigt. Desweiteren muss eine professionelle Rendering Technik noch einige weitere Fähigkeiten mitbringen. Catmull, Cook und Carpenter beschreiben diese in ihrem Paper zum Pixar eigenen Renderer Reyes wie folgt \cite{REYES}:
+Wie bereits erwähnt ist die Rendering Gleichung analytisch nicht berechenbar. Da jedoch in der Realität Reflexionen zwischen Oberflächen einen Großteil der Beleuchtung einer Szene ausmachen, kann die globale Beleuchtung im Rendering nicht vernachlässigt werden. Gerade im Film wird sie zur realistischen Darstellung von Objekten benötigt. Desweiteren muss eine professionelle Rendering Technik noch einige weitere Fähigkeiten mitbringen. Catmull, Cook und Carpenter beschreiben diese in ihrem Paper zum Pixar eigenen Renderer Reyes wie folgt \cite{REYES}:
 
 \begin{itemize}
 	\item \textbf{Model Komplexität.} In einem mit CGI versehenen Film sollen Bilder erzeugt werden, welche visuell besonders ansprechend und detailreich sind. Das setzt voraus, dass Szenen mit einer Vielzahl von einzelnen Objekten die wiederum unterteilt sein können gerendert werden müssen.
@@ -99,16 +99,16 @@ Wie bereits erwähnt ist die Rendering Gleichung analytisch nicht berechenbar. Da
 	
 	\item \textbf{Flexibilität.} Im Laufe der Zeit werden immer neue und bessere Rendering Methoden entwickelt. Eine aktuelle Rendering Technik sollte flexibel genug sein neue Methodiken in den bestehenden Rendering Prozess zu integrieren.
 \end{itemize}
-Im Folgenden werden zwei Rendering Techniken besprochen, welche eine Annäherung an die durch die Rendering Gleichung beschriebene Globale Beleuchtung ermöglichen und die oben genannten Anforderungen erfüllen. Die Techniken werden bereits zur Erzegung synthetischer Filme eingesetzt und werden in den von Pixar Animation Studios bereit gestellten Papern \cite{cars} und \cite{REYES} beschrieben.
+Im Folgenden werden kurz zwei Rendering Techniken besprochen, welche eine Annäherung an die durch die Rendering Gleichung beschriebene Globale Beleuchtung ermöglichen und die oben genannten Anforderungen erfüllen. Die Techniken werden bereits zur Erzegung synthetischer Filme eingesetzt und werden in den von Pixar Animation Studios bereit gestellten Papern \cite{cars} und \cite{REYES} beschrieben.
 
 \subsubsection{Die Reyes Bild Rendering Architektur}
 Reyes ist eine bei Pixar Animation Studios eingesetztes Rendering Technik. Sie stellt eine schnelle und hochqualitative Lösung zum Rendern komplexer Bilder dar. Hierbei bezieht sich schnell darauf, dass ein Spielfilm in in etwa einem Jahr gerendert werden kann. Hochqualitativ, weil synthetisch erzeugte Bilder nicht von realen Fotos zu unterscheiden sind und komplex weil Reyes auf grafisch sehr aufwendige Szenen angewendet werden kann.
 
-Dies gelingt Reyes, da es immer nur kleine Teile der Szene im Hauptspeicher halten muss. Dieses Prinzip wird auch geometrische Lokalität genannt. Berechnungen geometrischer Primitiven werden ohne Abhängigkeit anderer geometrischen Primitiven im Raum durchgeführt. In vielen Fällen können globale Berechnungen durch Textur-Maps angenähert werden. Reflexionen können zum Beispiel durch Umgebungs-Maps dargestellt werden. Beim Mapping-Vorgang werden die Punkte der Map im Texturraum den Punkten des Polygons zugeordnet. Umgebungs-Maps können vor dem eigentlichen Rendering Prozess berechnet werden und bei gleichbleibenden Blickwinkel beliebig oft wiederverwendet werden. Ein tieferer Einblick in Textur- und Umgebungs-Maps ist in \cite{maps} zu finden. 
+Dies gelingt Reyes, da es immer nur kleine Teile der Szene im Hauptspeicher halten muss. Dieses Prinzip wird auch geometrische Lokalität genannt. Berechnungen geometrischer Primitiven werden ohne Abhängigkeit anderer geometrischen Primitiven im Raum durchgeführt. In vielen Fällen können globale Berechnungen durch Textur-Maps angenähert werden. Reflexionen können zum Beispiel durch Umgebungs-Maps und Schatten durch Beleuchtungs-Maps dargestellt werden. Beim Mapping-Vorgang werden die Punkte der Map im Texturraum den Punkten des Polygons zugeordnet. Umgebungs- und Schatten-Maps können vor dem eigentlichen Rendering Prozess berechnet werden und bei gleichbleibenden Blickwinkel beliebig oft wiederverwendet werden. Ein tieferer Einblick in Textur-mapping ist in \cite{maps} zu finden. 
 Rendering Techniken wie Ray Tracing oder Radiosity müssen hingegen immer Zugriff auf die gesamte Szene zum shaden eines einzelnen Punktes haben. Denn hier muss ein Licht auf seiner gesamten Ausbreitung verfolgt werden und kann nicht im Voraus berechnet werden. Hoch komplexe Szenen können jedoch in vielen Fällen nicht als ganzes Im Hauptspeicher gehalten werden. Aus diesem Grund kam Ray Tracing zum Rendern von Filmen lange nicht in Frage.
 
 Da der Algorithmus von Reyes immer nur ein Objekt nacheinander einließt tritt dieses Speicherproblem nicht auf.
-Der Algorithmus für jedes Objekt ist in \ref{reyesAlgo} beschrieben.
+Der Algorithmus für jedes Objekt ist in Abbildung \ref{reyesAlgo} beschrieben.
 \begin{figure}[t]
 \centering
 	\includegraphics[width=.5\linewidth]{02_Rendering/img/reyesalgo.png}
@@ -117,9 +117,9 @@ Der Algorithmus für jedes Objekt ist in \ref{reyesAlgo} beschrieben.
 \centering
 \end{figure}
 Vor Beginn wird ein Z Buffer für die gesamte Szene benötigt. So kann die Sichtbarkeit der Objekte überprüft werden.
-Nach dem Einlesen wird jedes Objekt auf eine einheitliche, geometrische Form reduziert. Diese Form wird Mikropolygone genannt. Alle Shading Operationen finden auf Basis dieser kleinsten Einheit statt. Die Aufteilung in Mikropolygone wird Dicing genannt. Es werden jedoch nur Objekte gediced, welche sich komplett im sichtbaren Bereich befinden. Objekte, welche als ganzes nicht sichtbar sind, werden verworfen. Befindet sich jedoch ein Objekt nur zum Teil im Sichtfeld des Betrachters, findet vor dem Dicing eine gröbere Unterteilung statt, welche sich Splitting nennt. Das Splitting hat als Ergebnis immer Patches welche sich auf den Texturraum mappen lassen. Die Patches werden dann erneut nach ihrer diceability überprüft. Erst wenn ein Patch komplett sichtbar ist, wird er gediced. Nicht sichtbare Patches werden verworfen. Sind alle sichtbaren Teile eines Objektes in Mikropolygone aufgeteilt, so findet das Shading in Form von Textur-Mapping statt. Nach einem antialiasing Prozess wird dann das Bild erzeugt. In Abbildung \ref{sphere} ist eine Kugel zu sehen, welche den Algorithmus bis zum Dicing durchlaufen ist.
+Nach dem Einlesen wird jedes Objekt auf eine einheitliche, geometrische Form reduziert. Diese Form wird Mikropolygone genannt. Alle Shading Operationen finden auf Basis dieser kleinsten Einheit statt. Die Aufteilung in Mikropolygone wird Dicing genannt. Es werden jedoch nur Objekte gediced, welche sich komplett im sichtbaren Bereich befinden. Objekte, welche als ganzes nicht sichtbar sind, werden verworfen. Befindet sich jedoch ein Objekt nur zum Teil im Sichtfeld des Betrachters, findet vor dem Dicing eine gröbere Unterteilung statt, welche sich Splitting nennt. Das Splitting hat als Ergebnis immer Patches welche sich auf den Texturraum mappen lassen. Die Patches werden dann erneut nach ihrer diceability überprüft. Erst wenn ein Patch komplett sichtbar ist, wird er gediced. Nicht sichtbare Patches werden verworfen. Sind alle sichtbaren Teile eines Objektes in Mikropolygone aufgeteilt, so findet das Shading in Form von Textur-Mapping statt. Alle Mikropolygone innerhalb eines Patches werden auf einmal geshaded. Nach einem antialiasing Prozess wird das Bild erzeugt. In Abbildung \ref{sphere} ist eine Kugel zu sehen, welche den Algorithmus bis zum Dicing durchlaufen ist.
 
-Über eine Back Door wird den Anwendern ermöglicht auch eigene Shader in den Rendering Prozess zu integrieren.
+Die Flexibilität der Reyes Rendering Technik ist über eine Back Door gegeben, welche es dem Anwender ermöglicht auch eigene Shader in den Rendering Prozes zu integrieren.
 
 \begin{figure}[t]
 \centering
@@ -130,6 +130,38 @@ Nach dem Einlesen wird jedes Objekt auf eine einheitliche, geometrische Form red
 \end{figure}
 
 Die Reyes Rendering Technik bringt viele Vorteile mit sich. Das Shading findet auf simplen einheitlichen Formen statt. Es muss immer nur ein kleiner Teil der Szene im Hauptspeicher gehalten werden, so können nahezu beliebig komplexe Szenen gerendert werden. Durch das Anwenden von Textur-Maps können reelle Materialien und Reflexionseigenschaften mit einem vertretbaren Aufwand berechnet werden und Berechnungen wie Clipping entfallen.
+
+\subsubsection{Ray Tracing}
+ Wie bereits erwähnt kam das Rendern komplexer Szenen mit einem Ray Tracer lange nicht in Frage. Christensen, Fong, Laur und Batali veröffentlichten jedoch 2006 ein Paper in welchem sie beschrieben mit welchen Techniken sie in der Lage waren dem im gleichen Jahr erschienenen Spielfirm Cars mit Ray Tracing zu verwirklichen \cite{cars}. Sie sehen die Vorteile im Ray Tracing gegenüber zur Reyes Rendering Technik in der Darstellung korrekter Reflexionen, und detailreicher Schatten. Objekte deren Reflexion über Umgebungs-Maps realisiert wurden, können sich zum Beispiel nicht in sich selbst spiegeln oder Objekte reflektieren, welche auch eine Spiegeloberfläche besitzen. Eine Gegenüberstellung einer Reflexion welche mit einer Umgebungs-Map und einer die mit einem Ray Tracer gerendert wurde ist in Abbildung \ref{reflection} zu sehen.
+ 
+ \begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.6\linewidth]{02_Rendering/img/map.png}
+  \caption[Reflexion durch Umgebungs-Map ]{Reflexion durch Umgebungs-Map.}
+  \label{environmentMap}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.6\linewidth]{02_Rendering/img/traced.png}
+  \caption[Reflexionen durch Ray Tracer]{Reflexion durch Ray Tracer.}
+  \label{rayTracerReflect}
+\end{subfigure}
+\caption[Vergleich von Reflexionen erstellt durch Umgebungs-Maps beziehungsweise einem Ray Tracer.]{Vergleich von Reflexionen erstellt durch Umgebungs-Maps beziehungsweise einem Ray Tracer. Entnommen aus \cite{cars}.}
+\label{reflection}
+\end{figure}
+
+Um zu verstehen in wie Weit sich das Ray Tracing in einem Spielfilm wie Cars von einem gewöhnlichen Ray Tracer unterscheidet wird zunächst die Vorgehensweise und Performance Nachteile eines herkömmlichen rekursiven Ray Tracers nach nach \cite{whitted} beschrieben, um dann die leistungssteigernden Anpassung des Ray Tracers aus \cite{cars} zu beleuchten.
+
+Das Ray Tracing verfolgt Lichtstrahlen entgegengesetzt der Richtung ihrer Fortpflanzung vom Auge zurück in die Szene und zur Lichtquelle. Zur Erstellung eines zweidimensionalen Bildes sind nur die Lichtstrahlen interessant, welche auch wirklich in das Auge des Betrachters fallen. Es wird für jeden Pixel des zu rendernden Bildes ein Strahl in die Szene geworfen. Wird ein Objekt getroffen, werden ein reflektierter beziehungsweise bei transparenten Objekten ein gebrochener Strahl am Schnittpunkt erzeugt und rekursiv verfolgt. Da immer nur ein oder zwei Strahlen pro Schnittpunkt erzeugt werden können, lassen sich mit einem rekursiven Ray Tracer nur spekulare Wechselwirkungen modellieren. Der Algorithmus kommt zum Stillstand, wenn der Strahl auf eine diffuse Oberfläche oder die Lichtquelle trifft,  die Szene verlässt oder eine Maximal Anzahl an Schnittpunkten erreicht hat. Letzteres ist zum Beispiel notwendig, wenn ein Strahl immer wieder von einem Spiegel in einen anderen reflektiert wird. Schatten werden generiert, indem bei jedem Schnittpunkt die Sichtbarkeit dessen von allen Lichtquellen aus geprüft werden.
+
+Für die Schnittpunktberechnung eines jeden Strahls ist eine Iteration über alle Polygone der Szene notwendig. Zusätzlich müssen alle Polygone bei der Berechnung der Schatten berücksichtigt werden. Auf diese Weise ist die Schnittpunktberechnung enorm Aufwendig und setzt bereits bei kleinen Szenen eine hohe Rechenleistung einen großen Hauptspeicher voraus.
+
+Der hohe Aufwand des Ray Tracings wird also hauptsächlich durch die Schnittpunktberechnung verursacht. Um Ray Tracing im Spielfilm Cars zu verwenden wurden hier Optimierungen durchgeführt. Alle Objekte werden in einfache Körper eingeschlossen, der als Hüllkörper bezeichnet wird. Nun wird zuerst geprüft, ob ein Strahl den Hüllkörper schneidet bevor der tatsächliche Schnittpunkt mit dem Objekt berechnet wird. Hüllkörper wie zum Beispiel eine Kugel zeichnen sich durch die leichte Berechnung von Schnittpunkten und durch eine möglichst knappe Umhüllen von Objekten aus. Um den Nutzen von Hüllkörpern zu maximieren, können mehrere Objekte auch zu Gruppen zusammen gefasst und umschlossen werden. Die Erzeugung und der effiziente Einsatz von Hüllkörpern wird in \cite{boundingVolume} beschrieben. In diesem Model werden auch zunächst die Hüllkörper für die Schnittpunktberechnung betrachtet, welche dem Strahl am nächsten sind.
+
+
+, Strahlenkohärenz in Kombination mit Textur- und Geometrie-Caches vereinfacht die Schnittpunktberechnung drastisch. Alle Objekte werden in einfache Hüllkörper gesteckt. 
 
 
 
