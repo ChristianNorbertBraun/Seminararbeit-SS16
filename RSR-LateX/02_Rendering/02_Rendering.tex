@@ -22,7 +22,7 @@ Dabei ist zu beachten, dass sowohl spekulare sowie diffuse Reflexionen auftreten
 In der Realität verhalten sich verschiedene Materialien bei gleicher Beleuchtung unterschiedlich bezüglich ihrer Reflexionseigenschaften. Die Menge des reflektierten Lichts eines Punktes bei direkter Beleuchtung in eine bestimmte Richtung kann mittels einer Bi-Directional Reflection Distribution Function (BRDF) berechnet werden. Hierbei wird der Punkt völlig isoliert in der Szene betrachtet. Wechselwirkungen mit anderen Objekten wie Schatten oder gegenseitige Reflexionen werden im lokalen Model nicht berücksichtig.  Alan Watt beschreibt diese Funktion in seinem Buch 3D Computergrafik wie folgt \cite{localLightCite}:
 \begin{equation}
 \label{BRDFEq}
-BRDF=f(\theta in, \phi in, \theta ref, \phi ref) = f(L, V)
+\mathrm{BRDF}=f(\theta_\mathrm{in}, \phi_\mathrm{in}, \theta_ref, \phi ref) = f(L, V)
 \end{equation}
 Dabei beschreiben $\phi in$ beziehungsweise $\phi ref$ den Einfallswinkel sowie $\theta in$ und $\theta ref$ den Brechungswinkel der Strahlen. Die aus \cite{localLightCite} entnommene Abbildung \ref{BRDF} verdeutlicht die Beziehung der Parameter.
 \begin{figure}[t]
