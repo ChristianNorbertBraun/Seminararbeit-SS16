@@ -1,0 +1,53 @@
+\documentclass{beamer}
+%
+% Choose how your presentation looks.
+%
+% For more themes, color themes and font themes, see:
+% http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
+%
+\mode<presentation>
+{
+	\usetheme{default}      % or try Darmstadt, Madrid, Warsaw, ...
+	\usecolortheme{default} % or try albatross, beaver, crane, ...
+	\usefonttheme{default}  % or try serif, structurebold, ...
+	\setbeamertemplate{navigation symbols}{}
+	\setbeamertemplate{caption}[numbered]
+	\setbeamertemplate{footline}{%
+		\raisebox{5pt}{\makebox[\paperwidth]{\hfill\makebox[10pt]{\scriptsize\insertframenumber}}}}
+} 
+
+\usepackage{ngerman}
+\usepackage{graphicx}
+\usepackage[latin1]{inputenc}
+\usepackage{amscd}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{bibgerm}
+\usepackage{nameref}
+
+
+\usepackage{pdfcomment}
+\newcommand{\pdfnote}[1]{\marginnote{\pdfcomment[icon=note]{#1}}}
+
+\title{Rigging - Skinning - Rendering}
+\author{Marcel Gross, Julian Kurz, Christian Braun}
+\institute{Schwerpunktseminar Medieninformatik Fachhochschule Wuerzburg-Schweinfurt}
+\date{\today}
+
+
+\begin{document}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	% Uncomment these lines for an automatically generated outline.
+	%\begin{frame}{Outline}
+	%	\tableofcontents
+	%\end{frame}
+	
+	\input{00_Rigging/00_Rigging.tex}
+	\input{01_Skinning/01_Skinning.tex}
+	\input{02_Rendering/02_Rendering.tex}
+	
+\end{document}
