@@ -26,7 +26,14 @@
 \usepackage{bibgerm}
 \usepackage{nameref}
 
+\usepackage{lipsum}
 
+\newcommand\blfootnote[1]{%
+	\begingroup
+	\renewcommand\thefootnote{}\footnote{#1}%
+	\addtocounter{footnote}{-1}%
+	\endgroup
+}
 \usepackage{pdfcomment}
 \newcommand{\pdfnote}[1]{\marginnote{\pdfcomment[icon=note]{#1}}}
 

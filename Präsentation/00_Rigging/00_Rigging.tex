@@ -5,6 +5,7 @@
 				\colorbox{black!10}{\Huge{Was ist Rigging?}}
 			\end{figure}
 			}
+	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{rig1}}}
 
 	\pdfnote{Frage an alle}
 	\pdfnote{1. Ansatz: Motion-Capture->Punktwolke->Skelett->Kein Modell}
@@ -16,6 +17,8 @@
 {
 	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig2.jpg}}
 	\begin{frame}{}
+		
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{rig2}}}
 		
 		\pdfnote{Hierarchisch aufgebautes Skelett + 3D-Modell + Bewegungdaten}
 		
@@ -45,6 +48,8 @@
 			\end{figure}
 		}
 		
+		\blfootnote{\colorbox{black!10}{Bildquellen: \cite{rig3, rig4, rig5}}}
+		
 		\pdfnote{Erfahrener Fachmann, manuelles Platzieren des Skeletts}
 		\end{frame}
 }
@@ -66,6 +71,8 @@
 	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig4.jpg}}
 	\begin{frame}{ \colorbox{black!10}{\Huge{Performanz}}}
 			
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{rig6}}}
+			
 		\pdfnote{Schneller als manuelles Riggen}
 	\end{frame}
 }
@@ -73,7 +80,10 @@
 {
 	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig5.jpg}}
 	\begin{frame}{\colorbox{black!10}{\Huge{Allgemeingültigkeit}}
-			}	
+			}
+			
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{rig7}}}
+				
 		\pdfnote{Nicht begrenzt auf best. Modelle}
 	\end{frame}
 }
@@ -81,6 +91,8 @@
 {
 	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig6.jpg}}
 	\begin{frame}{\colorbox{black!10}{\Huge{Selbständigkeit}}}
+			
+		\blfootnote{\colorbox{black!10}{Bild nachempfunden von: \cite{rig8}}}	
 			
 		\pdfnote{Geringe Interaktion mit dem Benutzer}
 	\end{frame}
@@ -197,13 +209,15 @@
 {
 	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig7.png}}
 	\begin{frame}{}
-		
+	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{extraction}}}	
 	\end{frame}
 }
 
 {
 	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig8.png}}
 	\begin{frame}{\Huge{Kurven-Skelett-Extrakton I}}
+		
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{extraction}}}
 		
 		\pdfnote{Dreiecksnetz mit Delaunay-Triangulation}
 		\pdfnote{Mittelpunkt für Kanten die nicht Mesh berühren}
@@ -214,14 +228,18 @@
 {
 	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig9.png}}
 \begin{frame}{\Huge{Kurven-Skelett-Extrakton II}}
+	
+	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{extraction}}}
 		
-		\pdfnote{Orthogonale Projektionen finden und ges. Vorgang wiederholen}
-	\end{frame}
+	\pdfnote{Orthogonale Projektionen finden und ges. Vorgang wiederholen}
+\end{frame}
 }
 
 {
 	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig10.png}}
 	\begin{frame}{}
+		
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{extraction}}}
 		
 		\pdfnote{Begradigen der gefundenen Mittelachsen}
 		\pdfnote{Start und Ende der Achsen sind Gelenke}
@@ -251,8 +269,10 @@
 		\item Finden der medialen Flächen
 	\end{itemize}
 	\begin{figure}
-		\includegraphics[width=.4\textwidth]{00_Rigging/Pictures/rig11.png}
+		\includegraphics[width=.3\textwidth]{00_Rigging/Pictures/rig11.png}
 	\end{figure}
+	
+	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{embedding}}}
 	
 	\pdfnote{Äquivalent zur Mittelachse}
 	\pdfnote{Auf diesen Flächen erwartet man das Skellet}
@@ -268,8 +288,10 @@
 		\item Erstellung einer Abart der "{}Dichtesten Kugelpackung"{}
 	\end{itemize}
 	\begin{figure}
-		\includegraphics[width=.4\textwidth]{00_Rigging/Pictures/rig12.png}
+		\includegraphics[width=.3\textwidth]{00_Rigging/Pictures/rig12.png}
 	\end{figure}
+	
+	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{embedding}}}
 	
 	\pdfnote{jeder Punkt der med. Fläche -> Mittelpunkt}
 	\pdfnote{Startpunkt: Distanz: Mittelpunkt -> Oberläche am größten}
@@ -282,8 +304,10 @@
 	\end{figure}}
 	
 	\begin{figure}
-		\includegraphics[width=.4\textwidth]{00_Rigging/Pictures/rig13.png}
+		\includegraphics[width=.3\textwidth]{00_Rigging/Pictures/rig13.png}
 	\end{figure}
+	
+	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{embedding}}}
 	
 	\pdfnote{Jeder Mittelpunkt -> Knoten im Graph}
 	\pdfnote{schneidende Kugeln oder Gabriel Nachbarn -> Kanten im Graph}
@@ -297,6 +321,8 @@
 	\begin{figure}
 		\includegraphics[width=.2\textwidth]{00_Rigging/Pictures/rig14.png}
 	\end{figure}
+	
+	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{embedding}}}
 	
 	\pdfnote{Vereinfachung der 2. Grad Gelenke (Knie, Elbogen)}
 	\pdfnote{Reduktion der Freiheitsgrade der Straffunktionen}
@@ -361,6 +387,8 @@
 			\includegraphics[width=.3\textwidth]{00_Rigging/Pictures/rig15.png}
 		\end{figure}
 		
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{embedding}}}
+		
 		\pdfnote{Punkt starten -> Beste partielle Einbdindung finden -> bis Skelett komplett verbunden}
 		\pdfnote{erneute Optimierung mit neuen Straffunktionen}
 \end{frame}	
@@ -419,6 +447,8 @@
 {
 	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig16.png}}
 	\begin{frame}{}
+		
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{embedding}}}
 		
 		\pdfnote{Probleme bei 7, 10 und 13}
 		
