@@ -14,6 +14,7 @@
 	\setbeamertemplate{caption}[numbered]
 	\setbeamertemplate{footline}{%
 		\raisebox{5pt}{\makebox[\paperwidth]{\hfill\makebox[10pt]{\scriptsize\insertframenumber}}}}
+	\setbeamertemplate{bibliography item}{\insertbiblabel}
 } 
 
 \usepackage{ngerman}
@@ -34,6 +35,7 @@
 \institute{Schwerpunktseminar Medieninformatik Fachhochschule Wuerzburg-Schweinfurt}
 \date{\today}
 
+\bibliographystyle{geralpha}
 
 \begin{document}
 	
@@ -49,5 +51,9 @@
 	\input{00_Rigging/00_Rigging.tex}
 	\input{01_Skinning/01_Skinning.tex}
 	\input{02_Rendering/02_Rendering.tex}
+	
+	\begin{frame}
+		\bibliography{RSR}
+	\end{frame}
 	
 \end{document}
