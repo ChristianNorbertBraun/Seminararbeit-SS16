@@ -8,9 +8,11 @@ Jeder Anwendungsfall hat andere Anforderungen und Prioritäten an das Rendering. 
 Hier müssen die Bilder in einer angemessenen Zeit gerendert werden und trotzdem einen hohen Detailgrad aufweisen. Zusätzlich müssen sich Licht und Materialien im Filmkontext korrekt verhalten und dem Betrachter das Gefühl einer realistischen Szene geben. Das heißt es müssen Reflexionen, Brechungen von Licht, sowie Schatten und Materialeigenschaften wie Transparenz berücksichtigt werden. All das kann bereits bei relativ kleinen Objekten zu aufwendigen Berechnungen führen. Beim Film wird jedoch mit sehr komplexen Szenen gearbeitet, welche aus vielen Objekten bestehen. Aus diesen Szenen müssen für eine Sekunde Film 24 hochauflösende Bilder erstellt werden. Im Folgenden werden zunächst grundlegende Eigenschaften von Beleuchtung und Materialien erörtert, um dann unter Berücksichtigung der oben genannten Anforderungen, auf die Erzeugung einer komplett synthetischen Szene wie in Abbildung \ref{cars} als auch das Einfügen unseres synthetischen Charakters in eine reale Szene einzugehen.
 
 \begin{figure}[t]
+\centering
 	\includegraphics[width=13cm]{02_Rendering/img/cars.png}
 	\caption[Bild aus dem Film Cars]{Bild aus dem Film Cars. Entnommen aus \cite{cars}.}
 	\label{cars}
+\centering
 \end{figure}
 
 \subsection{Licht}
@@ -27,9 +29,11 @@ In der Realität verhalten sich verschiedene Materialien bei gleicher Beleuchtung
 \end{equation}
 Dabei beschreiben $\phi_\mathrm{in}$ beziehungsweise $\phi_\mathrm{ref}$ den Einfallswinkel sowie $\theta_\mathrm{in}$ und $\theta_\mathrm{ref}$ den Brechungswinkel der Strahlen. Die aus \cite{localLightCite} entnommene Abbildung \ref{BRDF} verdeutlicht die Beziehung der Parameter.
 \begin{figure}[t]
+\centering
 	\includegraphics[width=13cm]{02_Rendering/img/brdf.jpg}
 	\caption[BRDF]{BRDF zur Beschreibung des Verhältnisses des einfallenden Lichts $L$ und des reflektierten Lichts $V$. Entnommen aus \cite{localLightCite}.}
 	\label{BRDF}
+\centering
 \end{figure}
 Um die unterschiedlichen Reflexionseigenschaften von Materialien zu simulieren werden verschiedene BRDFs modelliert. Die Kombination einzelner spekularen beziehungsweise diffusen Komponenten simuliert das Verhalten realer Oberflächen. Im Folgenden werden zwei Modelle zur Reflexion vorgestellt wie sie in \cite{brdf, brdf2} beschrieben sind.
 
@@ -183,25 +187,25 @@ Die Abhängigkeiten und Wechselwirkungen der Distanzszene, lokalen Szene und dem 
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.8\linewidth]{02_Rendering/img/room_1_2.JPG}
+  \includegraphics[width=.4\linewidth]{02_Rendering/img/room_1_2.JPG}
   \caption[Aufnahme mit 0.5 Sekunden Belichtungszeit.]{Aufnahme mit 0.5 Sekunden Belichtungszeit.}
   \label{shutterhalf}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.8\linewidth]{02_Rendering/img/room_1.JPG}
+  \includegraphics[width=.4\linewidth]{02_Rendering/img/room_1.JPG}
   \caption[Aufnahme mit 1 Sekunde Belichtungszeit.]{Aufnahme mit 1 Sekunde Belichtungszeit.}
   \label{shutterone}
 \end{subfigure}
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.8\linewidth]{02_Rendering/img/room_4.JPG}
+  \includegraphics[width=.4\linewidth]{02_Rendering/img/room_4.JPG}
   \caption[Aufnahme mit 4 Sekunde Belichtungszeit.]{Aufnahme mit 4 Sekunde Belichtungszeit.}
   \label{shutterone}
 \end{subfigure}
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.8\linewidth]{02_Rendering/img/room.png}
+  \includegraphics[width=.4\linewidth]{02_Rendering/img/room.png}
   \caption[Erstelltes HDRI]{Erstelltes HDRI}
   \label{shutterHDRI}
 \end{subfigure}
@@ -224,19 +228,19 @@ Die möglichst realitätsgetreue Einbettung des synthetischen Models steht und fäl
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.8\linewidth]{02_Rendering/img/prob1.jpg}
+  \includegraphics[width=.5\linewidth]{02_Rendering/img/prob1.jpg}
   \caption[Spiegelball aus Perspektive 1]{Spiegelball aus Perspektive 1.}
   \label{probe1}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.8\linewidth]{02_Rendering/img/prob2.jpg}
+  \includegraphics[width=.5\linewidth]{02_Rendering/img/prob2.jpg}
   \caption[Spiegelball aus Perspektive 2]{Spiegelball aus Perspektive 2.}
   \label{probe2}
 \end{subfigure}
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.8\linewidth]{02_Rendering/img/propfull.jpg}
+  \includegraphics[width=.5\linewidth]{02_Rendering/img/propfull.jpg}
   \caption[Zusammengesetzte Lichtsonde]{Zusammengesetzte Lichtsonde}
   \label{probefull}
 \end{subfigure}
@@ -244,7 +248,7 @@ Die möglichst realitätsgetreue Einbettung des synthetischen Models steht und fäl
 \label{probe}
 \end{figure}
 
-Mit der Reflexion der Umgebung in der Lichtsonde und dem Wissen über ihre Position ihre Beschaffenheit und der relativen Position der Kamera, kann ein dreidimensionales Objekt der Lichtsonde erstellt und korrekt in einer Box platziert werden. Nun kann die Distanzszene erstellt werden. Dazu wird die Oberfläche der Kugel auf eine Box gemapped. Es werden Strahlen vom Betrachter auf die synthetische Lichtsonde geschickt und der reflektierte Strahl verfolgt. Trifft der Strahl eine Wand der Box, so erhält der Punkt das Shading der Kugel. Führt man das für alle Punkte der Lichtsonde aus, erhält man eine Box deren Wände einem lichtbasiertes Model der Szene entspricht, der Distanzszene. Jeder Punkt auf der Oberfläche der Box beinhaltet die Intensität, mit welcher die Lichtsonde mit dem korrespondierenden Punkt im realen Bild bestrahlt wurde. In Abbildung \ref{distantszene} ist die erstellte Distanzszene abgebildet.
+Mit der Reflexion der Umgebung in der Lichtsonde und dem Wissen über ihre Position ihre Beschaffenheit und der relativen Position der Kamera, kann ein dreidimensionales Objekt der Lichtsonde erstellt und korrekt in einer Box platziert werden. Nun kann das lichtbasierte Model der Distanzszene erstellt werden. Dazu wird die Oberfläche der Kugel auf eine Box gemapped. Dazu werden Strahlen vom Betrachter auf die synthetische Lichtsonde geschickt und der reflektierte Strahl verfolgt. Trifft der Strahl eine Wand der Box, so erhält der Punkt das Shading der Kugel. Führt man das für alle Punkte der Lichtsonde aus, erhält man eine Box deren Wände einem lichtbasiertes Model der Szene entspricht, der Distanzszene. Jeder Punkt auf der Oberfläche der Box beinhaltet die Intensität, mit welcher die Lichtsonde mit dem korrespondierenden Punkt im realen Bild bestrahlt wurde. In Abbildung \ref{distantszene} ist das erstellte lichtbasierte Model der Distanzszene abgebildet. Mit einer korrekt erstellten Distanzszene können synthetische Modelle entsprechend der Lichtbedingungen der realen Szene beleuchtet werden. Wichtig ist, dass sich das Model ungefähr an der Stelle der Lichtsonde befindet und die aktuelle Kameraposition in Relation zur Kameraposition zur Erstellung der Lichtsonde bekannt ist.
 
 \begin{figure}[t]
 \centering
@@ -252,4 +256,44 @@ Mit der Reflexion der Umgebung in der Lichtsonde und dem Wissen über ihre Positi
 	\caption[Beispiel eines lichtbasierten Models.]{ Beispiel eines lichtbasierten Models. Das Model beinhaltet die komplette dynamische Breite der Intensitäten der realen Szene. Entnommen aus \cite{realImages}.}
 	\label{distantszene}
 \centering
+\end{figure}
+
+\subsubsection{Einfügen des synthetischen Models in die Szene}
+Um das synthetische Model nahtlos in die reale Szene einzufügen muss es in Kombination mit dem Ursprungsbild gerendert werden. Dazu muss das dreidimensionale Abbild der lokalen Szene mit den korrekten BRDFs existieren. Die BRDFs können entweder manuell angegeben werden oder über einen iterativen Prozess ermittelt werden. Hierbei wird das das synthetische Abbild der lokalen Szene immer wieder mit unterschiedlichen Parametern für die BRDFs gerendert und das Ergebnis mit dem Ursprungsbild verglichen.
+Nun wird das synthetische Model mit der lokalen Szene in das Bild der realen Szene eingefügt. Es können Bilder aus beliebigen Blickwinkeln der Szene gemacht werden, sofern relative Position der ursprünglichen Lichtsonde zum Blickwinkel bekannt ist. Zum Rendern wird ein Raytracer angewendet. Die Strahlen werden in die Szene geschossen und verfolgt. Trifft der Strahl Teile der realen Szene beziehungsweise die Distanzszene wird er verworfen. Trifft er jedoch Oberflächen des synthetischen Models oder der lokalen Szene, so wird er rekursiv weiterverfolgt. Dieser Prozess wird gestoppt, nachdem eine maximal Anzahl an Schritten erreicht ist, oder der Strahl in das lichtbasierte Model der Distanzszene fällt. Die Intensität des Schnittpunktes geht in das Shading der lokalen Szene und des synthetischen Models ein. Ein Nachteil bei diesem Vorgehen ist, dass die Materialeigenschaften sowie die Geometrie der lokalen Szene korrekt sein müssen. Wenn die BRDFs falsch gewählt wurden, hebt sich die gerenderte lokale Szene stark innerhalb des fertig gerenderten Bildes von dem unveränderten Teil der Szene ab. Für ein besseres Ergebnis sollten also nur die Teile der lokalen Szene in das final gerenderte Bild eingehen, welche durch das einfügen des synthetischen Models auch eine Beleuchtungsänderung erfahren haben.
+
+\begin{equation}
+\label{errorImage}
+	\mathrm{LS_{final}} = \mathrm{LS_b} + (\mathrm{LS_{obj}} - \mathrm{LS_{noobj}})
+\end{equation}
+
+In dieser Formel kann man gut erkennen, dass wenn die Differenz der lokale Szene mit dem synthetischen Objekt, $\mathrm{LS_{obj}}$ und die lokale Szene ohne Objekt, $\mathrm{LS_{noobj}}$, $0$ ergibt die finale lokale Szene, $\mathrm{LS_{final}}$ dem realen Bild der lokalen Szene, $\mathrm{LS_b}$ entspricht. Wenn $\mathrm{LS_{obj}}$ dunkler als $\mathrm{LS_{noobj}}$ ist, werfen die Objekte Schatten. Ist der Unterschied der beiden lokalen Szenen positiv wird Licht von den Objekten auf die lokale Szene geworfen. Mit diesem Wissen, können nur noch die Teile der lokalen Szene beim Erstellen des finalen Bildes betrachtet werden, welche auch wirklich durch das synthetische Model beeinflusst werden.
+
+Durch den in diesem Abschnitt beschriebenen Algorithmus kann ein synthetisches Model in eine reale Szene eingefügt werden. Das modellieren  der lokalen Szene sorgt dafür, dass es korrekte Überschneidungen mit den realen Elementen der Szene gibt und das lichtbasierte Model der Distanzszene liefert die nötigen Informationen über die ursprüngliche Beleuchtungssituation.
+
+Die hier beschriebene Vorgehensweise eignet sich auch gut um unseren synthetischen Charakter in ein reales Bild einzufügen. Sowohl das lichtbasierte Model der Distanzszene als auch die Geometrie- und Materialeigenschaften der lokalen Szene müssen nur einmal bestimmt werden. Von da an ist nur noch die Position der Kamera relevant um den synthetischen Charakter sowie die lokale Szene korrekt zu rendern. Ein Beispiel für das beschriebene Verfahren ist in Abbildung \ref{finalSzene} zu sehen. 
+
+
+\begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{02_Rendering/img/calibration.png}
+  \caption[Kamera Kalibrierung und Lichtsonde]{Kamera Kalibrierung und Lichtsonde}
+  \label{calibration}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{02_Rendering/img/localszene.png}
+  \caption[Objekte und lokale Szene in der realen Szene]{Objekte und lokale Szene in der realen Szene}
+  \label{localszeneObject}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{02_Rendering/img/final.png}
+  \caption[Finales Ergebnis mit den eingefügten synthetischen Objekten]{Finales Ergebnis mit den eingefügten synthetischen Objekten.}
+  \label{szenecomplete}
+\end{subfigure}
+\caption[Zwischenschritte vom kalibrieren der Kamera bis hin zum finalen Bild mit synthetischen Objekten]{ Zwischenschritte vom kalibrieren der Kamera bis hin zum finalen Bild mit den eingefügten synthetischen Objekten unter Berücksichtigung der Beleuchtung. Entnommen aus \cite{realImages}}
+\label{finalSzene}
 \end{figure}
