@@ -1,0 +1,12 @@
+\subsection{Direct Skinning} 
+
+Wenn wir nun also die Bewegung des Gittergraphen mitverfolgen wollen, wäre der nächstliegendste Ansatz jeden Punkt $v$ einen Knochen $i$ zuzuweisen. Nun vollführen wir einfach an die Transformation an diesem Knochen $Wi$ an unserem Punkt um den transformierten Punkt $v'$ zu bekommen. 
+
+\begin{equation}
+\label{formel}
+v'=Wi(v)
+\end{equation}
+
+In der Tat funktioniert dieser Ansatz erstmal ganz gut. Leider nur für feste Materialien wie Stein, Holz oder Metall. Zum Beispiel also ein Roboter. Wenn man sich nun aber organischere Material wie Stoff oder Haut vorstellt wird man feststellen das diese sich ungleichmäßig verformen und gegeneinander verschieben. Besonders gut ist dies zu beobachten an Menschlichen Gelenken, wo sich Haut und Muskeln gegeneinander aufbauen. 
+
+Es ist trotzdem gut sich diesen einfachen Ansatz zu merken, weil jede Abweichung davon begründet ist in der Struktur unseres Modells und jeder abweichende Ansatz sich bei festem Material wieder auf diesen reduzieren lassen muss.  
