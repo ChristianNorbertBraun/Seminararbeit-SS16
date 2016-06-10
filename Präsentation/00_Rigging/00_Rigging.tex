@@ -1,0 +1,458 @@
+\section{Rigging}
+\subsection{Was ist Rigging?}
+{ %öffnende Klammer für hintergrundbild lokal
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig1.jpg}}
+	\begin{frame}{
+			\begin{figure}
+				\colorbox{black!10}{\Huge{Was ist Rigging?}}
+			\end{figure}
+			}
+	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{rig1}}}
+
+	\pdfnote{Frage an alle}
+	\pdfnote{1. Ansatz: Motion-Capture->Punktwolke->Skelett->Kein Modell}
+	\pdfnote{Problem: Was ist welcher Punkt}
+		
+	\end{frame}
+} %schließende klammer für hintergrundbild lokal
+	
+{
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig2.jpg}}
+	\begin{frame}{}
+		
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{rig2}}}
+		
+		\pdfnote{Hierarchisch aufgebautes Skelett + 3D-Modell + Bewegungdaten}
+		
+	\end{frame}
+}
+
+{
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig3.png}}
+	\begin{frame}{
+			\begin{figure}
+				\colorbox{black!10}{\Huge{Manuelles Riggen}}
+			\end{figure}
+		}
+		
+		\onslide<2>{
+			
+			\begin{figure}
+				\centering
+				\begin{minipage}{.4\paperwidth}
+					\centering
+					\includegraphics[width=.3\paperwidth]{00_Rigging/Pictures/maya.jpg}
+				\end{minipage}%
+				\begin{minipage}{.4\paperwidth}
+					\centering
+					\includegraphics[width=.3\paperwidth]{00_Rigging/Pictures/blender-plain.png}
+				\end{minipage}
+			\end{figure}
+		}
+		
+		\blfootnote{\colorbox{black!10}{Bildquellen: \cite{rig3, rig4, rig5}}}
+		
+		\pdfnote{Erfahrener Fachmann, manuelles Platzieren des Skeletts}
+		\end{frame}
+}
+	
+	\begin{frame}{
+			\begin{figure}
+				\Huge{Automatisches Riggen}
+			\end{figure}}
+		
+		\begin{itemize}
+			\item Skelett-Extraktion
+			\item Skelet-Einbindung
+			\item \textcolor{black!60}{Kombination aus beidem}
+		\end{itemize}
+			
+	\end{frame}
+	
+{
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig4.jpg}}
+	\begin{frame}{ \colorbox{black!10}{\Huge{Performanz}}}
+			
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{rig6}}}
+			
+		\pdfnote{Schneller als manuelles Riggen}
+	\end{frame}
+}
+
+{
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig5.jpg}}
+	\begin{frame}{\colorbox{black!10}{\Huge{Allgemeingültigkeit}}
+			}
+			
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{rig7}}}
+				
+		\pdfnote{Nicht begrenzt auf best. Modelle}
+	\end{frame}
+}
+
+{
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig6.jpg}}
+	\begin{frame}{\colorbox{black!10}{\Huge{Selbständigkeit}}}
+			
+		\blfootnote{\colorbox{black!10}{Bild nachempfunden von: \cite{rig8}}}	
+			
+		\pdfnote{Geringe Interaktion mit dem Benutzer}
+	\end{frame}
+}
+\subsection{Skelett-Extraktion}
+\begin{frame}{
+	\begin{figure}
+		\Huge{Skelett-Extraktion}
+	\end{figure}}
+	
+	\begin{itemize}
+		\item Finden der optimalen Projektion
+		\item Globale Suche
+		\item Lokale Suche
+		\item Kurven-Skelett-Extraktion
+		\item Animations-Skelett-Erzeugung
+	\end{itemize}
+	
+	\pdfnote{Kein Skelett im Voraus benötigt}
+	\pdfnote{Einführung einer geometrischen Form: 3D-Silhouette}
+		
+\end{frame}
+
+\begin{frame}{
+	\begin{figure}
+		\Huge{Finden der optimalen Projektion}
+	\end{figure}}
+	
+		\begin{itemize}
+			\item Startpunkt: Punkt mit größtem $y$-Wert
+			\item Suche der Nachbarn im Radius $r$
+				\begin{itemize}
+					\item $r$: max. euklidischer Abstand zwischen Startpunkt und seinem Nachbarn
+					\item $r= \max \Vert q_{i}(x,y,z) - q(x,y,z)\Vert$
+				\end{itemize}
+		\end{itemize}
+		
+\end{frame}
+
+\begin{frame}{
+		\begin{figure}
+			\Huge{Globale Suche I}
+		\end{figure}}
+		
+		
+		$$C\{c_{i}(x,y,z) \vert c_{i}(x,y,z)\in V, c'_{i}(x,y) \in C', C' \subset P, x_{c_{i}} = x_{c'_{i}}, y_{c_{i}} = y_{c'_{i}} \}$$
+		
+		
+		\pdfnote{Wenig Verdeckung -> Max. Oberfläsche}
+		\pdfnote{C, V, P Mengen von Punkten}
+		\pdfnote{C=Silhouette, V=Mesh, P=Projektion}
+		
+	\end{frame}
+
+\begin{frame}{
+	\begin{figure}
+		\Huge{Globale Suche II}
+	\end{figure}}
+	
+	\begin{itemize}
+		\item Finden des nächsten Punkts:
+		\begin{itemize}
+			\item Aufspannen des Vektors $\overrightarrow{OX}$ mit dem Startpunkt als Ursprung
+			\item Antragen der Winkel von $-\pi$ bis $\pi$
+			\item Punkt mit kleinsten Winkel wird Punkt $P_{2}$
+		\end{itemize}
+	\end{itemize}
+		
+\end{frame}
+
+\begin{frame}{
+	\begin{figure}
+		\Huge{Globale Suche III}
+	\end{figure}}
+	
+	\begin{itemize}
+		\item Finden aller Nachbarn in $r$
+		\item Suchen des Punktes mit größtem Winkel $\angle P_{1}P_{2}P_{3}$
+		\item Globale Suche III sooft wiederholen bis Startpunkt wieder erreicht wurde
+	\end{itemize}
+		
+\end{frame}
+
+\begin{frame}{
+	\begin{figure}
+		\Huge{Globale Suche IV}
+	\end{figure}}
+	
+	\begin{itemize}
+		\item Hinzufügen der Tiefeninformation zu jedem Punkt der gefundenen Menge:
+	\end{itemize}
+	$$ C'' \{c''_{i}(x,y,z) \in C'', x_{c''} = x_{c'}, y_{c''} = y_{c'} \} $$
+		
+\end{frame}
+
+\begin{frame}{
+	\begin{figure}
+		\Huge{Lokale Suche}
+	\end{figure}}
+	
+	\begin{itemize}
+		\item Definition des Punktes $c''_{i}(x,y,z)$ als Startpunkt $c_{i1}(x,y,z)$
+		\item Suche des Punktes $c_{i2}(x,y,z)$ mit dem größten Winkel $\angle c_{i2}c''_{i}c_{ij}$ 
+		\item Wiederholen des letzten Schritts bis:
+		\begin{itemize}
+			\item der Startpunkt wieder erreicht wurde oder
+			\item der Abstand zwichen den Punkten kleiner als $r$ ist
+		\end{itemize}
+	\end{itemize}
+		
+	\pdfnote{Cij ist der Vorgänger von Ci1}
+\end{frame}
+
+{
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig7.png}}
+	\begin{frame}{}
+	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{extraction}}}	
+	\end{frame}
+}
+
+{
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig8.png}}
+	\begin{frame}{\Huge{Kurven-Skelett-Extrakton I}}
+		
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{extraction}}}
+		
+		\pdfnote{Dreiecksnetz mit Delaunay-Triangulation}
+		\pdfnote{Mittelpunkt für Kanten die nicht Mesh berühren}
+		\pdfnote{Mittelachse liegt nicht mittig in der Tiefe}
+	\end{frame}
+}
+
+{
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig9.png}}
+\begin{frame}{\Huge{Kurven-Skelett-Extrakton II}}
+	
+	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{extraction}}}
+		
+	\pdfnote{Orthogonale Projektionen finden und ges. Vorgang wiederholen}
+\end{frame}
+}
+
+{
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig10.png}}
+	\begin{frame}{}
+		
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{extraction}}}
+		
+		\pdfnote{Begradigen der gefundenen Mittelachsen}
+		\pdfnote{Start und Ende der Achsen sind Gelenke}
+		\pdfnote{Scheitelpunkte über 18° -> Gelenke}
+	\end{frame}
+}
+\subsection{Skelett-Einbindung}
+\begin{frame}{
+	\begin{figure}
+		\Huge{Skelett-Einbindung}
+	\end{figure}}
+	
+	\begin{itemize}
+		\item Volemenreduktion
+		\item Graph-Erzeugung
+		\item Kontinuierliche Optimierung der Skelett-Einbindung
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}{
+	\begin{figure}
+		\Huge{Volumenreduktion I}
+	\end{figure}}
+	
+	\begin{itemize}
+		\item Finden der medialen Flächen
+	\end{itemize}
+	\begin{figure}
+		\includegraphics[width=.3\textwidth]{00_Rigging/Pictures/rig11.png}
+	\end{figure}
+	
+	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{embedding}}}
+	
+	\pdfnote{Äquivalent zur Mittelachse}
+	\pdfnote{Auf diesen Flächen erwartet man das Skellet}
+	\pdfnote{Punkt liegt auf Fläche wenn er min. 2 Punkte mit min. Distanz zur Oberfläsche}
+\end{frame}
+
+\begin{frame}{
+	\begin{figure}
+		\Huge{Volumenreduktion II}
+	\end{figure}}
+	
+	\begin{itemize}
+		\item Erstellung einer Abart der "{}Dichtesten Kugelpackung"{}
+	\end{itemize}
+	\begin{figure}
+		\includegraphics[width=.3\textwidth]{00_Rigging/Pictures/rig12.png}
+	\end{figure}
+	
+	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{embedding}}}
+	
+	\pdfnote{jeder Punkt der med. Fläche -> Mittelpunkt}
+	\pdfnote{Startpunkt: Distanz: Mittelpunkt -> Oberläche am größten}
+	\pdfnote{Nur hinzufügen wenn kein anderer Mittelpunkt umschlossen}
+\end{frame}
+	
+\begin{frame}{
+	\begin{figure}
+		\Huge{Graph-Erzeugung}
+	\end{figure}}
+	
+	\begin{figure}
+		\includegraphics[width=.3\textwidth]{00_Rigging/Pictures/rig13.png}
+	\end{figure}
+	
+	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{embedding}}}
+	
+	\pdfnote{Jeder Mittelpunkt -> Knoten im Graph}
+	\pdfnote{schneidende Kugeln oder Gabriel Nachbarn -> Kanten im Graph}
+\end{frame}	
+
+\begin{frame}{
+	\begin{figure}
+		\Huge{Kontinuierliche Optimierung der Skelett-Einbindung}
+	\end{figure}}
+	
+	\begin{figure}
+		\includegraphics[width=.2\textwidth]{00_Rigging/Pictures/rig14.png}
+	\end{figure}
+	
+	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{embedding}}}
+	
+	\pdfnote{Vereinfachung der 2. Grad Gelenke (Knie, Elbogen)}
+	\pdfnote{Reduktion der Freiheitsgrade der Straffunktionen}
+\end{frame}
+
+\begin{frame}{
+	\begin{figure}
+		\Huge{Straffunktionen}
+	\end{figure}}
+	
+	\begin{itemize}
+		\item Beeinflussen Qualität und Selbständigkeit des Verfahrens
+		\item Beeinflussen das Einbinden des Skeletts
+		\begin{itemize}
+			\item Betrachten ungeeigneter Einbettungsmöglichkeiten
+		\end{itemize}
+		\item Liefern Gewichtung zur Akzeptanz der Lösung
+		\begin{itemize}
+			\item Gewichte sind Breiter-Rand-Klassifikatioren welche mit einer Stützvektormaschine gelernt wurden
+		\end{itemize}
+	\end{itemize}
+	
+	$$\min_{i=1}^{n}\Gamma^{T}q_{i} - min_{i=1}^{m}\Gamma^{T}p_{i}$$
+	
+	\pdfnote{Stützvektormaschine trennt gut/schlecht Punkte}
+	\pdfnote{p=gut, q=schlecht, Gamma = Gewichtung}
+	\pdfnote{Sollte ggn. 1 gehen}
+		
+\end{frame}	
+
+\begin{frame}{
+	\begin{figure}
+		\Huge{Ungeeignete Einbettungsmöglichkeiten}
+	\end{figure}}
+	
+	\begin{itemize}
+		\item kurze Knochen
+		\item unmögliche Gelenkstellungen
+		\item unterschiedliche Knochenlängen bei symmetrisch gekennzeichneten Knochen
+		\item als Füße markierte Gelenke nicht in Bodennähe
+		\item unmögliche Knochenausrichtungen
+		\item Knochenstränge der Länge 0
+		\item Gelneke, welche im Graph nah beieinander im org. Skelett weit entfernt liegen
+	\end{itemize}
+		
+\end{frame}	
+
+\begin{frame}{
+		\begin{figure}
+			\Huge{Ablauf der Optimierung}
+		\end{figure}}
+		
+		\begin{itemize}
+			\item Schritweises hinzufügen der Gelenke zu einem hierarchischen Graphen
+			\item Erneute Optimierung des Skeletts
+			\begin{itemize}
+				\item Wiederherstellung der wegreduzierten Gelenke und Proportionen
+			\end{itemize}
+		\end{itemize}
+		
+		\begin{figure}
+			\includegraphics[width=.3\textwidth]{00_Rigging/Pictures/rig15.png}
+		\end{figure}
+		
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{embedding}}}
+		
+		\pdfnote{Punkt starten -> Beste partielle Einbdindung finden -> bis Skelett komplett verbunden}
+		\pdfnote{erneute Optimierung mit neuen Straffunktionen}
+\end{frame}	
+
+\subsection{Gegenüberstellung}
+\begin{frame}{
+		\begin{figure}
+			\Huge{Performanz}
+		\end{figure}}
+
+	\begin{table}
+		\centering
+		\begin{tabular}{  p{.4\linewidth} | p{.4\linewidth} }
+			Skelett-Extraktion & Skelett-Einbindung \\\hline\hline
+			Zeiten: 3.6 - 15.1 Sekunden & Zeiten: 12.6 - 77.1 Sekunden \\\hline
+			Komplexität: $O(N)$ & Komplexität: $O(N^{2})$ \\\hline
+			Flaschenhals: Findung der optimalen Silhouette &
+		\end{tabular}
+	\end{table}
+	
+\end{frame}
+
+\begin{frame}{
+	\begin{figure}
+		\Huge{Allgemeingültigkeit}
+	\end{figure}}
+	
+	\begin{table}
+		\centering
+		\begin{tabular}{  p{.4\linewidth} | p{.4\linewidth} }
+			Skelett-Extraktion & Skelett-Einbindung \\\hline\hline
+			Mesh muss aus zylindrischen Teilen bestehen & Stark eingeschränkt auf gegebenes Skelett \\\hline
+			Probleme bei zu großer Überdeckung & Probleme mit Modellen mit vielen kleinen Knochen
+		\end{tabular}
+	\end{table}
+	\pdfnote{Extraktion einer Fast -> L-Form}
+	\pdfnote{Einbindung beschränkt auf Humanoide}	
+\end{frame}
+
+\begin{frame}{
+	\begin{figure}
+		\Huge{Selbstständigkeit}
+	\end{figure}}
+	
+	\begin{table}
+		\centering
+		\begin{tabular}{  p{.4\linewidth} | p{.4\linewidth} }
+			Skelett-Extraktion & Skelett-Einbindung \\\hline\hline
+			Einschränkung durch vorgegebenes Mesh & Pose und ggebenes Skelett müssen sich ähneln \\\hline
+			Pose und Überdeckung sind wichtige Kriterien für Findung der Mittelachsen und Gelenke & Beide Füße müssen auf dem Boden stehen
+		\end{tabular}
+	\end{table}
+		
+\end{frame}
+	
+{
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig16.png}}
+	\begin{frame}{}
+		
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{embedding}}}
+		
+		\pdfnote{Probleme bei 7, 10 und 13}
+		
+	\end{frame}
+}
