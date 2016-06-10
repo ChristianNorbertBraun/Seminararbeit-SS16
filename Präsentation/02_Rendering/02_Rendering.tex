@@ -70,7 +70,7 @@
 		\blfootnote{Bildquellen: \cite{cars}}
 	\end{frame}
 	
-	\subsubsection{Licht}
+	\subsection{Licht}
 	
 \begin{frame}{\Huge{Licht}}
 		
@@ -165,10 +165,467 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 		
 		\begin{figure}
 				\centering
-					\includegraphics[width=.8\paperwidth]{02_Rendering/img/cornellbox.jpg}
+					\includegraphics[width=.7\paperwidth]{02_Rendering/img/cornellbox.jpg}
 				\centering
 		\end{figure}
 
 		\blfootnote{Bildquellen: \cite{cornell}}  
 
 \end{frame}
+
+\begin{frame}{\Huge{Die Rendering-Gleichung}}
+	
+	\begin{center}
+		$$L(x, x')=g(x, x') \cdot \lbrack L_e(x,x') + \int_{s} p(x,x',x'')L(x',x'')dx''\rbrack$$
+	\end{center}
+	
+	\begin{itemize}
+		\item Analytisch nicht berechenbar
+		\item Annäherung durch Raytracer, Radiosity, etc.
+	\end{itemize}
+	
+\end{frame}
+
+\subsection{Rendering-Techniken}
+\begin{frame}{\Huge{Rendering-Techniken}}
+	
+	\begin{itemize}
+		\item Annäherung an Rendering-Gleichung
+		\item Modellkomplexität
+		\item Model Diversität
+		\item Komplexes Shading
+		\item Geschwindigkeit
+		\item Bildqualität
+		\item Flexibilität
+	\end{itemize}
+	
+\end{frame}
+
+\subsubsection{Reyes-Bild-Rendering-Architektur}
+\begin{frame}{\Huge{REYES}}
+	
+	\begin{block}{Problem}
+		Komplexe Szenen sind zu groß um sie komplett im Hauptspeicher zu halten.
+	\end{block}
+	
+	\vskip 1cm
+	
+	\begin{block}{Lösung}
+		Prinzip der geometrischen Lokalität
+	\end{block}
+\end{frame}
+\pdfnote{Render Everything you ever saw }
+
+\begin{frame}{\Huge{Maps}}
+		\begin{figure}
+			\centering
+			\begin{minipage}{.4\paperwidth}
+				\centering
+				\includegraphics[width=.4\paperwidth]{02_Rendering/img/texture.png}
+			\end{minipage}%
+			\begin{minipage}{.4\paperwidth}
+				\centering
+				\includegraphics[width=.4\paperwidth]{02_Rendering/img/textured.png}
+			\end{minipage}
+		\end{figure}
+		\begin{figure}
+			\begin{minipage}{.4\paperwidth}
+				\centering
+				\includegraphics[width=.4\paperwidth]{02_Rendering/img/environment.png}
+			\end{minipage}
+			\begin{minipage}{.4\paperwidth}
+				\centering
+				\includegraphics[width=.4\paperwidth]{02_Rendering/img/environmented.png}
+			\end{minipage}
+		\end{figure}
+		\blfootnote{Bildquellen: \cite{maps}} 
+
+\end{frame}
+
+\begin{frame}{\Huge{Algorithmus}}
+
+\begin{tabular}{cl}  
+	\begin{tabular}{c}
+		\includegraphics[width=4.5cm]{02_Rendering/img/reyesalgo.png}
+	\end{tabular}
+	& \begin{tabular}{l}
+		\parbox{0.4\linewidth}{%  change the parbox width as appropiate            
+			
+		\begin{itemize}
+			\item bounding
+			\item dicing
+			\item splitting
+		\end{itemize}
+			
+		}
+	\end{tabular}  \\
+\end{tabular}
+\blfootnote{Bildquellen: \cite{REYES}} 
+\end{frame}
+
+\begin{frame}{\Huge{Beispiele}}
+	\begin{figure}
+		\centering
+		\begin{minipage}{.4\paperwidth}
+			\centering
+			\includegraphics[width=.4\paperwidth]{02_Rendering/img/lamp.png}
+		\end{minipage}%
+		\begin{minipage}{.5\paperwidth}
+			\centering
+			\includegraphics[width=.4\paperwidth]{02_Rendering/img/monsterag.png}
+		\end{minipage}
+	\end{figure}
+\blfootnote{Bildquellen: \cite{REYES, monster}} 
+\end{frame}
+
+\subsubsection{Raytracing}
+
+\begin{frame}{\Huge{Raytracing}}
+
+	\begin{figure}
+		\centering
+		\includegraphics[width=.8\paperwidth]{02_Rendering/img/BallsRender.png}
+		\centering
+	\end{figure}
+	\blfootnote{Bildquellen: \cite{rayTracingBalls}} 
+\end{frame}
+
+\begin{frame}{\Huge{Reflexionen}}
+	\begin{figure}
+		\centering
+		\begin{minipage}{.4\paperwidth}
+			\centering	
+			\includegraphics[width=.3\paperwidth]{02_Rendering/img/map.png}
+		\end{minipage}%
+		\begin{minipage}{.5\paperwidth}
+			\centering
+			\includegraphics[width=.3\paperwidth]{02_Rendering/img/traced.png}
+		\end{minipage}
+	\end{figure}
+	
+		\begin{block}{Vorteile}
+			\begin{itemize}
+				\item Realistische Reflexionen
+				\item Abbildung beliebig vieler Lichtquellen
+				\item Spiegelungen spekularer Objekte ineinander
+			\end{itemize}
+			
+		\end{block}
+	
+	\blfootnote{Bildquellen: \cite{cars}} 
+\end{frame}
+
+\begin{frame}{\Huge{Raytracer Algorithmus}}
+	
+
+	\begin{figure}
+
+		\begin{minipage}{.5\paperwidth}
+
+			\includegraphics[width=.4\paperwidth]{02_Rendering/img/rayTracing.png}
+		\end{minipage}%
+		\begin{minipage}{.5\paperwidth}
+
+			\includegraphics[width=.4\paperwidth]{02_Rendering/img/rayTracing2.png}
+		\end{minipage}
+	\end{figure}
+	
+	\begin{block}{Performance}
+		\begin{itemize}
+			\item Schnittpunkttest muss für Schatten und Objektberechnung durchgeführt werden
+			\item Gesamte Szene muss im Hauptspeicher liegen
+		\end{itemize}
+
+	\end{block}
+
+	\blfootnote{Bildquellen: \cite{rayTracing}} 
+\end{frame}
+
+\begin{frame}{\Huge{Hüllkörper}}
+	
+	
+ \begin{tabular}{cl}  
+ 	\begin{tabular}{c}
+ 		\includegraphics[width=4cm]{02_Rendering/img/rabbit.jpg}
+ 	\end{tabular}
+ 	& \begin{tabular}{l}
+ 		\parbox{0.6\linewidth}{%  change the parbox width as appropiate            
+ 			
+ 		\begin{itemize}
+ 			\item Hüllkörper zeichnen leichte Schnittpunktberechnung aus
+ 			\item Hüllkörper können Gruppen von Objekten umgeben
+ 		\end{itemize}
+ 			
+ 			
+ 			
+ 		}
+ 	\end{tabular}  \\
+ \end{tabular}
+	
+	\blfootnote{Bildquellen: \cite{rabbit}} 
+\end{frame}
+
+\begin{frame}{\Huge{Strahlenbündel}}
+	
+	
+	\begin{tabular}{cl}  
+		\begin{tabular}{c}
+			\includegraphics[width=4.5cm]{02_Rendering/img/raydiffer.jpg}
+		\end{tabular}
+		& \begin{tabular}{l}
+			\parbox{0.6\linewidth}{%  change the parbox width as appropiate            
+				
+				\begin{itemize}
+					\item Nachbarstrahlen beschreiten anfangs einen ähnlichen Weg
+					\item Strahlenbündelschnittpunkte erzeugen neue Strahlenbündel
+				\end{itemize}
+				
+				
+				
+			}
+		\end{tabular}  \\
+	\end{tabular}
+	
+	\blfootnote{Bildquellen: \cite{raydiff}} 
+\end{frame}
+
+
+\begin{frame}{\Huge{Beispiele}}
+	
+	
+	\begin{figure}
+		\centering
+		\begin{minipage}{.5\paperwidth}
+			
+			\includegraphics[width=.4\paperwidth]{02_Rendering/img/raytracerCars.png}
+		\end{minipage}%
+		\begin{minipage}{.5\paperwidth}
+			\includegraphics[width=.35\paperwidth]{02_Rendering/img/firstSzene.jpg}
+		\end{minipage}
+	\end{figure}
+	
+	\blfootnote{Bildquellen: \cite{cars, firstSzene}} 
+\end{frame}
+
+\subsection{Einfügen eines synthetischen Models in eine reale Szene}
+\begin{frame}{\Huge{Synthetisches Model + reale Szene}}
+	
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=.7\paperwidth]{02_Rendering/img/gollum.jpg}
+	\end{figure}
+	
+	\blfootnote{Bildquellen: \cite{gollum}} 
+\end{frame}
+
+\begin{frame}{\Huge{Szenen Teile}}
+	
+	
+	\begin{tabular}{cl}  
+		\begin{tabular}{c}
+			\includegraphics[width=4.5cm]{02_Rendering/img/scenes.png}
+		\end{tabular}
+		& \begin{tabular}{l}
+			\parbox{0.6\linewidth}{%  change the parbox width as appropiate            
+				
+				\begin{itemize}
+					\item Distanzszene
+					\item Lokale Szene
+					\item Synthetisches Objekt
+				\end{itemize}
+			}
+		\end{tabular}  \\
+	\end{tabular}
+	
+	\blfootnote{Bildquellen: \cite{realImages}} 
+\end{frame}
+
+\begin{frame}{\Huge{Lichtbasiertes Model der Distanzszene}}
+	
+	\begin{itemize}
+		\item Unabhängig von anderen Teilen der Szene
+		\item Hauptverantwortlich für Beleuchtung der Szene
+		\item Benötigt genaue Informationen über die Lichtintensität an jedem Pixel
+		\item Intensität wird in High Dynamic Ranger Images gespeichert
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}{\Huge{Materialbasiertes Model der lokalen Szene}}
+	
+	\begin{figure}
+		\centering
+		\begin{minipage}{.5\paperwidth}
+			
+			\includegraphics[width=.4\paperwidth]{02_Rendering/img/background.png}
+		\end{minipage}%
+		\begin{minipage}{.5\paperwidth}
+			\includegraphics[width=.35\paperwidth]{02_Rendering/img/localSzeneOnly.png}
+		\end{minipage}
+	\end{figure}
+	
+	\begin{itemize}
+		\item Empfängt Schatten und Reflexion von synthetischen Model
+		\item Kann Licht auf synthetisches Model werfen und es verdecken
+		\item Muss sowohl Beleuchtungs- als auch Materialeigenschaften vorweisen(BRDFS)
+	\end{itemize}
+
+	\blfootnote{Bildquellen: \cite{realImages}} 
+	
+\end{frame}
+
+\begin{frame}{\Huge{Synthetisches Model}}
+	
+	\begin{figure}
+		\centering
+		\begin{minipage}{.5\paperwidth}
+			
+			\includegraphics[width=.4\paperwidth]{02_Rendering/img/model1.png}
+		\end{minipage}%
+		\begin{minipage}{.5\paperwidth}
+			\includegraphics[width=.35\paperwidth]{02_Rendering/img/model2.png}
+		\end{minipage}
+	\end{figure}
+	
+\end{frame}
+
+\begin{frame}{\Huge{Sonderfälle}}
+	
+	\begin{itemize}
+		\item Konzentriertes Licht bestrahlt das synthetische Model und dieses verursacht starke Schatten
+		\item Konzentriertes Licht bestrahlt ein spiegelndes, synthetische Model und dieses wirft Licht in die Szene
+		\item Spekulare Oberflächen der Distanzszene können vom Model beeinflusst werden
+		\item Das synthetische Model strahlt Licht aus
+	\end{itemize}
+	
+\end{frame}
+
+\subsubsection{Beleuchtung}
+
+\begin{frame}{\Huge{Beleuchtung}}
+	
+		\begin{tabular}{cl}  
+			\begin{tabular}{c}
+				\includegraphics[width=4.5cm]{02_Rendering/img/room.png}
+			\end{tabular}
+			& \begin{tabular}{l}
+				\parbox{0.6\linewidth}{%  change the parbox width as appropiate            
+					
+					\begin{itemize}
+						\item Kann manuell geschehen
+						\item Intensitäten müssen geschätzt werden
+						\item Globale Beleuchtung muss modelliert werden
+					\end{itemize}
+				}
+			\end{tabular}  \\
+		\end{tabular}
+\end{frame}
+
+\begin{frame}{\Huge{Automatisierte Beleuchtung}}
+	
+	\begin{figure}
+		\centering
+		\begin{minipage}{.2\paperwidth}
+			\includegraphics[width=.2\paperwidth]{02_Rendering/img/prob1.jpg}
+		\end{minipage}%
+		\begin{minipage}{.2\paperwidth}
+			\includegraphics[width=.2\paperwidth]{02_Rendering/img/prob2.jpg}
+		\end{minipage}
+		\begin{minipage}{.2\paperwidth}
+			\includegraphics[width=.2\paperwidth]{02_Rendering/img/propfull.jpg}
+		\end{minipage}
+	\end{figure}
+	
+	\begin{itemize}
+		\item Erstellen mehrerer HDRI einer Spiegelkugel
+		\item Verschmelzen der HDRIs zum erstellen einer Lichtsonde
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}{\Huge{Lichtbasiertes Model erstellen }}
+	
+		\begin{tabular}{cl}  
+			\begin{tabular}{c}
+				\includegraphics[width=.4\paperwidth]{02_Rendering/img/algo3.png}
+				\includegraphics[width=.4\paperwidth]{02_Rendering/img/distantszene.png}
+			\end{tabular}
+			& \begin{tabular}{l}
+				\parbox{0.6\linewidth}{%  change the parbox width as appropiate            
+					
+					\begin{itemize}
+						\item Kann manuell geschehen
+						\item Intensitäten müssen geschätzt werden
+						\item Globale Beleuchtung muss modelliert werden
+					\end{itemize}
+				}
+			\end{tabular}  \\
+		\end{tabular}
+	
+	\begin{itemize}
+		\item Strahlen bis Schnittpunkt mit Box verfolgen
+	\end{itemize}
+	
+		\blfootnote{Bildquellen: \cite{realImages}} 
+\end{frame}
+
+\begin{frame}{\Huge{Ergebnis}}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=.4\paperwidth]{02_Rendering/img/algo4.png}
+	\end{figure}
+	
+	\begin{itemize}
+		\item Raytracing zum rendern der Szene
+		\item Strahlen vom Model über die lokale Szene bis in die Distanzszene verfolgen
+	\end{itemize}
+		\blfootnote{Bildquellen: \cite{realImages}} 
+\end{frame}
+
+\begin{frame}{\Huge{Einfügen des synthetischen Models}}
+		\begin{figure}
+			\centering
+			\begin{minipage}{.4\paperwidth}
+				\centering
+				\includegraphics[width=.4\paperwidth]{02_Rendering/img/background.png}
+			\end{minipage}%
+			\begin{minipage}{.4\paperwidth}
+				\centering
+				\includegraphics[width=.4\paperwidth]{02_Rendering/img/calibration.png}
+			\end{minipage}
+		\end{figure}
+		\begin{figure}
+			\begin{minipage}{.4\paperwidth}
+				\centering
+				\includegraphics[width=.4\paperwidth]{02_Rendering/img/localszene.png}
+			\end{minipage}
+			\begin{minipage}{.4\paperwidth}
+				\centering
+				\includegraphics[width=.4\paperwidth]{02_Rendering/img/final.png}
+			\end{minipage}
+		\end{figure}
+		\blfootnote{Bildquellen: \cite{realImages}} 
+\end{frame}
+
+
+\begin{frame}{\Huge{Fazit}}
+	
+		\begin{block}{Vorteile}
+			\begin{itemize}
+				\item Geometrie- und Materialeigenschaften für lokale Szene müssen nur einmal bestimmt werden
+				\item Lichtbasiertes Model der Distanzszene muss nur einmal bestimmt werden
+				\item Beleuchtung wirkt korrekt auf synthetische Objekte ein
+			\end{itemize}
+		\end{block}
+		
+		
+		\begin{block}{Nachteile}
+			\begin{itemize}
+				\item BRDFs für lokale Szene können nur geschätzt werden
+				\item Kamera muss kalibriert werden
+			\end{itemize}
+		\end{block}
+\end{frame}
+
