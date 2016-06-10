@@ -1,18 +1,23 @@
 \section{Rendering}
-\subsection{Was ist Rendern?}
 	
-	\begin{frame}{Introduction}
+	\begin{frame}[plain, c]
 		
-		\begin{itemize}
-			\item Your introduction goes here!
-			\item Use \texttt{itemize} to organize your main points.
-		\end{itemize}
-		
-		\vskip 1cm
-		
-		\begin{block}{Examples}
-			Some examples of commonly used commands and features are included, to help you get started.
-		\end{block}
+	\begin{center}
+		\Huge Rendering
+	\end{center}
+	
+	\begin{figure}
+				\centering
+				\begin{minipage}{.4\paperwidth}
+					\centering
+					\includegraphics[width=.3\paperwidth]{02_Rendering/img/triangulars.png}
+				\end{minipage}%
+				\begin{minipage}{.4\paperwidth}
+					\centering
+					\includegraphics[width=.4\paperwidth]{02_Rendering/img/rendered.png}
+				\end{minipage}
+		\end{figure}
+
 		
 	\end{frame}
 	\pdfnote{Whatever}
@@ -21,16 +26,7 @@
 	\pdfnote{zrdz}
 	\pdfnote{zrdz}
 	
-	
-	\subsection{Tables and Figures}
-	
-	\begin{frame}{Tables and Figures}
-		
-		\begin{itemize}
-			\item Use \texttt{tabular} for basic tables --- see Table~\ref{tab:widgets}, for example.
-			\item You can upload a figure (JPEG, PNG or PDF) using the files menu. 
-			\item To include it in your document, use the \texttt{includegraphics} command (see the comment below in the source code).
-		\end{itemize}
+
 		
 		% Commands to include a figure:
 		%\begin{figure}
@@ -38,25 +34,141 @@
 		%\caption{\label{fig:your-figure}Caption goes here.}
 		%\end{figure}
 		
-		\begin{table}
-			\centering
-			\begin{tabular}{l|r}
-				Item & Quantity \\\hline
-				Widgets & 42 \\
-				Gadgets & 13
-			\end{tabular}
-			\caption{\label{tab:widgets}An example table.}
-		\end{table}
+	
+	\begin{frame}{\Huge{Rendering in der Praxis}}
 		
+		\begin{figure}
+				\centering
+				\begin{minipage}{.4\paperwidth}
+					\centering
+					\includegraphics[width=.4\paperwidth]{02_Rendering/img/journey.jpg}
+				\end{minipage}%
+				\begin{minipage}{.5\paperwidth}
+					\centering
+					\includegraphics[width=.4\paperwidth]{02_Rendering/img/cad.jpg}
+				\end{minipage}
+		\end{figure}
+		
+		\blfootnote{Bildquellen: \cite{journey, cad}}
+		
+\end{frame}
+	
+\begin{frame}{\Huge{Rendering im Film}}
+		
+		\begin{figure}
+				\centering
+					\includegraphics[width=.8\paperwidth]{02_Rendering/img/cars.png}
+				\centering
+		\end{figure}
+		
+		\begin{itemize}
+			\item Komplexe Szenen
+			\item Viele Lichtquellen
+			\item 24 Bilder pro Sekunde
+		\end{itemize}
+		
+		\blfootnote{Bildquellen: \cite{cars}}
 	\end{frame}
 	
-	\subsection{Mathematics}
+	\subsubsection{Licht}
 	
-	\begin{frame}{Readable Mathematics}
+\begin{frame}{\Huge{Licht}}
 		
-		Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
-		$$S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-		= \frac{1}{n}\sum_{i}^{n} X_i$$
-		denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
+		\begin{figure}
+				\centering
+					\includegraphics[width=.8\paperwidth]{02_Rendering/img/reflexion.png}
+				\centering
+		\end{figure}
 		
+		\begin{itemize}
+			\item Ideale spekulare Reflexion
+			\item Reale spekulare Reflexion
+			\item Diffuse Reflexion
+		\end{itemize}
+		
+		\blfootnote{Bildquellen: \cite{reflexion}}
 	\end{frame}
+	
+	\begin{frame}{\colorbox{black!10}{\Huge{Materialien}}}
+		
+		\begin{figure}
+				\centering
+					\includegraphics[width=.8\paperwidth]{02_Rendering/img/materials.png}
+				\centering
+		\end{figure}
+		
+		\blfootnote{Bildquellen: \cite{realImages}}
+	\end{frame}
+	
+\begin{frame}{\Huge{Lokale Reflexionsmodelle}}
+		
+		  \begin{tabular}{cl}  
+         \begin{tabular}{c}
+           \includegraphics[height=3cm, width=3cm]{02_Rendering/img/directLight.png}
+           \end{tabular}
+           & \begin{tabular}{l}
+             \parbox{0.6\linewidth}{%  change the parbox width as appropiate
+             \textbf{Bi-Directional Reflection Distribution Function(BRDF)}
+             
+
+$$\mathrm{BRDF}=f(\theta_\mathrm{in}, \phi_\mathrm{in}, \theta_\mathrm{ref}, \phi_\mathrm{ref}) = f(\vec{\omega_{i}}, \vec{\omega_{o}})$$
+   
+    }
+         \end{tabular}  \\
+\end{tabular}
+		
+		\blfootnote{Bildquellen: \cite{directLight}}
+\end{frame}
+	
+\begin{frame}{\Huge{Lambertsche Reflexion}}
+		
+		  \begin{tabular}{cl}  
+         \begin{tabular}{c}
+           \includegraphics[width=5cm]{02_Rendering/img/lambertian.jpg}
+           \end{tabular}
+           & \begin{tabular}{l}
+             \parbox{0.4\linewidth}{%  change the parbox width as appropiate            
+
+$$I_{D} =\vec{\omega_{i}} \cdot \vec{n}CI_{L}$$
+
+
+   
+    }
+         \end{tabular}  \\
+\end{tabular}
+\end{frame}
+
+\begin{frame}{\Huge{Blinn-Phong BRDF}}
+		
+		\begin{figure}
+				\centering
+				\begin{minipage}{.4\paperwidth}
+					\centering
+					\includegraphics[width=.4\paperwidth]{02_Rendering/img/glossy.jpg}
+				\end{minipage}%
+				\begin{minipage}{.5\paperwidth}
+					\centering
+					\includegraphics[width=.4\paperwidth]{02_Rendering/img/h.png}
+				\end{minipage}
+		\end{figure}
+		
+    
+
+$$f_{s}(\vec{\omega_{i}}, \vec{\omega_{o}})=\frac{k_{L}}{\pi} + k_{G}\frac{8 + s}{8\pi}z^s$$  $$\mathrm{\quad mit\quad}z=\max(0,\vec{h} \cdot \vec{n})$$
+$$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
+
+		\blfootnote{Bildquellen: \cite{h}}  
+
+\end{frame}
+
+\begin{frame}{\Huge{Globale Beleuchtungsmodelle}}
+		
+		\begin{figure}
+				\centering
+					\includegraphics[width=.8\paperwidth]{02_Rendering/img/cornellbox.jpg}
+				\centering
+		\end{figure}
+
+		\blfootnote{Bildquellen: \cite{cornell}}  
+
+\end{frame}
