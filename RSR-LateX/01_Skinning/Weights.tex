@@ -1,7 +1,7 @@
 \subsection{Weights}
 \begin{figure}[t]
 	\includegraphics[width=7cm]{01_Skinning/pics/weight.png}
-	\caption[Flächige Gewichtsverteilung]{ Modelldarstellung der flächigen Gewichtsverteilung auf einem Mesh. Die Farben beschreiben die Verteilung der Gewichte auf einer Skala von Blau=0, damit unabhängig, zu Rot=1, damit komplett abhängig. Entnommen von}
+	\caption[Flächige Gewichtsverteilung]{ Modelldarstellung der flächigen Gewichtsverteilung auf einem Mesh. Die Farben beschreiben die Verteilung der Gewichte auf einer Skala von Blau=0, damit unabhängig, zu Rot=1, damit komplett abhängig. Entnommen von \cite{weights}}
 	\label{weights_fig1}
 \end{figure}
 
@@ -9,4 +9,4 @@ Gewichte bezeichnen wie abhängig ein Punkt auf dem Gittergraphen bei einer Trans
 
 Nun könnten wir für jeden Vertex eine Liste erstellen mit allen seinen Gewichten in Bezug auf jedem Knochen, um zusammengefasst darzustellen wie ein Punkt sich durch das Skelett bewegen lässt. In der Summe entsprechen alle seine Gewichte immer 1, ergo $\sum_{i=1}^{N}wi=1$.
 
-Um Gewichte zuzuordnen können verschiedene Verfahren angewandt werden, unter anderem Distanz basierte Algorithmen oder durch Lösung eines "{}least squares problems"{} (quelle). Oft ist es jedoch am effektivsten wenn durch Künstler auf Grundlage anatomischer Kenntnisse den Gittergraphen selber nach Gewichten einfärbt (quelle).
+Um Gewichte zuzuordnen können verschiedene Verfahren angewandt werden, unter anderem Distanz basierte Algorithmen oder durch Lösung eines "least squares problems" \cite{wang2002multi}. Oft ist es jedoch am effektivsten wenn durch Künstler auf Grundlage anatomischer Kenntnisse den Gittergraphen selber nach Gewichten einfärbt \cite{LectureA}.
