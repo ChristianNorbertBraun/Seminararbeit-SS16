@@ -443,6 +443,8 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 \end{frame}
 
 \pdfnote{Strahlen beschreiben gleichen Weg}
+\pdfnote{Ebenen Schnittpunkt berechnen}
+\pdfnote{Neues Strahlenbündel}
 \begin{frame}{\Huge{Strahlenbündel}}
 	
 	
@@ -467,7 +469,8 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 	\blfootnote{Bildquellen: \cite{raydiff}} 
 \end{frame}
 
-
+\pdfnote{Beispiel aus Cars viele Reflexionen}
+\pdfnote{Erstes ray Tracer Bild von Whitted 1980}
 \begin{frame}{\Huge{Beispiele}}
 	
 	
@@ -486,6 +489,9 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 \end{frame}
 
 \subsection{Einfügen eines synthetischen Models in eine reale Szene}
+\pdfnote{Wissen anwenden um richtig colles Zeug zu machen}
+\pdfnote{Gollum in die Szene}
+\pdfnote{Schatten werfen, Licht empfangen}
 \begin{frame}{\Huge{Synthetisches Model + reale Szene}}
 	
 	
@@ -497,6 +503,8 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 	\blfootnote{Bildquellen: \cite{gollum}} 
 \end{frame}
 
+\pdfnote{Aufteilen in drei Teile}
+\pdfnote{Lokaleszene ist untermenge der Distanzszene}
 \begin{frame}{\Huge{Szenen Teile}}
 	
 	
@@ -518,7 +526,9 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 	
 	\blfootnote{Bildquellen: \cite{realImages}} 
 \end{frame}
-
+\pdfnote{Verantwortlich für die Beleuchtung}
+\pdfnote{Dafür HDRI Bilder, HDRI erklären}
+\pdfnote{Unabhängig von lokalerszene und Objekt}
 \begin{frame}{\Huge{Lichtbasiertes Model der Distanzszene}}
 	
 	\begin{itemize}
@@ -530,6 +540,9 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 
 \end{frame}
 
+\pdfnote{Interagiert mit synthetisches Objekt}
+\pdfnote{Sowohl Beleuchtung als auch BRDFs, Materialeigenschaften}
+\pdfnote{3D Model wird benötigt. Entweder Automatisch oder manuell}
 \begin{frame}{\Huge{Materialbasiertes Model der lokalen Szene}}
 	
 	\begin{figure}
@@ -553,6 +566,7 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 	
 \end{frame}
 
+\pdfnote{Bekanntes Material, bekannte Form}
 \begin{frame}{\Huge{Synthetisches Model}}
 	
 	\begin{figure}
@@ -568,6 +582,7 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 	
 \end{frame}
 
+\pdfnote{Zur Aufteilung muss einiges beachtet werden}
 \begin{frame}{\Huge{Sonderfälle}}
 	
 	\begin{itemize}
@@ -580,7 +595,9 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 \end{frame}
 
 \subsubsection{Beleuchtung}
-
+\pdfnote{Lichtbasiertes Model der Distanzszene}
+\pdfnote{Kann manuell gemacht werden}
+\pdfnote{Schätzen der Intensität, kann komplex sein}
 \begin{frame}{\Huge{Beleuchtung}}
 	
 		\begin{tabular}{cl}  
@@ -600,6 +617,11 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 		\end{tabular}
 \end{frame}
 
+\pdfnote{Erzeugen eines Beleuchtungsmodells aus einer Lichtsonde}
+\pdfnote{Stellt 360 Grad Blick dar}
+\pdfnote{Zwei Bilder mit 90 Grad winkel um Artefakte zu beseitigen}
+\pdfnote{hdr Bild} 
+\pdfnote{Kamera Position bekannt, Kugel Eigenschaften bekannt, Kamera bekannt}
 \begin{frame}{\Huge{Automatisierte Beleuchtung}}
 	
 	\begin{figure}
@@ -621,7 +643,8 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 	\end{itemize}
 	
 \end{frame}
-
+\pdfnote{3d Model der Lichtsonde in Box}
+\pdfnote{Mit Strahlen beschießen und auf Box mappen}
 \begin{frame}{\Huge{Lichtbasiertes Model erstellen }}
 	
 		\begin{tabular}{cl}  
@@ -648,6 +671,11 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 		\blfootnote{Bildquellen: \cite{realImages}} 
 \end{frame}
 
+\pdfnote{Lichtbasiertes model}
+\pdfnote{Materialbasiertes Model}
+\pdfnote{Relative Position}
+\pdfnote{Bild beschreiben}
+\pdfnote{Beliebige Rendering Technik einsetzen}
 \begin{frame}{\Huge{Ergebnis}}
 	
 	\begin{figure}
@@ -662,6 +690,10 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 		\blfootnote{Bildquellen: \cite{realImages}} 
 \end{frame}
 
+\pdfnote{Background}
+\pdfnote{Kalibrieren}
+\pdfnote{falsch geschätzte BRDF}
+\pdfnote{Finales Ergebnis}
 \begin{frame}{\Huge{Einfügen des synthetischen Models}}
 		\begin{figure}
 			\centering
@@ -688,6 +720,10 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 \end{frame}
 
 
+\pdfnote{Viele Operationen werden nur einmal durchgeführt}
+\pdfnote{Beliebige Rendering Technik}
+\pdfnote{Lichtbasiertes Model oder Panorame}
+\pdfnote{Kalibrieren, schätzen der BRDFs}
 \begin{frame}{\Huge{Fazit}}
 	
 		\begin{block}{Vorteile}
