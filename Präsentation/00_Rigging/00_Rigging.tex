@@ -2,11 +2,7 @@
 \subsection{Was ist Rigging?}
 { %öffnende Klammer für hintergrundbild lokal
 	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig1.jpg}}
-	\begin{frame}{
-			\begin{figure}
-				\colorbox{black!10}{\Huge{Was ist Rigging?}}
-			\end{figure}
-			}
+	\begin{frame}{\colorbox{black!10}{\Huge{Was ist Rigging?}}}
 	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{rig1}}}
 
 	\pdfnote{Frage an alle}
@@ -29,11 +25,7 @@
 
 {
 	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{00_Rigging/Pictures/rig3.png}}
-	\begin{frame}{
-			\begin{figure}
-				\colorbox{black!10}{\Huge{Manuelles Riggen}}
-			\end{figure}
-		}
+	\begin{frame}{\colorbox{black!10}{\Huge{Manuelles Riggen}}}
 		
 		\onslide<2>{
 			
@@ -56,10 +48,7 @@
 		\end{frame}
 }
 	
-	\begin{frame}{
-			\begin{figure}
-				\Huge{Automatisches Riggen}
-			\end{figure}}
+	\begin{frame}{\Huge{Automatisches Riggen}}
 		
 		\begin{itemize}
 			\item Skelett-Extraktion
@@ -100,10 +89,7 @@
 	\end{frame}
 }
 \subsection{Skelett-Extraktion}
-\begin{frame}{
-	\begin{figure}
-		\Huge{Skelett-Extraktion}
-	\end{figure}}
+\begin{frame}{\Huge{Skelett-Extraktion}}
 	
 	\begin{itemize}
 		\item Finden der optimalen Projektion
@@ -118,10 +104,7 @@
 		
 \end{frame}
 
-\begin{frame}{
-	\begin{figure}
-		\Huge{Finden der optimalen Projektion}
-	\end{figure}}
+\begin{frame}{\Huge{Finden der optimalen Projektion}}
 	
 		\begin{itemize}
 			\item Startpunkt: Punkt mit größtem $y$-Wert
@@ -134,10 +117,7 @@
 		
 \end{frame}
 
-\begin{frame}{
-		\begin{figure}
-			\Huge{Globale Suche I}
-		\end{figure}}
+\begin{frame}{\Huge{Globale Suche I}}
 		
 		
 		$$C\{c_{i}(x,y,z) \vert c_{i}(x,y,z)\in V, c'_{i}(x,y) \in C', C' \subset P, x_{c_{i}} = x_{c'_{i}}, y_{c_{i}} = y_{c'_{i}} \}$$
@@ -149,10 +129,7 @@
 		
 	\end{frame}
 
-\begin{frame}{
-	\begin{figure}
-		\Huge{Globale Suche II}
-	\end{figure}}
+\begin{frame}{\Huge{Globale Suche II}}
 	
 	\begin{itemize}
 		\item Finden des nächsten Punkts:
@@ -165,10 +142,7 @@
 		
 \end{frame}
 
-\begin{frame}{
-	\begin{figure}
-		\Huge{Globale Suche III}
-	\end{figure}}
+\begin{frame}{\Huge{Globale Suche III}}
 	
 	\begin{itemize}
 		\item Finden aller Nachbarn in $r$
@@ -178,10 +152,7 @@
 		
 \end{frame}
 
-\begin{frame}{
-	\begin{figure}
-		\Huge{Globale Suche IV}
-	\end{figure}}
+\begin{frame}{\Huge{Globale Suche IV}}
 	
 	\begin{itemize}
 		\item Hinzufügen der Tiefeninformation zu jedem Punkt der gefundenen Menge:
@@ -190,10 +161,7 @@
 		
 \end{frame}
 
-\begin{frame}{
-	\begin{figure}
-		\Huge{Lokale Suche}
-	\end{figure}}
+\begin{frame}{\Huge{Lokale Suche}}
 	
 	\begin{itemize}
 		\item Definition des Punktes $c''_{i}(x,y,z)$ als Startpunkt $c_{i1}(x,y,z)$
@@ -249,10 +217,7 @@
 	\end{frame}
 }
 \subsection{Skelett-Einbindung}
-\begin{frame}{
-	\begin{figure}
-		\Huge{Skelett-Einbindung}
-	\end{figure}}
+\begin{frame}{\Huge{Skelett-Einbindung}}
 	
 	\begin{itemize}
 		\item Volemenreduktion
@@ -262,16 +227,13 @@
 	
 \end{frame}
 
-\begin{frame}{
-	\begin{figure}
-		\Huge{Volumenreduktion I}
-	\end{figure}}
+\begin{frame}{\Huge{Volumenreduktion I}}
 	
 	\begin{itemize}
 		\item Finden der medialen Flächen
 	\end{itemize}
 	\begin{figure}
-		\includegraphics[width=.3\textwidth]{00_Rigging/Pictures/rig11.png}
+		\includegraphics[width=.4\textwidth]{00_Rigging/Pictures/rig11.png}
 	\end{figure}
 	
 	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{embedding}}}
@@ -281,16 +243,13 @@
 	\pdfnote{Punkt liegt auf Fläche wenn er min. 2 Punkte mit min. Distanz zur Oberfläsche}
 \end{frame}
 
-\begin{frame}{
-	\begin{figure}
-		\Huge{Volumenreduktion II}
-	\end{figure}}
+\begin{frame}{\Huge{Volumenreduktion II}}
 	
 	\begin{itemize}
 		\item Erstellung einer Abart der "{}Dichtesten Kugelpackung"{}
 	\end{itemize}
 	\begin{figure}
-		\includegraphics[width=.3\textwidth]{00_Rigging/Pictures/rig12.png}
+		\includegraphics[width=.4\textwidth]{00_Rigging/Pictures/rig12.png}
 	\end{figure}
 	
 	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{embedding}}}
@@ -300,13 +259,10 @@
 	\pdfnote{Nur hinzufügen wenn kein anderer Mittelpunkt umschlossen}
 \end{frame}
 	
-\begin{frame}{
-	\begin{figure}
-		\Huge{Graph-Erzeugung}
-	\end{figure}}
+\begin{frame}{\Huge{Graph-Erzeugung}}
 	
 	\begin{figure}
-		\includegraphics[width=.3\textwidth]{00_Rigging/Pictures/rig13.png}
+		\includegraphics[width=.4\textwidth]{00_Rigging/Pictures/rig13.png}
 	\end{figure}
 	
 	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{embedding}}}
@@ -315,13 +271,10 @@
 	\pdfnote{schneidende Kugeln oder Gabriel Nachbarn -> Kanten im Graph}
 \end{frame}	
 
-\begin{frame}{
-	\begin{figure}
-		\Huge{Kontinuierliche Optimierung der Skelett-Einbindung}
-	\end{figure}}
+\begin{frame}{\Huge{Kontinuierliche Optimierung der Skelett-Einbindung}}
 	
 	\begin{figure}
-		\includegraphics[width=.2\textwidth]{00_Rigging/Pictures/rig14.png}
+		\includegraphics[width=.3\textwidth]{00_Rigging/Pictures/rig14.png}
 	\end{figure}
 	
 	\blfootnote{\colorbox{black!10}{Bildquelle: \cite{embedding}}}
@@ -330,10 +283,7 @@
 	\pdfnote{Reduktion der Freiheitsgrade der Straffunktionen}
 \end{frame}
 
-\begin{frame}{
-	\begin{figure}
-		\Huge{Straffunktionen}
-	\end{figure}}
+\begin{frame}{\Huge{Straffunktionen}}
 	
 	\begin{itemize}
 		\item Beeinflussen Qualität und Selbständigkeit des Verfahrens
@@ -355,10 +305,7 @@
 		
 \end{frame}	
 
-\begin{frame}{
-	\begin{figure}
-		\Huge{Ungeeignete Einbettungsmöglichkeiten}
-	\end{figure}}
+\begin{frame}{\Huge{Ungeeignete Einbettungsmöglichkeiten}}
 	
 	\begin{itemize}
 		\item kurze Knochen
@@ -372,10 +319,7 @@
 		
 \end{frame}	
 
-\begin{frame}{
-		\begin{figure}
-			\Huge{Ablauf der Optimierung}
-		\end{figure}}
+\begin{frame}{\Huge{Ablauf der Optimierung}}
 		
 		\begin{itemize}
 			\item Schritweises hinzufügen der Gelenke zu einem hierarchischen Graphen
@@ -386,7 +330,7 @@
 		\end{itemize}
 		
 		\begin{figure}
-			\includegraphics[width=.3\textwidth]{00_Rigging/Pictures/rig15.png}
+			\includegraphics[width=.5\textwidth]{00_Rigging/Pictures/rig15.png}
 		\end{figure}
 		
 		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{embedding}}}
@@ -396,10 +340,7 @@
 \end{frame}	
 
 \subsection{Gegenüberstellung}
-\begin{frame}{
-		\begin{figure}
-			\Huge{Performanz}
-		\end{figure}}
+\begin{frame}{\Huge{Performanz}}
 
 	\begin{table}
 		\centering
@@ -413,16 +354,13 @@
 	
 \end{frame}
 
-\begin{frame}{
-	\begin{figure}
-		\Huge{Allgemeingültigkeit}
-	\end{figure}}
+\begin{frame}{\Huge{Allgemeingültigkeit}}
 	
 	\begin{table}
 		\centering
 		\begin{tabular}{  p{.4\linewidth} | p{.4\linewidth} }
 			Skelett-Extraktion & Skelett-Einbindung \\\hline\hline
-			Mesh muss aus zylindrischen Teilen bestehen & Stark eingeschränkt auf gegebenes Skelett \\\hline
+			Mesh muss aus zylindrischen Teilen bestehen & Stark eingeschränkt auf gegebenes Skelett \\\\\hline
 			Probleme bei zu großer Überdeckung & Probleme mit Modellen mit vielen kleinen Knochen
 		\end{tabular}
 	\end{table}
@@ -430,16 +368,13 @@
 	\pdfnote{Einbindung beschränkt auf Humanoide}	
 \end{frame}
 
-\begin{frame}{
-	\begin{figure}
-		\Huge{Selbstständigkeit}
-	\end{figure}}
+\begin{frame}{\Huge{Selbstständigkeit}}
 	
 	\begin{table}
 		\centering
 		\begin{tabular}{  p{.4\linewidth} | p{.4\linewidth} }
 			Skelett-Extraktion & Skelett-Einbindung \\\hline\hline
-			Einschränkung durch vorgegebenes Mesh & Pose und ggebenes Skelett müssen sich ähneln \\\hline
+			Einschränkung durch vorgegebenes Mesh & Pose und gegebenes Skelett müssen sich ähneln \\\hline
 			Pose und Überdeckung sind wichtige Kriterien für Findung der Mittelachsen und Gelenke & Beide Füße müssen auf dem Boden stehen
 		\end{tabular}
 	\end{table}
