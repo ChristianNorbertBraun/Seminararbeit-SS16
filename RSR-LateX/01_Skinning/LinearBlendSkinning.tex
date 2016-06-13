@@ -1,6 +1,6 @@
 \subsection{Linear Blend Skinning}
 
-Dieser Algorithmus ist der am weiten verbreitetste Skinning-Algorithmus, vermutlich auf Grund seiner geringen Kosten (quelle). Er wurde zuerst von (quelle) beschrieben. Um Linear Blend Skinning zu verstehen müssen wir nun einfach die bisher erarbeiteten Konzept kombinieren. Wir beziehen lediglich in unsere direkte Skinning Formel die Transformation von jedem Knochen mit ein und modifizieren diese durch das Gewicht in Relation zu diesem Knochen. Wodurch die Transformation von Punkten mit Gewicht 0 ignoriert wird, bei Gewicht von 1 voll einbezogen und dazwischen Teilweise. Wodurch wir bei dieser Formal landen.
+Dieser Algorithmus ist der am weiten verbreitetste Skinning-Algorithmus, vermutlich auf Grund seiner geringen Kosten \cite{kavan2008geometric}. Er wurde zuerst hier \cite{lewis2000pose} beschrieben. Um Linear Blend Skinning zu verstehen müssen wir nun einfach die bisher erarbeiteten Konzept kombinieren. Wir beziehen lediglich in unsere direkte Skinning Formel die Transformation von jedem Knochen mit ein und modifizieren diese durch das Gewicht in Relation zu diesem Knochen. Wodurch die Transformation von Punkten mit Gewicht 0 ignoriert wird, bei Gewicht von 1 voll einbezogen und dazwischen Teilweise. Wodurch wir bei dieser Formal landen.
 
 \begin{equation}
 \label{formel}
@@ -11,6 +11,6 @@ Dieser Algorithmus ist schon sehr gut und kommt auch Animationsfilmen die es bis
 
 \begin{figure}[t]
 	\includegraphics[width=11cm]{01_Skinning/pics/rotationsartefakt.png}
-	\caption[Volumenverlust bei Rotation in LBS]{Darstellung des Volumenverlust bei Linear Blend Skinning. Da die beiden Punkte mit gleichen Gewicht an beiden Knochen hängen reduzieren sie sich auf einen Punkt. Entnommen von}
+	\caption[Volumenverlust bei Rotation in LBS]{Darstellung des Volumenverlust bei Linear Blend Skinning. Da die beiden Punkte mit gleichen Gewicht an beiden Knochen hängen reduzieren sie sich auf einen Punkt. Entnommen von \cite{weights}}
 	\label{weights_fig1}
 \end{figure}
