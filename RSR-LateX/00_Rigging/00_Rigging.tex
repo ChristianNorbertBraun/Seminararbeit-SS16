@@ -1,6 +1,5 @@
 \newpage
 \section{Rigging}
-\subsection{Was ist Rigging?}
 \label{sec:whats_rigging}
 Rigging ist ein Teil der Computeranimation, wobei die Skelettanimation eines der am häufigsten genutzten Methoden ist. Bei dieser Methode wird ein hierarchisch aufgebautes Skelett, ein 3D-Modell, welches im weiteren Verlauf als Mesh bezeichnet wird, und die Bewegungsdaten einzelner Punkte des Skeletts benötigt. Diese markanten Punkte, können zum Beispiel die Gelenke oder das Ende eines Fingers sein. Der Begriff Bewegungsdaten steht hier als Synonym für die 3D-Koordinaten im zeitlichen Verlauf einer Bewegung. Diese Koordinaten repräsentieren einzelne Marker welche mit einem Motion Capturing System aufgenommen wurden.
 
@@ -38,15 +37,14 @@ Um die Verwechslungsgefahr zu minimieren werden noch folgende Begriffe eingeführ
 \subsection{Skelett-Extraktion}
 \label{sec:skeleton-extraction}
 
-\subsubsection{Einführung}
-Der Abschnitt über die Skelett-Extraktion stützt sich auf das Paper von J. Pan et al. \cite{extraction}.
+Der Abschnitt über die Skelett-Extraktion stützt sich auf die Arbeit von J. Pan et al. \cite{extraction}.
 Für die Skelett-Extraktion wird kein Animation-Skelett im Voraus benötigt. Dieses wird aus dem Mesh extrahiert. Für diese Extraktion werden die Mittelachsen einzelner Mesh-Segmente benötigt. Bei einer Hand zum Beispiel die Achsen der fünf Finger, des Handtellers und des Armansatzes.
 
 Um die Mittelachsen eines 3D-Körpers zu bestimmen wird eine geometrische Form, die 3D-Silhouette, eingeführt. Eine 3D-Silhouette im Nachfolgenden auch nur als Silhouette bezeichnet, ist eine zweidimensionale Projektion des Meshs, wobei die Tiefeninformationen (Koordinate auf der Z-Achse) nicht verloren geht, sondern mit abgespeichert wird.
 
-Wurde eine geeignete Projektion gefunden (\ref{sec:projection_detection}), wird eine \nameref{sec:global_search} durchgeführt. Diese Suche findet alle Punkte des Meshs ohne darauf zu achten, ob diese verbunden sind. Sind alle Punkte gefunden, wird eine \nameref{sec:local_search} ausgeführt. Diese verbindet nun die Punkte und berücksichtigt deren Verbindung zum Mesh. Im Anschluss wird bei der "{}\nameref{sec:curve_skeleton_extraction}"{} die Mittelachsen bestimmt und das Kurven-Skelett extrahiert. In Abbildung \ref{extraction_fig1} a) kann man diese Mittelachse sehen (blaue Achse). Die rote und gelbe Linie repräsentieren jeweils eine Projektion des Meshs.
+Wurde eine geeignete Projektion, wie in Abbschnitt \ref{sec:projection_detection} beschrieben, gefunden. Wird eine \nameref{sec:global_search} durchgeführt. Diese Suche findet alle Punkte des Meshs ohne darauf zu achten, ob diese verbunden sind. Sind alle Punkte gefunden, wird eine \nameref{sec:local_search} ausgeführt. Diese verbindet nun die Punkte und berücksichtigt deren Verbindung zum Mesh. Im Anschluss wird bei der \enquote{\nameref{sec:curve_skeleton_extraction}} die Mittelachsen bestimmt und das Kurven-Skelett extrahiert. In Abbildung \ref{extraction_fig1} a) kann man diese Mittelachse sehen (blaue Achse). Die rote und gelbe Linie repräsentieren jeweils eine Projektion des Meshs.
 
-Um dieses angenäherte Skelett für die Computer Animation nutzbar zu machen werden im letzten Schritt (\ref{sec:animation_skeleton_creation}) noch die Gelenke eingefügt und die Achsen begradigt.
+Um dieses angenäherte Skelett für die Computer Animation nutzbar zu machen werden im letzten Schritt (Abschnitt: \ref{sec:animation_skeleton_creation}) noch die Gelenke eingefügt und die Achsen begradigt.
 
 \subsubsection{Projektionsfindung}
 \label{sec:projection_detection}
@@ -55,7 +53,7 @@ Die optimale Projektion hat möglichst wenig Verdeckung und das Maximum an Oberfl
 Mathematisch kann die Silhouette wie folgt beschrieben werden:
 \begin{equation}
 \label{3d_silhouette}
-C\{c_{i}(x,y,z) \vert c_{i}(x,y,z)\in V, c'_{i}(x,y) \in C', C' \subset P, x_{c_{i}} = x_{c'_{i}}, y_{c_{i}} = y_{c'_{i}} \}
+C = \{c_{i}(x,y,z) \vert c_{i}(x,y,z)\in V, c'_{i}(x,y) \in C', C' \subset P, x_{c_{i}} = x_{c'_{i}}, y_{c_{i}} = y_{c'_{i}} \}
 \end{equation}
 Symbol-Erläuterung:
 \begin{itemize}
@@ -64,9 +62,10 @@ Symbol-Erläuterung:
 	\item $P$: Menge der Punkte der Projektion	
 \end{itemize}
 
-\subsubsection{Globale Suche}
+\subsubsection{Globale Suche und Lokale Suche}
+\paragraph{Globale Suche}
 \label{sec:global_search}
-Für die Globale Suche muss zunächst einmal der Punkt mit dem größten Y-Wert aus der Menge $P$ bestimmt werden. Dieser Punkt ist unser Startpunkt. Wurde dieser Punkt ermittelt, werden nun alle Nachbarpunkte gesucht, welche in einem Radius $r$ liegen, wobei $r$ ein experimenteller Wert ist welcher dem maximalen euklidischen Abstand des Startpunktes ($P_{1}$) mit seinen Nachbarpunkten entspricht.
+Für die globale Suche muss zunächst einmal der Punkt mit dem größten Y-Wert aus der Menge $P$ bestimmt werden. Dieser Punkt ist unser Startpunkt. Wurde dieser Punkt ermittelt, werden nun alle Nachbarpunkte gesucht, welche in einem Radius $r$ liegen, wobei $r$ ein experimenteller Wert ist welcher dem maximalen euklidischen Abstand des Startpunktes ($P_{1}$) mit seinen Nachbarpunkten entspricht.
 
 Zur mathematischen Bestimmung des Radius $r$ kann folgende Gleichung herangezogen werden:
 \begin{equation}
@@ -80,11 +79,11 @@ Um den nächsten Punkt bestimmen zu können nutzt man den Vektor $\overrightarrow{
 Jetzt wird das Suchen nach Nachbarpunkten und das Bestimmen des Punktes mit dem größten Winkel solange wiederholt, bis man wieder beim Startpunkt angekommen ist.
 
 Durch den oben genannten Vorgang konnte die 2D-Silhouette $C'$ bestimmt werden.
-Anschließend wird zu jedem Punkt $ c'_{i}(x,y) \in C' $ die jeweils gespeicherte Z-Koordinate hinzugefügt. Dadurch entsteht die Menge der 3D-Punkte $ C'' \{c''_{i}(x,y,z) \in C'', x_{c''} = x_{c'}, y_{c''} = y_{c'} \} $.
+Anschließend wird zu jedem Punkt $ c'_{i}(x,y) \in C' $ die jeweils gespeicherte Z-Koordinate hinzugefügt. Dadurch entsteht die Menge der 3D-Punkte $ C'' = \{c''_{i}(x,y,z) \in C'', x_{c''} = x_{c'}, y_{c''} = y_{c'} \} $.
 
 Für ein bessers Verständnis kann man sich auch den Artikel von R.A. Jarvis zum Thema zur Identifikation von convexen Hüllen in einem endlichen Set von Punkten \cite{convex} anschauen. Der signifikante Unterschied zwischen den beiden Methoden ist jedoch folgender: in der oben genannten Methode ist die Suche auf den Radius $r$ begrenzt.
 
-\subsubsection{Lokale Suche}
+\paragraph{Lokale Suche}
 \label{sec:local_search}
 Abbildung \ref{extraction_fig1} (b) zeigt, wie die Lokale Suche abläuft.
 Für die lokale Suche werden nun alle Punkte der Menge $C''_{i}$ miteinander verbunden. Um die Punkte miteinander zu verbinden, wird wie folgt vorgegangen: 
@@ -97,14 +96,14 @@ Für die lokale Suche werden nun alle Punkte der Menge $C''_{i}$ miteinander verb
 
 4. Wiederhole Schritt 3 solange bis man wieder bei $c''_{i}(x,y,z)$ angekommen ist oder der Abstand zwischen $c_{ij}(x,y,z)$ und $c''_{i}(x,y,z)$ kleiner als der Radius $r$ ist der mit der Formel \ref{radius} bestimmt wurde.
 
-
-\subsubsection{Kurven-Skelett-Extraktion}
+\subsubsection{Skelett-Erzeugung}
+\paragraph{Kurven-Skelett-Extraktion}
 \label{sec:curve_skeleton_extraction}
-Die in den oberen beiden Abschnitten gefunden Punktmenge wird nun herangezogen um mithilfe der Delaunay-Triangulation ein Dreiecksnetz zu erstellen \cite{delaunay}. Dieses kann man in Abbildung \ref{extraction_fig1} (c) sehen. Anhand dieser Dreiecke können nun an allen Kanten, welche nicht die Außenflächen des Meshs berühren, Mittelpunktbestimmungen vorgenommen werden. Dafür wird berechnet: $ m_{k} \left( \frac{x_{i} + x_{j}}{2},\frac{y_{i} + y_{j}}{2},\frac{z_{i} + z_{j}}{2} \right)  $. Die gefundenen Mittelpunkte werden nun verbunden und wir erhalten eine Mittelachse für die aktuelle Projektion. Diese liegt jedoch noch nicht zentral im Mesh, hierfür muss man für jeden Teilbereiches des Meshs die vorher beschriebenen Vorgänge wiederholen. Jedoch müssen die Projektionen orthogonal zu der ersten Projektion liegen. Teilbereiche des Meshs sind in diesem Beispiel je ein Finger der Hand, der Handteller oder der Armansatz. (Siehe Abbildung \ref{extraction_fig1} (d))
+Die in den oberen beiden Abschnitten gefunden Punktmenge wird nun herangezogen um mithilfe der Delaunay-Triangulation ein Dreiecksnetz zu erstellen \cite{delaunay}. Dieses kann man in Abbildung \ref{extraction_fig1} (c) sehen. Anhand dieser Dreiecke können nun an allen Kanten, welche nicht die Außenflächen des Meshs berühren, Mittelpunktbestimmungen vorgenommen werden. Dafür wird berechnet: $ \vec{m_{k}} = \left( \frac{x_{i} + x_{j}}{2},\frac{y_{i} + y_{j}}{2},\frac{z_{i} + z_{j}}{2} \right)  $. Die gefundenen Mittelpunkte werden nun verbunden und wir erhalten eine Mittelachse für die aktuelle Projektion. Diese liegt jedoch noch nicht zentral im Mesh, hierfür muss man für jeden Teilbereiches des Meshs die vorher beschriebenen Vorgänge wiederholen. Jedoch müssen die Projektionen orthogonal zu der ersten Projektion liegen. Teilbereiche des Meshs sind in diesem Beispiel je ein Finger der Hand, der Handteller oder der Armansatz. (Siehe Abbildung \ref{extraction_fig1} (d))
 
 Wurde die Prozedur für jeden Teilbereichs des Meshs wiederholt, werden beide erzeugte Mittelachsen übereinander gelegt und dadurch entsteht eine Mittelachse die wirklich mittig im Mesh liegt. 
 
-\subsubsection{Animation-Skelett-Erzeugung}
+\paragraph{Animation-Skelett-Erzeugung}
 \label{sec:animation_skeleton_creation}
 Das bei der \nameref{sec:curve_skeleton_extraction} erzeugte Skelett ist eine gute Annäherung, kann jedoch bei der Computer Animation nicht verwendet werden. Um es brauchbar zu machen müssen die einzelnen Mittelachsen noch begradigt werden. Dies wird in Abbildung \ref{extraction_fig1}(e) dargestellt.
 
@@ -113,7 +112,7 @@ Der große Nachteil dieser Methode ist, dass möglicherweise nicht alle Gelenke ge
 
 \subsubsection{Zusammenfassung}
 \label{conclusion_extraction}
-Um die \nameref{sec:skeleton-extraction} zu evaluieren, werden die 3 Kenngrößen, welche im Abschnitt \ref{sec:whats_rigging} aufgelistet wurden, herangezogen. PAN et al gibt an, dass er seine Methode mit fünf verschiedenen Modellen getestet hat, wobei die Zeiten zwischen 3.6 und 15.1 Sekunden lagen. Weiterhin kann man dem Paper \cite{extraction} entnehmen dass der entwickelte Algorithmus mit O(N) läuft. Jedoch besitzt der Algorithmus einen Flaschenhals: das finden der optimalen Silhouette.
+Um die \nameref{sec:skeleton-extraction} zu evaluieren, werden die 3 Kenngrößen, welche im Abschnitt \ref{sec:whats_rigging} aufgelistet wurden, herangezogen. PAN et al gibt an, dass er seine Methode mit fünf verschiedenen Modellen getestet hat, wobei die Zeiten zwischen 3.6 und 15.1 Sekunden lagen. Weiterhin kann man \cite{extraction} entnehmen dass der entwickelte Algorithmus mit $O(N)$ läuft. Jedoch besitzt der Algorithmus einen Flaschenhals: das finden der optimalen Silhouette.
 
 Im Bereich der Allgemeingültigkeit ist PAN et al gut aufgestellt. Jedoch hat diese Methode auch Nachteile. Da das Verfahren sich auf das finden von Mittelachsen stützt, muss das Mesh aus annähernd zylindrischen Teilen bestehen. Auch spielt die Überdeckung eine tragende Rolle beim finden der Mittelachsen. Probleme würde zum Beispiel ein Cartoon-Modell eines sehr muskulösen Mannes bereiten, da durch die Muskeln die Achse verschoben wäre.
 
@@ -122,7 +121,8 @@ Nicht nur um die Mittelachsen zu finden, sondern auch um die Gelenke zu finden. 
 
 
 \begin{figure}[t]
-	\includegraphics[width=13cm]{00_Rigging/Pictures/extraction_pic1.png}
+	\centering
+	\includegraphics[width=.7\linewidth]{00_Rigging/Pictures/extraction_pic1.png}
 	\caption[Schritte der Animation-Skelett-Extraktion]{ (a) 3D-Silhouetten (rot/gelb) und Mittelachse (blau), (b) Globale und Lokale Suche, (c) Findung der Mittelachse einer Silhouette (d) Zweite Silhouetten für die einzelnen Bereiche der Hand, (e) Begradigung der Mittelachse, (f) Vergleich des Kurven-Skeletts vor und nach der Mittelachsenbegradigung. Entnommen aus \cite{extraction}}
 	\label{extraction_fig1}
 \end{figure}
@@ -131,8 +131,6 @@ Nicht nur um die Mittelachsen zu finden, sondern auch um die Gelenke zu finden. 
 \subsection{Skelett-Einbindung}
 \label{sec:skeleton-embedding}
 
-
-\subsubsection{Einführung}
 Der nachfolgende Absatz behandelt das Thema der \nameref{sec:skeleton-embedding} welches sich auf die Ausarbeitung von Ilya Baran und Jovan Popovic \cite{embedding} stützt.
 
 Für diese Rigging-Methode benötigt man ein vorgefertigtes Animations-Skelett sowie ein Mesh. Um dieses Skelett bestmöglich in dem Modell zu platzieren, muss man ein Graph-Optimierungs-Problem lösen. Um die Optimierung zu vereinfachen, wird das Volumen in mehreren Schritten reduziert. Am Ende erhalten wir einen Graphen, auf welchen unser vorgefertigtes Animations-Skelett gemapped werden kann.
@@ -145,19 +143,20 @@ In Abbildung \ref{embedding_fig1} ist das Verfahren vereinfacht graphisch darges
 \end{figure}
 
 \begin{figure}[t]
-	\includegraphics[]{00_Rigging/Pictures/embedding_pic2.png}
+	\includegraphics[width=\linewidth]{00_Rigging/Pictures/embedding_pic2.png}
 	\caption[Schrittweise Darstellung wie ein Graph im Modell gefunden wird]{ a) Mediale Flächen b) Dichteste Kugelpackung c) Erzeugter Graph d) Original und vereinfachtes Skelett. Entnommen aus \cite{embedding}}
 	\label{embedding_fig2}
 \end{figure}
 
-\subsubsection{Volumenreduktion I}
+\subsubsection{Volumenreduktion}
+\paragraph{Mediale Flächen}
 \label{sec:medial_surface}
 Der erste Schritt zur Volumenreduzierung ist das Finden der medialen Flächen. Diese sind ein Äquivalent der Mittelachse von zweidimensionalen Flächen im dreidimensionalen Raum. Ein Punkt liegt auf dieser Fläche, wenn er mehr als eine minimale Distanz von sich zur Körperoberfläche besitzt.
 Man erwartet dass das eingebettete Skelett auf dieser Fläche zu finden ist. In Abbildung \ref{embedding_fig2} a) sind diese medialen Flächen eines Meshs zu sehen.
 
-\subsubsection{Volumenreduktion II}
+\paragraph{Dichteste Kugelpackung}
 \label{sec:sphere_packing}
-Um das Volumen weiter zu reduzieren wird ein Graph erstellt, welcher die Gelenke als Knoten und die Knochen als Kanten hat. Um diesen Graph zu erzeugen wird eine Methode ähnlich der Methode zur Findung der "{}Dichtesten Kugelpackung"{}\footnote{\label{foot:1} Bei dieser Methode wird versucht Kugeln mit dem gleichen Radius in einem dreidimensionalen Körper zu platzieren	, wobei die Kugeln sich nur berühren, aber nicht überlappen dürfen. Ziel dieses Verfahrens ist es, einen möglichst minimalen Freiraum zwischen den Kugeln zu finden.} verwendet. Jedoch dürfen sich bei dieser Methode die Kugeln überlappen.
+Um das Volumen weiter zu reduzieren wird ein Graph erstellt, welcher die Gelenke als Knoten und die Knochen als Kanten hat. Um diesen Graph zu erzeugen wird eine Methode ähnlich der Methode zur Findung der \enquote{Dichtesten Kugelpackung}\footnote{\label{foot:1} Bei dieser Methode wird versucht Kugeln mit dem gleichen Radius in einem dreidimensionalen Körper zu platzieren	, wobei die Kugeln sich nur berühren, aber nicht überlappen dürfen. Ziel dieses Verfahrens ist es, einen möglichst minimalen Freiraum zwischen den Kugeln zu finden.} verwendet. Jedoch dürfen sich bei dieser Methode die Kugeln überlappen.
 
 Jeder Punkt auf der medialen Fläche dient als Mittelpunkt einer Kugel und hat als Radius seine Distanz zur Oberfläsche des Meshs. Als Startpunkt wird der Punkt genommen, dessen Distanz zur Oberfläche am größten ist. Es dürfen nur Kugeln hinzugefügt werden, welche nicht den Mittelpunkt einer anderen Kugel umschließen. 
 
@@ -187,12 +186,12 @@ Die Straffunktionen haben großen Einfluss auf die Qualität des Ergebnisses und d
 	\item unmögliche Knochenausrichtungen
 	\item Gelenke, welche im Graph nah beieinander im originalem Skelett jedoch weit entfernt liegen
 \end{itemize}
-Um das optmimale Gewicht für jede dieser Straffunktionen zu finden, wurde mit Hilfe einer Stützvektormaschine versucht ein maximaler Breiter-Rand-Klassifikator ("{}margin linear classifier"{}) zu finden. Dieser Klassifikator versucht den Abstand zwischen der besten "{}schlechten"{} und der schlechtesten "{}guten"{} Einbettung zu maximieren.
+Um das optimale Gewicht für jede dieser Straffunktionen zu finden, wurde mit Hilfe einer Stützvektormaschine versucht ein maximaler Breiter-Rand-Klassifikator (\enquote{margin linear classifier}) zu finden. Dieser Klassifikator versucht den Abstand zwischen der besten \enquote{schlechten} und der schlechtesten \enquote{guten} Einbettung zu maximieren.
 \begin{equation}
 \label{weight}
-\min_{i=1}^{n}\Gamma^T q_{i} - \min_{i=1}^{m}\Gamma^T p_{i}
+c = \min_{i=1}^{n}\vec{\Gamma}^T \vec{q_{i}} - \min_{i=1}^{m}\vec{\Gamma}^T \vec{p_{i}}
 \end{equation}
-$p$ ("{}gut"{}) und $q$ ("{}schlecht"{}) sind Vektoren welche die Einbettungen repäsentieren. Der Vektor $\Gamma$ enthält das Gewicht, $n$ und $m$ stehen für die Anzahl der "{}guten"{} bzw. "{}schlechten"{} Einbettungen. Idealerweise sollte $\Gamma$ so gewählt werden, das die Gleichung gegen $1$ geht. 
+$\vec{p}$ (\enquote{gut}) und $\vec{q}$ (\enquote{schlecht}) sind Vektoren welche die Einbettungen repäsentieren. Der Vektor $\vec{\Gamma}$ enthält das Gewicht, $n$ und $m$ stehen für die Anzahl der \enquote{guten} bzw. \enquote{schlechten} Einbettungen. Idealerweise sollte $\vec{\Gamma}$ so gewählt werden, das $c$ gegen $1$ geht. 
 
 Um die beste Einbettung zu finden wird Schritt für Schritt vorgegangen. Es wird an einem Punkt gestartet und die beste partielle Einbettung zum nächsten Gelenk gesucht. Dies geschieht so lange, bis das komplette Skelett eingebunden ist.
 
@@ -207,13 +206,13 @@ Zum Schluss wird das ganze Skelett noch einmal optimiert, sprich die wegreduzier
 
 \subsubsection{Zusammenfassung}
 \label{sec:conclusion_embedding}
-Analog zu \ref{conclusion_extraction} wird diese Rigging-Methode anhand der 3 Kenngrößen evaluiert.
+Analog zum Abschnitt \ref{conclusion_extraction} wird diese Rigging-Methode anhand der 3 Kenngrößen evaluiert.
 Der von Baran und Popovic vorgestellte Algorithmus fällt unter die Komplexität von $O(N^2)$, sie geben an, dass sie 16 verschiedene Modelle getestet haben. Die Modelle konnten in einer Zeit zwischen 12.6 und 77.1 Sekunden gerigged werden.
 
-Bei der Allgemeingültigkeit ist der Algorithmus stark auf das vorgegebene Skelett eingeschränkt, im Beispiel des Papers \cite{embedding} auf humanoide Modelle. Ein weiterer Nachteil ist ebenfalls das kleine Modelle mit vielen kleinen Knochen generell (z.B. Schlangen) zu Problemen führen. Da diese durch die Straffunktionen ausgeschlossen werden. 
+Bei der Allgemeingültigkeit ist der Algorithmus stark auf das vorgegebene Skelett eingeschränkt, im Beispiel \cite{embedding} auf humanoide Modelle. Ein weiterer Nachteil ist ebenfalls das kleine Modelle mit vielen kleinen Knochen generell (z.B. Schlangen) zu Problemen führen. Da diese durch die Straffunktionen ausgeschlossen werden. 
 Von den 16 getesteten Modellen, siehe Abbildung \ref{embedding_fig4} wurden die meisten korrekt gerigged. Nur bei Modell 7, 10 und 13 kam es zu Problemen, diese konnten jedoch durch kleine Hinweise für die korrekte Gelenkplazierung durch den Benutzer gelöst werden.
 
-Die Selbständigkeit ist stark eingeschränkt durch die Pose des Modells. Diese muss sich möglichst an dem Skelett orientieren, sonst würden die Straffunktionen dafür sorgen, dass die Einbindungen wegen der Gelenk- und Knochenstellungen als "{}schlecht"{} markiert werden. Außerdem erwartet der Algorithmus, dass das Modell mit beiden Füßen am Boden steht.
+Die Selbständigkeit ist stark eingeschränkt durch die Pose des Modells. Diese muss sich möglichst an dem Skelett orientieren, sonst würden die Straffunktionen dafür sorgen, dass die Einbindungen wegen der Gelenk- und Knochenstellungen als \enquote{schlecht} markiert werden. Außerdem erwartet der Algorithmus, dass das Modell mit beiden Füßen am Boden steht.
 \begin{figure}[t]
 	\includegraphics[]{00_Rigging/Pictures/embedding_pic4.png}
 	\caption[Ergebnisse der Skelett-Einbindung]{Ergebnisse der Skelett-Einbindung. Entnommen aus \cite{embedding}}
