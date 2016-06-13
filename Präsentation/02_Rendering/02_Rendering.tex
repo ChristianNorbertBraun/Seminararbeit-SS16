@@ -1,5 +1,7 @@
 \section{Rendering}
 	
+		\pdfnote{3dimensionale Szene Mesh zu 2dimensionales Bild}
+		\pdfnote{Berücksichtigung von Schatten, Reflexionen, Texturen etc.}
 	\begin{frame}[plain, c]
 		
 	\begin{center}
@@ -20,11 +22,7 @@
 
 		
 	\end{frame}
-	\pdfnote{Whatever}
-	\pdfnote{zrdz}
-	\pdfnote{zrdz}
-	\pdfnote{zrdz}
-	\pdfnote{zrdz}
+
 	
 
 		
@@ -34,7 +32,9 @@
 		%\caption{\label{fig:your-figure}Caption goes here.}
 		%\end{figure}
 		
-	
+	\pdfnote{Wird in vielen Bereichen eingesetzt.}
+	\pdfnote{Unterschiedliche Anforderungen}
+	\pdfnote{Spiele schnelles Rendering Realtime}
 	\begin{frame}{\Huge{Rendering in der Praxis}}
 		
 		\begin{figure}
@@ -52,7 +52,10 @@
 		\blfootnote{Bildquellen: \cite{journey, cad}}
 		
 \end{frame}
-	
+
+
+\pdfnote{Konzentrieren uns auf das Rendering im Film}	
+\pdfnote{Detailreiche Bilder und trotzdem schnell}	
 \begin{frame}{\Huge{Rendering im Film}}
 		
 		\begin{figure}
@@ -69,9 +72,12 @@
 		
 		\blfootnote{Bildquellen: \cite{cars}}
 	\end{frame}
-	
+
 	\subsection{Licht}
 	
+		\pdfnote{Kernelement für reale Objekte ist Licht}
+		\pdfnote{Licht reflektiert nicht auf allen Oberflächen gleich}
+		\pdfnote{spekulare Relfexion, diffuse Reflexion}
 \begin{frame}{\Huge{Licht}}
 		
 		\begin{figure}
@@ -88,8 +94,11 @@
 		
 		\blfootnote{Bildquellen: \cite{reflexion}}
 	\end{frame}
-	
-	\begin{frame}{\colorbox{black!10}{\Huge{Materialien}}}
+
+		\pdfnote{Materialbeispiele}
+		\pdfnote{Glänzend bis Matt}
+		\pdfnote{Realisiert durch lokale und globale Beleuchtungsmodelle}
+	\begin{frame}{\Huge{Materialien}}
 		
 		\begin{figure}
 				\centering
@@ -98,8 +107,13 @@
 		\end{figure}
 		
 		\blfootnote{Bildquellen: \cite{realImages}}
-	\end{frame}
+\end{frame}
+
 	
+	\pdfnote{Reine Betrachtung des direkten Lichts}
+	\pdfnote{Objekte Polygone werden völlig isoliert von anderen Polygonen betrachtet}
+	\pdfnote{Reflexionseigenschaften werden durch BRDF modelliert Intensität}
+	\pdfnote{theta Brechungswinkel, phi Einfallswinkel}
 \begin{frame}{\Huge{Lokale Reflexionsmodelle}}
 		
 		  \begin{tabular}{cl}  
@@ -119,7 +133,11 @@ $$\mathrm{BRDF}=f(\theta_\mathrm{in}, \phi_\mathrm{in}, \theta_\mathrm{ref}, \ph
 		
 		\blfootnote{Bildquellen: \cite{directLight}}
 \end{frame}
-	
+
+	\pdfnote{In alle Richtungen gleiche Intensität}
+	\pdfnote{Unabhängig von Blickwinkel bei gleicher Lichtintensität}
+	\pdfnote{Erklären was formel bedeutet}
+	\pdfnote{Wie kommen dunklere Punkte zu Stande}
 \begin{frame}{\Huge{Lambertsche Reflexion}}
 		
 		  \begin{tabular}{cl}  
@@ -137,6 +155,13 @@ $$I_{D} =\vec{\omega_{i}} \cdot \vec{n}CI_{L}$$
          \end{tabular}  \\
 \end{tabular}
 \end{frame}
+
+
+\pdfnote{Basiert auf der Lambertschen Reflexion fügt aber Glanzlicht hinzu}
+\pdfnote{Wenn Einfallswinkel und Ausfallswinkel die Normale als Mitte haben}
+\pdfnote{angenähert durch h, max damit winkel nicht über 90 grad}
+\pdfnote{s = smoothness}
+\pdfnote{pi und 8er erklären}
 
 \begin{frame}{\Huge{Blinn-Phong BRDF}}
 		
@@ -160,7 +185,9 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 		\blfootnote{Bildquellen: \cite{h}}  
 
 \end{frame}
-
+\pdfnote{Beleuchtung im Raum besteht aus mehr als nur direkter}
+\pdfnote{In der Realität viele diffuse Oberflächen = tragen viel Bei}
+\pdfnote{Color Bleeding}
 \begin{frame}{\Huge{Globale Beleuchtungsmodelle}}
 		
 		\begin{figure}
@@ -173,6 +200,9 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 
 \end{frame}
 
+\pdfnote{Gelöst durch Rendering Gleichung}
+\pdfnote{Kajiya, 1986}
+\pdfnote{kann analytisch nicht berechnet werden -> Annäherungen Ray Tracing}
 \begin{frame}{\Huge{Die Rendering-Gleichung}}
 	
 	\begin{center}
@@ -186,6 +216,8 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 	
 \end{frame}
 
+\pdfnote{Auf Film bezogen müssen die noch mehr können}
+\pdfnote{Komlexes Shading: Materialien, und selbst implementieren}
 \subsection{Rendering-Techniken}
 \begin{frame}{\Huge{Rendering-Techniken}}
 	
@@ -198,10 +230,14 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 		\item Bildqualität
 		\item Flexibilität
 	\end{itemize}
-	
 \end{frame}
 
+
 \subsubsection{Reyes-Bild-Rendering-Architektur}
+\pdfnote{Render Everything you ever saw }
+\pdfnote{Erfüllt eben diese Anforderungen}
+\pdfnote{schnell Komplexe Szenen hochqualitativ rendern}
+\pdfnote{Jedes Objekt unabhängig von anderen}
 \begin{frame}{\Huge{REYES}}
 	
 	\begin{block}{Problem}
@@ -214,8 +250,11 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 		Prinzip der geometrischen Lokalität
 	\end{block}
 \end{frame}
-\pdfnote{Render Everything you ever saw }
 
+\pdfnote{Erreicht durch Maps}
+\pdfnote{Texture Maps}
+\pdfnote{Umgebungsmaps}
+\pdfnote{Offline erstellung der Maps für jedes Objekt}
 \begin{frame}{\Huge{Maps}}
 		\begin{figure}
 			\centering
@@ -242,6 +281,10 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 
 \end{frame}
 
+\pdfnote{Bounding, diving , splitting}
+\pdfnote{Jedes Objekt einzeln einlesen}
+\pdfnote{Sichtbarkeit prüfen, dicen/splitten, shaden, antialiasing, Picture}
+\pdfnote{backdoor um eigene Elemente reinzubringen}
 \begin{frame}{\Huge{Algorithmus}}
 
 \begin{tabular}{cl}  
@@ -263,6 +306,8 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 \blfootnote{Bildquellen: \cite{REYES}} 
 \end{frame}
 
+\pdfnote{Aufteilen der Patches}
+\pdfnote{Clipping enfällt}
 \begin{frame}{\Huge{Algorithmus}}
 		\begin{figure}
 			\centering
@@ -279,6 +324,8 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 	\blfootnote{Bildquellen: \cite{REYES}} 
 \end{frame}
 
+\pdfnote{Lampe aus dem ersten Animierten Film von Pixar}
+\pdfnote{Monster AG}
 \begin{frame}{\Huge{Beispiele}}
 	\begin{figure}
 		\centering
@@ -296,6 +343,9 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 
 \subsubsection{Raytracing}
 
+\pdfnote{Deutlich aufwendiger Ray Tracing}
+\pdfnote{Kamm lange Zeit im Film nicht in Frage}
+\pdfnote{Aber die Ergebnisse sind besser}
 \begin{frame}{\Huge{Raytracing}}
 
 	\begin{figure}
@@ -306,6 +356,9 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 	\blfootnote{Bildquellen: \cite{rayTracingBalls}} 
 \end{frame}
 
+\pdfnote{Realistische Reflexionen}
+\pdfnote{Auch bei vielen Lichtquellen gutShadowmaps müssen getracked werden}
+\pdfnote{Spiegelnde Objekte können sich ineinander spiegeln}
 \begin{frame}{\Huge{Reflexionen}}
 	\begin{figure}
 		\centering
@@ -331,6 +384,10 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 	\blfootnote{Bildquellen: \cite{cars}} 
 \end{frame}
 
+\pdfnote{Wieso lange nicht verwendet?}
+\pdfnote{Basis algorithmus}
+\pdfnote{Strahlen in Szene schießen und bei schnittpunkt auf Schatten prüfen}
+\pdfnote{Viele Schnittpunktberechnungen}
 \begin{frame}{\Huge{Raytracer Algorithmus}}
 	
 
@@ -357,6 +414,10 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 	\blfootnote{Bildquellen: \cite{rayTracing}} 
 \end{frame}
 
+\pdfnote{Leichte Schnittpunktberechnung}
+\pdfnote{Wenig Freiraum zwischen Objekt und Hüllkörper}
+\pdfnote{Gruppierung}
+\pdfnote{Cars Optimierung mit nächste Hüllkörper}
 \begin{frame}{\Huge{Hüllkörper}}
 	
 	
@@ -381,6 +442,7 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 	\blfootnote{Bildquellen: \cite{rabbit}} 
 \end{frame}
 
+\pdfnote{Strahlen beschreiben gleichen Weg}
 \begin{frame}{\Huge{Strahlenbündel}}
 	
 	
