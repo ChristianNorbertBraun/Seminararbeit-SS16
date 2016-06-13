@@ -1,10 +1,10 @@
 \subsection{Zusammenfassung Skinning}
 
-Skinning verfolgt das Ziel das sich das Modell nat�rlich bei jeder Bewegung vom Skelett mit bewegt. Dies wird durch viele Faktoren beeinflusst. Wie zum Beispiel dem Material der Figur oder den physikalischen Gesetzm��igkeiten des Films. Es gibt viele Ans�tze, die vom Einsatz komplexer Hardware reichen um physiologisch komplizierte Prozesse wie das Atmen darzustellen bis hin zu einfachen geometrischen Ans�tzen. 
+Skinning verfolgt das Ziel, dass sich ein Modell nat\"urlich bei jeder Bewegung des Skelettes sinnvoll mit bewegt. Das wird durch viele Faktoren beeinflusst, wie zum Beispiel durch das Material der Figur oder durch die physikalischen Gesetze des Films. Es gibt viele Ans\"atze - vom Einsatz komplexer Hardware, um physiologisch komplizierte Prozesse wie das Atmen darzustellen, bis hin zu einfachen geometrischen Ans\"atzen. 
 
-Diese basieren auf der Grundlage die Transformationen nach physiologischen Eigenschaften zu modifizieren. Das prim�re Beispiel hierf�r ist wohl die Vergabe von Gewichten an einzelne Punkte auf der Haut um die Abh�ngigkeit von mehreren Knochen zu simulieren. 
+Diese Ansätze basieren auf der Grundlage, die Transformationen nach physiologischen Eigenschaften zu modifizieren. Das prim\"are Beispiel hierf\"ur ist wohl die Vergabe von Gewichten an einzelne Punkte auf der Haut, um die Abh\"angigkeit von mehreren Knochen zu simulieren. 
 
-Ich Bereich des geometrischen Skinning ist Linear Blend Skinning der Standart auf Grund seiner Einfachheit und Performanz. Dieser hat allerdings das Problem durch Volumenverlust Artefakte zu erzeugen. Dual Quaternionen Blend Skinning behebt dies bei vergleichbarer Rechenleistung. Allerdings erzeugt auch dieser bei manchen Rotationen Artefakte und erlaubt keine Volumenver�nderungen. Die beiden Verfahren nochmal im Vergleich bei unterschiedlicher Gewichtsverteilung in Abbildung 13.
+Im Bereich des geometrischen Skinning ist Linear Blend Skinning auf Grund seiner Einfachheit und Performance der Standard. Dieser hat allerdings das Problem, durch Volumenverlust Artefakte zu erzeugen. Dual Quaternionen Blend Skinning behebt diese Problematik bei vergleichbarer Rechenleistung, erzeugt jedoch auch bei manchen Rotationen Artefakte und erlaubt keine Volumenver\"anderungen. Die beiden Verfahren nochmal im Vergleich bei unterschiedlicher Gewichtsverteilung in Abbildung 17.
 
 \begin{figure}[t]
 	\includegraphics[width=13cm]{01_Skinning/pics/lbsvsdqs.png}
