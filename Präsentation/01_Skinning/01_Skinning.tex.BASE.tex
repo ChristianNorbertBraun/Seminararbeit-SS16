@@ -1,9 +1,13 @@
 \section{Skinning}
-\subsection{Was ist Skinning?}
+
 { %öffnende Klammer für hintergrundbild lokal
 	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{01_Skinning/Pictures/SkinningIntro.PNG}}
-	\begin{frame}{\Huge{Was ist Skinning?}}
-		\blfootnote{Bildquelle: \cite{skinningcourse:2014}}
+	\begin{frame}{
+			\begin{figure}
+				\colorbox{black!10}{\Huge{Was ist Skinning?}}
+			\end{figure}
+		}
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{skinningcourse:2014}}}
 		
 		\pdfnote{Frage an alle: Was soll jetzt mit dem geriggten Modell passieren}
 		\pdfnote{Frage an alle: Welcher Ansatz wäre hier der Intuitive}
@@ -14,14 +18,17 @@
 
 {
 
-	\begin{frame}{\Huge{Transformationen}}
-
+	\begin{frame}{
+						\begin{figure}
+							\colorbox{black!10}{\Huge{Transformationen}}
+						\end{figure}
+			}
 			
 			\begin{figure}
 				\includegraphics[width=1.0\textwidth]{01_Skinning/Pictures/Transformation.PNG}
 			\end{figure}
 		
-		\blfootnote{Bildquelle: \cite{skinningcourse:2014}}
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{skinningcourse:2014}}}
 		
 		\pdfnote{Offene Frage: Was heisst Transformation genau, wie kann man sie darstellen, was ist besonders und wichtig daran?}
 		
@@ -30,7 +37,11 @@
 
 {
 	
-	\begin{frame}{\Huge{Translation}}
+	\begin{frame}{
+			\begin{figure}
+				\colorbox{black!10}{\Huge{Translation}}
+			\end{figure}
+		}
 		
 		\begin{figure}
 			\includegraphics[width=0.3\textwidth]{01_Skinning/Pictures/Translation.PNG}
@@ -45,7 +56,11 @@
 
 {
 	
-	\begin{frame}{\Huge{Scale}}
+	\begin{frame}{
+			\begin{figure}
+				\colorbox{black!10}{\Huge{Scale}}
+			\end{figure}
+		}
 		
 		\begin{figure}
 			\includegraphics[width=0.3\textwidth]{01_Skinning/Pictures/scale.PNG}
@@ -60,7 +75,11 @@
 
 {
 	
-	\begin{frame}{\Huge{Rotation}}
+	\begin{frame}{
+			\begin{figure}
+				\colorbox{black!10}{\Huge{Rotation}}
+			\end{figure}
+		}
 		
 		\begin{figure}
 			\includegraphics[width=0.6\textwidth]{01_Skinning/Pictures/rotation.PNG}
@@ -74,7 +93,11 @@
 
 { %öffnende Klammer für hintergrundbild lokal
 	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{01_Skinning/Pictures/physiologisch.jpg}}
-	\begin{frame}{\Huge{Anatomische Modellierung}}
+	\begin{frame}{
+			\begin{figure}
+				\colorbox{black!10}{\Huge{Anatomische Modellierung}}
+			\end{figure}
+		}
 		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{muskeln}}}
 		
 		\pdfnote{Aufbau des Menschen abbilden -> Daraus ergibt sich Realität}
@@ -86,27 +109,34 @@
 
 {
 	
-	\begin{frame}{\Huge{Motion Capture}}
+	\begin{frame}{
+			\begin{figure}
+				\colorbox{black!10}{\Huge{Motion Capture}}
+			\end{figure}
+		}
 		
 		\begin{figure}
-			\includegraphics[width=0.4\textwidth]{01_Skinning/Pictures/breathing.PNG}
+			\includegraphics[width=0.6\textwidth]{01_Skinning/Pictures/breathing.PNG}
 		\end{figure}
 		
-			\blfootnote{Bildquelle: \cite{dilorenzo2008breathing}}
+			\blfootnote{\colorbox{black!10}{Bildquelle: \cite{dilorenzo2008breathing}}}
 		
 		\pdfnote{Beobachting menschlicher Funktion}
 		
 	\end{frame}
 }
 
-	\begin{frame}{\Huge{Multipler Input}}
-
+	\begin{frame}{
+			\begin{figure}
+				\colorbox{black!10}{\Huge{Multipler Input}}
+			\end{figure}
+		}
 		
 		\begin{figure}
-			\includegraphics[width=0.5\textwidth]{01_Skinning/Pictures/multi.jpg}
+			\includegraphics[width=0.6\textwidth]{01_Skinning/Pictures/multi.jpg}
 		\end{figure}
 		
-		\blfootnote{Bildquelle: \cite{multi}}
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{multi}}}
 		
 		\pdfnote{Viel Input}
 		
@@ -115,7 +145,11 @@
 
 { %öffnende Klammer für hintergrundbild lokal
 	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{01_Skinning/Pictures/geometrisch.jpg}}
-	\begin{frame}{\colorbox{black!10}{\Huge{Geometrisches Skinning}}}
+	\begin{frame}{
+			\begin{figure}
+				\colorbox{black!10}{\Huge{Geometrisches Skinning}}
+			\end{figure}
+		}
 		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{geo}}}
 		
 		\pdfnote{Knoten an Knochen}
@@ -124,17 +158,12 @@
 		
 	\end{frame}
 } %schließende klammer für hintergrundbild lokal
-<<<<<<< HEAD
-\subsection{Lineares Modell}
+
 	\begin{frame}{
 			\begin{figure}
 				\colorbox{black!10}{\Huge{Linear Skinning}}
 			\end{figure}
 		}
-=======
-
-	\begin{frame}{\Huge{Linear Skinning}}
->>>>>>> 145af1e69f0528f9d8f92da79bff863dc65e39d3
 		
 		$$v'=Wi(v)$$
 		
@@ -144,7 +173,11 @@
 
 { %öffnende Klammer für hintergrundbild lokal
 	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{01_Skinning/Pictures/weight.png}}
-	\begin{frame}{\Huge{Weights}}
+	\begin{frame}{
+			\begin{figure}
+				\colorbox{black!10}{\Huge{Weights}}
+			\end{figure}
+		}
 		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{weights}}}
 		
 		\pdfnote{Abhängigkeit vom Knochen}
@@ -154,19 +187,27 @@
 	\end{frame}
 } %schließende klammer für hintergrundbild lokal
 
-	\begin{frame}{\Huge{Heat Equilibrium}}
+	\begin{frame}{
+			\begin{figure}
+				\colorbox{black!10}{\Huge{Heat Equilibrium}}
+			\end{figure}
+		}
 		
 		\begin{figure}
 			\includegraphics[width=0.6\textwidth]{01_Skinning/Pictures/heat.png}
 		\end{figure}
 		
-		\blfootnote{Bildquelle: \cite{heat}}
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{heat}}}
 		
 		\pdfnote{Aufteilung anhand von Hitze}
 		
 	\end{frame}
 	
-	\begin{frame}{\Huge{Linear Blend Skinning}}
+	\begin{frame}{
+			\begin{figure}
+				\colorbox{black!10}{\Huge{Linear Blend Skinning}}
+			\end{figure}
+		}
 		
 		$$v'=\sum_{i=1}^{N}wiWji(v)$$
 		
@@ -174,44 +215,59 @@
 		
 	\end{frame}
 	
-		\begin{frame}{\Huge{Linear Blend Skinning Matrix}}
+		\begin{frame}{
+				\begin{figure}
+					\colorbox{black!10}{\Huge{Linear Blend Skinning Matrix}}
+				\end{figure}
+			}
 			
 			\begin{figure}
 				\includegraphics[width=1.0\textwidth]{01_Skinning/Pictures/lbsmatrix.png}
 			\end{figure}
 			
-			\blfootnote{Bildquelle: \cite{skinningcourse:2014}}
+			\blfootnote{\colorbox{black!10}{Bildquelle: \cite{skinningcourse:2014}}}
 			
 			\pdfnote{LBS Matrix erklären}
 			
 		\end{frame}
 		
-		\begin{frame}{\Huge{Linear Blend Skinning Artefakte}}
+		\begin{frame}{
+				\begin{figure}
+					\colorbox{black!10}{\Huge{Linear Blend Skinning Artefakte}}
+				\end{figure}
+			}
 			
 			\begin{figure}
 				\includegraphics[width=1.2\textwidth]{01_Skinning/Pictures/rotationsartefakt.png}
 			\end{figure}
 			
-			\blfootnote{Bildquelle: \cite{weights}}
+			\blfootnote{\colorbox{black!10}{Bildquelle: \cite{weights}}}
 			
 			\pdfnote{Aufteilung anhand von Hitze}
 			
 		\end{frame}
 		
-				\begin{frame}{\Huge{Linear Blend Skinning Artefakte}}
+				\begin{frame}{
+						\begin{figure}
+							\colorbox{black!10}{\Huge{Linear Blend Skinning Artefakte}}
+						\end{figure}
+					}
 					
 					\begin{figure}
 						\includegraphics[width=0.6\textwidth]{01_Skinning/Pictures/interpolation_angle.png}
 					\end{figure}
 					
-					\blfootnote{Bildquelle: \cite{weights}}
+					\blfootnote{\colorbox{black!10}{Bildquelle: \cite{weights}}}
 					
 					\pdfnote{Aufteilung anhand von Hitze}
 					
 				\end{frame}
 
-	\begin{frame}{\Huge{Facial Blend Skinning}}
-
+	\begin{frame}{
+			\begin{figure}
+				\colorbox{black!10}{\Huge{Facial Blend Skinning}}
+			\end{figure}
+		}
 		
 		$$S=S0+\sum_{i}wi(Si-S0)$$
 		
@@ -219,40 +275,43 @@
 		
 	\end{frame}
 
-				\begin{frame}{\Huge{Facial Blend Skinning}}
+				\begin{frame}{
+						\begin{figure}
+							\colorbox{black!10}{\Huge{Facial Blend Skinning}}
+						\end{figure}
+					}
 					
 					\begin{figure}
 						\includegraphics[width=1.2\textwidth]{01_Skinning/Pictures/face.png}
 					\end{figure}
 					
-					\blfootnote{Bildquelle: \cite{dutreve2008feature}}
+					\blfootnote{\colorbox{black!10}{Bildquelle: \cite{dutreve2008feature}}}
 					
 					\pdfnote{Aufteilung anhand von Hitze}
 					
 				\end{frame}
-<<<<<<< HEAD
-\subsection{Quaternionen}
+
 				\begin{frame}{
 						\begin{figure}
 							\colorbox{black!10}{\Huge{Quaternionen}}
 						\end{figure}
 					}
-=======
-
-				\begin{frame}{\Huge{Quaternionen}}
->>>>>>> 145af1e69f0528f9d8f92da79bff863dc65e39d3
 					
 					\begin{figure}
 						\includegraphics[width=0.5\textwidth]{01_Skinning/Pictures/Quaternionen.png}
 					\end{figure}
 					
-					\blfootnote{Bildquelle: \cite{kavan2008geometric}}
+					\blfootnote{\colorbox{black!10}{Bildquelle: \cite{kavan2008geometric}}}
 					
 					\pdfnote{Video 1}
 					
 				\end{frame}
 				
-		\begin{frame}{\Huge{Dual Quaternionen Skinning}}
+		\begin{frame}{
+				\begin{figure}
+					\colorbox{black!10}{\Huge{Dual Quaternionen Skinning}}
+				\end{figure}
+			}
 			
 			$$\mathbf{\dot q} =  \frac{\sum_{i=1}^n w_i \mathbf{\dot q}_i}{\| \sum_{i=1}^n w_i \mathbf{\dot q}_i \|}$$
 			
@@ -260,57 +319,111 @@
 			
 		\end{frame}
 		
-				\begin{frame}{\Huge{Linear Blend Skinning}}
+				\begin{frame}{
+						\begin{figure}
+							\colorbox{black!10}{\Huge{Linear Blend Skinning}}
+						\end{figure}
+					}
 					
 					\begin{figure}
 						\includegraphics[width=1.0\textwidth]{01_Skinning/Pictures/lbsgrad.png}
 					\end{figure}
 					
-					\blfootnote{Bildquelle: \cite{weights}}
+					\blfootnote{\colorbox{black!10}{Bildquelle: \cite{weights}}}
 					
 					\pdfnote{Aufteilung anhand von Hitze}
 					
 				\end{frame}
 				
-						\begin{frame}{\Huge{Dual Quaternion Skinning}}
+						\begin{frame}{
+								\begin{figure}
+									\colorbox{black!10}{\Huge{Dual Quaternion Skinning}}
+								\end{figure}
+							}
 							
 							\begin{figure}
 								\includegraphics[width=1.0\textwidth]{01_Skinning/Pictures/dqsgrad.png}
 							\end{figure}
 							
-							\blfootnote{Bildquelle: \cite{weights}}
+							\blfootnote{\colorbox{black!10}{Bildquelle: \cite{weights}}}
 							
 							\pdfnote{Aufteilung anhand von Hitze}
 							
 						\end{frame}
 						
-				\begin{frame}{\Huge{Artefakte Dual Quaternionen}}
+				\begin{frame}{
+						\begin{figure}
+							\colorbox{black!10}{\Huge{Artefakte Dual Quaternionen}}
+						\end{figure}
+					}
 					
 					\begin{figure}
 						\includegraphics[width=1.0\textwidth]{01_Skinning/Pictures/dqsgradartefakte.png}
 					\end{figure}
 					
-					\blfootnote{Bildquelle:\cite{kavan2008geometric}}
+					\blfootnote{\colorbox{black!10}{Bildquelle: \cite{kavan2008geometric}}}
 					
 					\pdfnote{Video 1}
 					
 				\end{frame}
 				
-					\begin{frame}{\Huge{Fazit}}
+						\begin{frame}{
+								\begin{figure}
+									\colorbox{black!10}{\Huge{Fazit}}
+								\end{figure}
+							}
 							
 							\begin{figure}
 								\includegraphics[width=0.8\textwidth]{01_Skinning/Pictures/lbsvsdqs.png}
 							\end{figure}
 							
-							\blfootnote{Bildquelle: \cite{weights}}
+							\blfootnote{\colorbox{black!10}{Bildquelle: \cite{weights}}}
 							
 							\pdfnote{Zusammenfassung, video 2}
 							
-<<<<<<< HEAD
 						\end{frame}
 		
 		
+
+
+
 	
-=======
-						\end{frame}
->>>>>>> 145af1e69f0528f9d8f92da79bff863dc65e39d3
+	
+	\subsection{Tables and Figures}
+	
+	\begin{frame}{Tables and Figures}
+		
+		\begin{itemize}
+			\item Use \texttt{tabular} for basic tables --- see Table~\ref{tab:widgets}, for example.
+			\item You can upload a figure (JPEG, PNG or PDF) using the files menu. 
+			\item To include it in your document, use the \texttt{includegraphics} command (see the comment below in the source code).
+		\end{itemize}
+		
+		% Commands to include a figure:
+		%\begin{figure}
+		%\includegraphics[width=\textwidth]{your-figure's-file-name}
+		%\caption{\label{fig:your-figure}Caption goes here.}
+		%\end{figure}
+		
+		\begin{table}
+			\centering
+			\begin{tabular}{l|r}
+				Item & Quantity \\\hline
+				Widgets & 42 \\
+				Gadgets & 13
+			\end{tabular}
+			\caption{\label{tab:widgets}An example table.}
+		\end{table}
+		
+	\end{frame}
+	
+	\subsection{Mathematics}
+	
+	\begin{frame}{Readable Mathematics}
+		
+		Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
+		$$S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
+		= \frac{1}{n}\sum_{i}^{n} X_i$$
+		denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
+		
+	\end{frame}
