@@ -1,20 +1,33 @@
 \subsection{Skinning im Überblick}
 
-Es gibt verschiedene Arten von Skinning. Diese werden hier im kurzem vorgestellt. 
+Der Begriff des Skinning, also die Idee der Deformation von Gittergraphen auf Basis eines zugrundeliegenden Skelettes, wird \cite{magnenat1988joint} zugeordnet. Es haben sich viele unterschiedliche Vorgehensweisen etabliert, grob kategorisierbar in physiologisch basierende Ansätze, die Aufzeichnung echter körperlicher Funktionen, Beispiel-basierte Techniken und den geometrischen Ansatz. Um die gestellten Anforderungen besser bewerten zu können ist es notwendig, alle unterschiedlichen Vorgehensweisen zu beleuchten und abzuwägen. Aus diesem Grund werden sie an dieser Stelle kurz vorgestellt. Da wir unseren Charakter weiterhin auf Grundlage unseres Rigs aufbauen, verfolgen wir letztendlich einen geometrischen Ansatz. 
 
 
-\subsubsection{Physiologisch basierte Ansätze}
+\paragraph{Physiologisch basierte Ansätze}
 
-Dieser Ansatz basiert darauf die einzelnen Komponenten eines physischen Körper darzustellen. Zum Beispiel durch dreidimensionale Darstellungen von Muskeln von realitätsnahen Muskeln \cite{lee2010survey}.
+Der Körper eines Lebewesens besteht aus vielen verschiedenen Substanzen. Über dem Knochen liegen Schichten aus Fett, Muskeln, Sehnen, Haut und aus vielen weiteren Geweben oder biologischen Konstrukten. Das Zusammenspiel der einzelnen Materialien und ihre physiologischen Abhängigkeiten bestimmen das Verhalten des gesamten Systems. So wird die Dehnbarkeit eines Muskels nicht nur durch ihn selbst, sondern auch durch die ihn umgebende Faszie (Muskelhaut), seine Sehnen und die Bänder, an denen er befestigt ist, bestimmt. Es liegt nahe, dass eine realistische Nachahmung eines solchen komplexen Körpers durch das virtuelle  Darstellen der einzelnen physischen Komponenten erreicht werden könnte - beispielsweise durch dreidimensionale Darstellungen von realitätsnahen Muskeln. Dies gestaltet sich jedoch in der Praxis häufig als problematisch, da ausgeprägte anatomische Grundkenntnisse erforderlich sein können, die nicht immer verfügbar sind. Zudem erweist es sich für viele Projekte als unverhältnismäßig teuer, das entsprechende Fachwissen zu erlangen. \cite{lee2010survey}. Darüber hinaus basiert nicht jeder Animierte Charakter auf echten biologischen Gegebenheiten oder soll sich durch diese beschränken lassen. Innerhalb unseres Projekts halten wir deshalb die Verwendung eines allgemeingültigeren Ansatzes für sinnvoller.
 
-\subsubsection{Aufzeichnung echter Körperlicher Funktionen}
+\paragraph{Aufzeichnung echter Körperlicher Funktionen}
 
-Dieser Ansatz basiert im wesentlichen darauf konkrete Bewegungen in einer Gruppe von Menschen aufzuzeichnen und die Resultate daraus für die Computer-Animation zu mitteln. Dies ist für konkrete physiologische Vorgänge wie zum Beispiel Atmung sehr interessant \cite{tsoli2014breathing}. Leider zeichnen sich diese Verfahren dadurch auf das sie sehr aufwändig sind und oft spezialisierte Hardware benötigen. 
+Anstatt zu versuchen, einen Körper virtuell nachzustellen und darauf zu vertrauen, dass sich dadurch realitätsnahes Verhalten ergibt, kann Skinning auch umgekehrt angegangen werden. Er besteht die Möglichkeit, das Verhalten eines Körpers bei bestimmten Tätigkeiten zu beobachten und zu Kopieren. So werden weiterhin lediglich ein Gittergraph und ein Skelett benötigt. Die Oberfläche wird nach dem Vorbild des beobachteten Probanden verformt. Je komplexer der Vorgang, desto attraktiver wird es, die bekannte Realität zu implementieren. Das ist zum Beispiel im Falle der Atmung, die stark durch den Kontext beeinflusst wird, sehr interessant. Ein ruhender Mensch und ein Mensch, der Sport betreibt, zeigen hier sehr unterschiedliche Bewegungsmuster.\cite{tsoli2014breathing}. Für diesen Ansatz des Skinnings ist weniger tiefgehendes Wissen und Arbeit bei der Modellierung erforderlich als im zuvor behandelten Vorgehen, die Verfahren sind jedoch trotzdem sehr aufwändig und erfordern häufig hochspezialisierte Hardware. Zur korrekten Aufzeichnung der Atmung muss beispielsweise der komplette Oberkörper eines Probanden mit Markern bedeckt werden, wie es in Abbildung 7 zu sehen ist. \cite{dilorenzo2008breathing}.Es stellt sich die Frage, inwiefern eine so realitätsnahe Darstellung für einen virtuellen Charakter notwendig ist und ob es verhältnismäßig ist, zum Teil vollkommen eigenständige und aufwendige Verfahren zu verwenden, um nur einzelne Komponenten einer Bewegung umzusetzen. 
 
-\subsubsection{Multipler Input}
+\begin{figure}[t]
+	\includegraphics[width=4cm]{01_Skinning/pics/breathing.png}
+	\caption[Hardware zu Erfassung von Atmung]{Die Marker werden genutzt, um die Atmung des Probanden zu erfassen. Entnommen von \cite{dilorenzo2008breathing}}
+	\label{breathing_fig1}
+\end{figure}
 
-Manche Techniken basieren darauf mehrere Gittergraphen bereit als Input zu verwenden um Beispielsweise eine Interpolation zu finden \cite{kavanautomatic}.
 
-\subsubsection{Geometrischer Ansatz}
+\paragraph{Beispiel-basierte Techniken}
 
-Bei diesem Ansatz haben wir ein Mesh das direkt an ein Skelett gebunden ist. Da wir in der Erstellungen unseres animierten Charakters bereits beim Rigging diesen Weg gewählt haben werden wir diesen nun hier fortführen. 
+Nachdem ein Mesh an ein Skelett gebunden ist, stellt sich die Frage, welche Möglichkeiten sich ergeben würden, wenn mehrere Meshes als Input verwendet würden. Dabei können entweder mehrere Meshes vollständig oder einzelne Komponenten der Meshes interpoliert werden. Es ist sogar möglich, lediglich die Gewichtsverteilung auf den Meshes zu verwenden. Folglich wird das Skinning akkurater, je mehr Input verwendet wird. Allerdings steigt mit zusätzlichem Input auch der Aufwand in enormem Maße, weil all diese Meshes erstellt werden müssen. \cite{kavanautomatic}.
+
+\paragraph{Geometrischer Ansatz}
+
+Alle bisher diskutierten Ansätze haben gemein, dass sie einen sehr hohen Realitätsanspruch haben und für dieses Ziel sehr viel Aufwand betreiben. Filmcharaktere jedoch sind oft fantastisch und sollen häufig explizit Dinge tun, die so in der Realität nicht passieren. Außerdem sind in der Realität die Ressourcen oft begrenzt. Bei geometrischen Ansätzen wird einmalig ein Mesh an einem Skelett befestigt. Jeder Punkt wird direkt befestigt. Das hat den Vorteil, dass das Modell nur einmal erstellt werden muss und danach beliebig manipuliert werden kann. Zudem besteht in keinster Weise eine Einschränkung der Möglichkeiten und die entsprechenden Algorithmen sind günstig in ihrer Rechenleistung. Nachteile, die sich aus diesen Verfahren ergeben, sind entstehende Artefakte. So kann es zum Beispiel zu Volumenverlust, Verzerrungen und Verschiebungen kommen. Der einfachste Ansatz ist das Linear Blend Skinning, bei dem jeder Punkt einem oder mehreren Knochen zugeordnet wird. Weitere Verfahren sind unter anderem Log-Matrix oder Spherical Blending.\cite{kavanautomatic} Doch, wie in Abbildung 8 zu sehen, erzeugen auch diese mitunter Artefakte. Bei der Erstellung eines animierten Charakters haben wir also bereits beim Rigging diesen Weg gewählt, welchen wir hier nun fortführen werden. Dual Quaternion Blending hingegen zeigt bei besserer Rechenleistung sehr wenig Artefakte. Weswegen im weiteren Verlauf dieses Kapitels besonders auf dieses Verfahren eingegangen und hingearbeitet werden soll. 
+
+\begin{figure}[t]
+	\includegraphics[width=15cm]{01_Skinning/pics/compare.png}
+	\caption[Vergleich verschiedener geometrischer Skinning-Ansätze]{Die verschiedenen geometrischen Skinning-Verfahren im Vergleich. Dual Quaternion Skinning zeigt bei besserer Rechenleistung weniger Artefakte. Entnommen von \cite{kavanautomatic}}
+	\label{comapare_fig1}
+\end{figure}
