@@ -6,8 +6,9 @@ Diese Ansätze basieren auf der Grundlage, die Transformationen nach physiologis
 
 Im Bereich des geometrischen Skinning ist Linear Blend Skinning auf Grund seiner Einfachheit und Performance der Standard. Dieser hat allerdings das Problem, durch Volumenverlust Artefakte zu erzeugen. Dual Quaternionen Blend Skinning behebt diese Problematik bei vergleichbarer Rechenleistung, erzeugt jedoch auch bei manchen Rotationen Artefakte und erlaubt keine Volumenver\"anderungen. Die beiden Verfahren nochmal im Vergleich bei unterschiedlicher Gewichtsverteilung in Abbildung 17.
 
-\begin{figure}[t]
-	\includegraphics[width=13cm]{01_Skinning/pics/lbsvsdqs.png}
+\begin{figure}[thb]
+	\centering
+	\includegraphics[width=\linewidth]{01_Skinning/pics/lbsvsdqs.png}
 	\caption[Geometrisches Skinning im Vergleich]{Die erste Reihe zeigt Dual Quaternion Blend Skinning, die zweite Linear Blend Skinning. Die letzte Reihe bestellt die Gewichtsverteilung in jeder Spalte. Entnommen von \cite{weights}}
 	\label{weights_fig1}
 \end{figure}

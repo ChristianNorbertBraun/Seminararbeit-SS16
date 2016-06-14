@@ -224,7 +224,7 @@ Die Abhängigkeiten und Wechselwirkungen der Distanzszene, lokalen Szene und dem 
 \subsubsection{Beleuchtung des synthetischen Models}
 Die möglichst realitätsgetreue Einbettung des synthetischen Models steht und fällt mit der korrekten Beleuchtung. Das Model muss sich entsprechend der Position der Lichtquellen in der realen Szene korrekt verhalten und Licht reflektieren, gegebenenfalls Glanzlichter aufweisen oder Schatten werfen. Unter der Annahme, dass die Szene bereits in die drei Bestandteile Distanzszene, lokale Szene und synthetisches Objekt aufgeteilt ist, kommen einige Ansätze zur Illumination in Frage. Der folgende Abschnitt beschäftigt sich mit einer Alternative zum manuellen Setzen von Lichtquellen. Dazu wird eine Lichtsonde benötigt. Lichtsonden beinhalten die Beleuchtungsinformationen für die sie umgebende Szene. Häufig wird eine Lichtsonde in Form eines Spiegelballes verwendet. Dieser wird im Bild ungefähr an die Stelle gelegt, an der sich das synthetische Model befinden soll. In jedem Falle müssen aber die Materialeigenschaften und Größe sowie die Position des Balles relativ zur Position der Kamera bekannt sein. Nun werden zwei HDR-Bilder, mit einem Blickwinkelunterschied von 90 Grad, von der Szene mit dem Spiegelball angefertigt. Durch die 90-Grad-Verschiebung der beiden Bilder ist sicher gestellt, dass die sich in der Kugel reflektierende Umgebung einen Rundblick der ganzen Szene beinhaltet. Außerdem würden Bilder von nur einem Blickwinkel Artefakte unumgänglich machen. Die Reflexion im Spiegelball würde die Kamera oder sogar den Kameramann beinhalten. Zwei Bilder aus unterschiedlichen Winkeln können sich über korrespondierende Punkte auf der Kugeloberfläche ergänzen und so die besagten Artefakte eliminieren. Ein Beispiel, wie aus zwei Bildern eine Lichtsonde erstellt wird, ist in Abbildung \ref{probe} zu sehen.
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
@@ -244,13 +244,13 @@ Die möglichst realitätsgetreue Einbettung des synthetischen Models steht und fäl
   \caption[Zusammengesetzte Lichtsonde]{Zusammengesetzte Lichtsonde}
   \label{probefull}
 \end{subfigure}
-\caption[Bilder zur Erstellung einer Lichtsonde]{Die Abbildungen \ref{probe1} und \ref{probe2} weißen noch Artefakte auf. Der Kameramann sowie die Kamera ist zu sehen. In der Lichtsonde in \ref{probefull} sind diese Artefakte hingegen nicht mehr zu erkennen. Entnommen aus \cite{lightprobe}}
+\caption[Bilder zur Erstellung einer Lichtsonde]{Die Abbildungen \ref{probe1} und \ref{probe2} weisen noch Artefakte auf. Der Kameramann sowie die Kamera ist zu sehen. In der Lichtsonde in \ref{probefull} sind diese Artefakte hingegen nicht mehr zu erkennen. Entnommen aus \cite{lightprobe}}
 \label{probe}
 \end{figure}
 
 Mit der Reflexion der Umgebung in der Lichtsonde und dem Wissen über ihre Position, ihrer Beschaffenheit und der relativen Position der Kamera kann ein dreidimensionales Objekt der Lichtsonde erstellt und korrekt in einer Box platziert werden. Nun kann das lichtbasierte Model der Distanzszene erstellt werden. Dazu wird die Oberfläche der Kugel auf besagte Box gemapped. Strahlen werden vom Betrachter auf die synthetische Lichtsonde geschickt und der reflektierte Strahl verfolgt. Trifft der Strahl eine Wand der Box, so erhält der Punkt das Shading der Kugel. Führt man das für alle Punkte der Lichtsonde aus, erhält man eine Box, deren Wände einem lichtbasiertes Model der Szene entsprechen. Jeder Punkt auf der Oberfläche der Box beinhaltet die Intensität, mit welcher die Lichtsonde mit dem korrespondierenden Punkt im realen Bild bestrahlt wurde. In Abbildung \ref{distantszene} ist das erstellte lichtbasierte Model der Distanzszene abgebildet. Mit einer korrekt erstellten Distanzszene können synthetische Modelle entsprechend der Lichtbedingungen der realen Szene beleuchtet werden. Wichtig ist, dass sich das Model ungefähr an der Stelle der Lichtsonde befindet und die aktuelle Kameraposition in Relation zur Kameraposition bei der Erstellung der Lichtsonde bekannt ist.
 
-\begin{figure}[t]
+\begin{figure}[h]
 \centering
 	\includegraphics[width=.9\linewidth]{02_Rendering/img/distantszene.png}
 	\caption[Beispiel eines lichtbasierten Models.]{ Beispiel eines lichtbasierten Models. Das Model beinhaltet die komplette dynamische Breite der Intensitäten der realen Szene. Entnommen aus \cite{realImages}.}
@@ -274,7 +274,7 @@ Durch den in diesem Abschnitt beschriebenen Algorithmus kann ein synthetisches M
 Die hier beschriebene Vorgehensweise eignet sich auch gut, um unseren synthetischen Charakter in ein reales Bild einzufügen. Sowohl das lichtbasierte Model der Distanzszene als auch die Geometrie- und Materialeigenschaften der lokalen Szene müssen nur einmal bestimmt werden. Von da an ist nur noch die Position der Kamera relevant, um den synthetischen Charakter sowie die lokale Szene korrekt zu rendern. Ein Beispiel für das beschriebene Verfahren ist in Abbildung \ref{finalSzene} zu sehen. 
 
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
