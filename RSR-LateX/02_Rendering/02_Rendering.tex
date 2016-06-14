@@ -22,7 +22,7 @@ Dabei ist zu beachten, dass sowohl spekulare sowie diffuse Reflexionen auftreten
 
 \subsubsection{Lokale Reflexionsmodelle}
 \label{localLight}
-In der Realität verhalten sich verschiedene Materialien bei gleicher Beleuchtung unterschiedlich bezüglich ihrer Reflexionseigenschaften. Die Menge des reflektierten Lichts eines Punktes bei direkter Beleuchtung in eine bestimmte Richtung kann mittels einer Bi-Directional Reflection Distribution Function (BRDF) berechnet werden. Hierbei wird der Punkt völlig isoliert in der Szene betrachtet. Wechselwirkungen mit anderen Objekten, wie Schatten oder gegenseitige Reflexionen, werden im lokalen Modell nicht berücksichtig.  Alan Watt beschreibt diese Funktion in seinem Buch \textit{3D Computergrafik} wie folgt \cite{localLightCite}:
+In der Realität verhalten sich verschiedene Materialien bei gleicher Beleuchtung unterschiedlich bezüglich ihrer Reflexionseigenschaften. Die Menge des reflektierten Lichts eines Punktes bei direkter Beleuchtung in eine bestimmte Richtung kann mittels einer Bi-Directional Reflection Distribution Function (BRDF) berechnet werden. Hierbei wird der Punkt völlig isoliert in der Szene betrachtet. Wechselwirkungen mit anderen Objekten, wie Schatten oder gegenseitige Reflexionen, werden im lokalen Modell nicht berücksichtigt.  Alan Watt beschreibt diese Funktion in seinem Buch \textit{3D Computergrafik} wie folgt \cite{localLightCite}:
 \begin{equation}
 \label{BRDFEq}
 \mathrm{BRDF}=f(\theta_\mathrm{in}, \phi_\mathrm{in}, \theta_\mathrm{ref}, \phi_\mathrm{ref}) = f(\vec{\omega_{i}}, \vec{\omega_{o}})
