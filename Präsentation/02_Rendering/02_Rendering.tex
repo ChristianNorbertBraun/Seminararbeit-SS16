@@ -224,7 +224,7 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 	\begin{itemize}
 		\item Annäherung an Rendering-Gleichung
 		\item Modellkomplexität
-		\item Model Diversität
+		\item Modell Diversität
 		\item Komplexes Shading
 		\item Geschwindigkeit
 		\item Bildqualität
@@ -492,7 +492,7 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 \pdfnote{Wissen anwenden um richtig colles Zeug zu machen}
 \pdfnote{Gollum in die Szene}
 \pdfnote{Schatten werfen, Licht empfangen}
-\begin{frame}{\Huge{Synthetisches Model + reale Szene}}
+\begin{frame}{\Huge{Synthetisches Modell + reale Szene}}
 	
 	
 	\begin{figure}
@@ -529,7 +529,7 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 \pdfnote{Verantwortlich für die Beleuchtung}
 \pdfnote{Dafür HDRI Bilder, HDRI erklären}
 \pdfnote{Unabhängig von lokalerszene und Objekt}
-\begin{frame}{\Huge{Lichtbasiertes Model der Distanzszene}}
+\begin{frame}{\Huge{Lichtbasiertes Modell der Distanzszene}}
 	
 	\begin{itemize}
 		\item Unabhängig von anderen Teilen der Szene
@@ -542,8 +542,8 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 
 \pdfnote{Interagiert mit synthetisches Objekt}
 \pdfnote{Sowohl Beleuchtung als auch BRDFs, Materialeigenschaften}
-\pdfnote{3D Model wird benötigt. Entweder Automatisch oder manuell}
-\begin{frame}{\Huge{Materialbasiertes Model der lokalen Szene}}
+\pdfnote{3D Modell wird benötigt. Entweder Automatisch oder manuell}
+\begin{frame}{\Huge{Materialbasiertes Modell der lokalen Szene}}
 	
 	\begin{figure}
 		\centering
@@ -557,8 +557,8 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 	\end{figure}
 	
 	\begin{itemize}
-		\item Empfängt Schatten und Reflexion von synthetischen Model
-		\item Kann Licht auf synthetisches Model werfen und es verdecken
+		\item Empfängt Schatten und Reflexion von synthetischen Modell
+		\item Kann Licht auf synthetisches Modell werfen und es verdecken
 		\item Muss sowohl Beleuchtungs- als auch Materialeigenschaften vorweisen(BRDFS)
 	\end{itemize}
 
@@ -567,7 +567,7 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 \end{frame}
 
 \pdfnote{Bekanntes Material, bekannte Form}
-\begin{frame}{\Huge{Synthetisches Model}}
+\begin{frame}{\Huge{Synthetisches Modell}}
 	
 	\begin{figure}
 		\centering
@@ -579,23 +579,23 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 			\includegraphics[width=.35\paperwidth]{02_Rendering/img/model2.png}
 		\end{minipage}
 	\end{figure}
-	
+		\blfootnote{Bildquellen: \cite{rig2}} 
 \end{frame}
 
 \pdfnote{Zur Aufteilung muss einiges beachtet werden}
 \begin{frame}{\Huge{Sonderfälle}}
 	
 	\begin{itemize}
-		\item Konzentriertes Licht bestrahlt das synthetische Model und dieses verursacht starke Schatten
-		\item Konzentriertes Licht bestrahlt ein spiegelndes, synthetische Model und dieses wirft Licht in die Szene
-		\item Spekulare Oberflächen der Distanzszene können vom Model beeinflusst werden
-		\item Das synthetische Model strahlt Licht aus
+		\item Konzentriertes Licht bestrahlt das synthetische Modell und dieses verursacht starke Schatten
+		\item Konzentriertes Licht bestrahlt ein spiegelndes, synthetische Modell und dieses wirft Licht in die Szene
+		\item Spekulare Oberflächen der Distanzszene können vom Modell beeinflusst werden
+		\item Das synthetische Modell strahlt Licht aus
 	\end{itemize}
 	
 \end{frame}
 
 \subsubsection{Beleuchtung}
-\pdfnote{Lichtbasiertes Model der Distanzszene}
+\pdfnote{Lichtbasiertes Modell der Distanzszene}
 \pdfnote{Kann manuell gemacht werden}
 \pdfnote{Schätzen der Intensität, kann komplex sein}
 \begin{frame}{\Huge{Beleuchtung}}
@@ -641,11 +641,11 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 		\item Erstellen mehrerer HDRI einer Spiegelkugel
 		\item Verschmelzen der HDRIs zum erstellen einer Lichtsonde
 	\end{itemize}
-	
+		\blfootnote{Bildquellen: \cite{lightprobe}} 
 \end{frame}
-\pdfnote{3d Model der Lichtsonde in Box}
+\pdfnote{3d Modell der Lichtsonde in Box}
 \pdfnote{Mit Strahlen beschießen und auf Box mappen}
-\begin{frame}{\Huge{Lichtbasiertes Model erstellen }}
+\begin{frame}{\Huge{Lichtbasiertes Modell erstellen }}
 	
 		\begin{tabular}{cl}  
 			\begin{tabular}{c}
@@ -671,8 +671,8 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 		\blfootnote{Bildquellen: \cite{realImages}} 
 \end{frame}
 
-\pdfnote{Lichtbasiertes model}
-\pdfnote{Materialbasiertes Model}
+\pdfnote{Lichtbasiertes modell}
+\pdfnote{Materialbasiertes Modell}
 \pdfnote{Relative Position}
 \pdfnote{Bild beschreiben}
 \pdfnote{Beliebige Rendering Technik einsetzen}
@@ -685,7 +685,7 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 	
 	\begin{itemize}
 		\item Raytracing zum rendern der Szene
-		\item Strahlen vom Model über die lokale Szene bis in die Distanzszene verfolgen
+		\item Strahlen vom Modell über die lokale Szene bis in die Distanzszene verfolgen
 	\end{itemize}
 		\blfootnote{Bildquellen: \cite{realImages}} 
 \end{frame}
@@ -694,7 +694,7 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 \pdfnote{Kalibrieren}
 \pdfnote{falsch geschätzte BRDF}
 \pdfnote{Finales Ergebnis}
-\begin{frame}{\Huge{Einfügen des synthetischen Models}}
+\begin{frame}{\Huge{Einfügen des synthetischen Modells}}
 		\begin{figure}
 			\centering
 			\begin{minipage}{.4\paperwidth}
@@ -722,14 +722,14 @@ $$\mathrm{\quad mit\quad}\vec{h}=\frac{\vec{\omega_{i}} + \vec{\omega_o}}{2}$$
 
 \pdfnote{Viele Operationen werden nur einmal durchgeführt}
 \pdfnote{Beliebige Rendering Technik}
-\pdfnote{Lichtbasiertes Model oder Panorame}
+\pdfnote{Lichtbasiertes Modell loder Panorame}
 \pdfnote{Kalibrieren, schätzen der BRDFs}
 \begin{frame}{\Huge{Fazit}}
 	
 		\begin{block}{Vorteile}
 			\begin{itemize}
 				\item Geometrie- und Materialeigenschaften für lokale Szene müssen nur einmal bestimmt werden
-				\item Lichtbasiertes Model der Distanzszene muss nur einmal bestimmt werden
+				\item Lichtbasiertes Modell der Distanzszene muss nur einmal bestimmt werden
 				\item Beleuchtung wirkt korrekt auf synthetische Objekte ein
 			\end{itemize}
 		\end{block}
