@@ -1,0 +1,291 @@
+\section{Skinning}
+
+{ %öffnende Klammer für hintergrundbild lokal
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{01_Skinning/Pictures/SkinningIntro.PNG}}
+	\begin{frame}{\Huge{Was ist Skinning?}}
+		\blfootnote{Bildquelle: \cite{skinningcourse:2014}}
+		
+		\pdfnote{Frage an alle: Was soll jetzt mit dem geriggten Modell passieren}
+		\pdfnote{Frage an alle: Welcher Ansatz wäre hier der Intuitive}
+
+		
+	\end{frame}
+} %schließende klammer für hintergrundbild lokal
+
+{
+
+	\begin{frame}{\Huge{Transformationen}}
+
+			
+			\begin{figure}
+				\includegraphics[width=1.0\textwidth]{01_Skinning/Pictures/Transformation.PNG}
+			\end{figure}
+		
+		\blfootnote{Bildquelle: \cite{skinningcourse:2014}}
+		
+		\pdfnote{Offene Frage: Was heisst Transformation genau, wie kann man sie darstellen, was ist besonders und wichtig daran?}
+		
+	\end{frame}
+}
+
+{
+	
+	\begin{frame}{\Huge{Translation}}
+		
+		\begin{figure}
+			\includegraphics[width=0.3\textwidth]{01_Skinning/Pictures/Translation.PNG}
+		\end{figure}
+		
+		
+		\pdfnote{multiplikation zeigen}
+		
+	\end{frame}
+}
+
+
+{
+	
+	\begin{frame}{\Huge{Scale}}
+		
+		\begin{figure}
+			\includegraphics[width=0.3\textwidth]{01_Skinning/Pictures/scale.PNG}
+		\end{figure}
+		
+		
+		
+		\pdfnote{multiplikation zeigen}
+		
+	\end{frame}
+}
+
+{
+	
+	\begin{frame}{\Huge{Rotation}}
+		
+		\begin{figure}
+			\includegraphics[width=0.6\textwidth]{01_Skinning/Pictures/rotation.PNG}
+		\end{figure}
+		
+		
+		\pdfnote{multiplikation zeigen}
+		
+	\end{frame}
+}
+
+{ %öffnende Klammer für hintergrundbild lokal
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{01_Skinning/Pictures/physiologisch.jpg}}
+	\begin{frame}{\Huge{Anatomische Modellierung}}
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{muskeln}}}
+		
+		\pdfnote{Aufbau des Menschen abbilden -> Daraus ergibt sich Realität}
+		
+		
+		
+	\end{frame}
+} %schließende klammer für hintergrundbild lokal
+
+{
+	
+	\begin{frame}{\Huge{Motion Capture}}
+		
+		\begin{figure}
+			\includegraphics[width=0.4\textwidth]{01_Skinning/Pictures/breathing.PNG}
+		\end{figure}
+		
+			\blfootnote{Bildquelle: \cite{dilorenzo2008breathing}}
+		
+		\pdfnote{Beobachting menschlicher Funktion}
+		
+	\end{frame}
+}
+
+	\begin{frame}{\Huge{Multipler Input}}
+
+		
+		\begin{figure}
+			\includegraphics[width=0.5\textwidth]{01_Skinning/Pictures/multi.jpg}
+		\end{figure}
+		
+		\blfootnote{Bildquelle: \cite{multi}}
+		
+		\pdfnote{Viel Input}
+		
+	\end{frame}
+
+
+{ %öffnende Klammer für hintergrundbild lokal
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{01_Skinning/Pictures/geometrisch.jpg}}
+	\begin{frame}{\colorbox{black!10}{\Huge{Geometrisches Skinning}}}
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{geo}}}
+		
+		\pdfnote{Knoten an Knochen}
+		
+		
+		
+	\end{frame}
+} %schließende klammer für hintergrundbild lokal
+
+	\begin{frame}{\Huge{Linear Skinning}}
+		
+		$$v'=Wi(v)$$
+		
+		\pdfnote{Lineares Modell erklären}
+		
+	\end{frame}
+
+{ %öffnende Klammer für hintergrundbild lokal
+	\usebackgroundtemplate{\includegraphics[width=\paperwidth,height=\paperheight]{01_Skinning/Pictures/weight.png}}
+	\begin{frame}{\Huge{Weights}}
+		\blfootnote{\colorbox{black!10}{Bildquelle: \cite{weights}}}
+		
+		\pdfnote{Abhängigkeit vom Knochen}
+		
+		
+		
+	\end{frame}
+} %schließende klammer für hintergrundbild lokal
+
+	\begin{frame}{\Huge{Heat Equilibrium}}
+		
+		\begin{figure}
+			\includegraphics[width=0.6\textwidth]{01_Skinning/Pictures/heat.png}
+		\end{figure}
+		
+		\blfootnote{Bildquelle: \cite{heat}}
+		
+		\pdfnote{Aufteilung anhand von Hitze}
+		
+	\end{frame}
+	
+	\begin{frame}{\Huge{Linear Blend Skinning}}
+		
+		$$v'=\sum_{i=1}^{N}wiWji(v)$$
+		
+		\pdfnote{Lineares Blend Skinning Modell erklären}
+		
+	\end{frame}
+	
+		\begin{frame}{\Huge{Linear Blend Skinning Matrix}}
+			
+			\begin{figure}
+				\includegraphics[width=1.0\textwidth]{01_Skinning/Pictures/lbsmatrix.png}
+			\end{figure}
+			
+			\blfootnote{Bildquelle: \cite{skinningcourse:2014}}
+			
+			\pdfnote{LBS Matrix erklären}
+			
+		\end{frame}
+		
+		\begin{frame}{\Huge{Linear Blend Skinning Artefakte}}
+			
+			\begin{figure}
+				\includegraphics[width=1.2\textwidth]{01_Skinning/Pictures/rotationsartefakt.png}
+			\end{figure}
+			
+			\blfootnote{Bildquelle: \cite{weights}}
+			
+			\pdfnote{Aufteilung anhand von Hitze}
+			
+		\end{frame}
+		
+				\begin{frame}{\Huge{Linear Blend Skinning Artefakte}}
+					
+					\begin{figure}
+						\includegraphics[width=0.6\textwidth]{01_Skinning/Pictures/interpolation_angle.png}
+					\end{figure}
+					
+					\blfootnote{Bildquelle: \cite{weights}}
+					
+					\pdfnote{Aufteilung anhand von Hitze}
+					
+				\end{frame}
+
+	\begin{frame}{\Huge{Facial Blend Skinning}}
+
+		
+		$$S=S0+\sum_{i}wi(Si-S0)$$
+		
+		\pdfnote{Lineares Blend Skinning Modell erklären}
+		
+	\end{frame}
+
+				\begin{frame}{\Huge{Facial Blend Skinning}}
+					
+					\begin{figure}
+						\includegraphics[width=1.2\textwidth]{01_Skinning/Pictures/face.png}
+					\end{figure}
+					
+					\blfootnote{Bildquelle: \cite{dutreve2008feature}}
+					
+					\pdfnote{Aufteilung anhand von Hitze}
+					
+				\end{frame}
+
+				\begin{frame}{\Huge{Quaternionen}}
+					
+					\begin{figure}
+						\includegraphics[width=0.5\textwidth]{01_Skinning/Pictures/Quaternionen.png}
+					\end{figure}
+					
+					\blfootnote{Bildquelle: \cite{kavan2008geometric}}
+					
+					\pdfnote{Video 1}
+					
+				\end{frame}
+				
+		\begin{frame}{\Huge{Dual Quaternionen Skinning}}
+			
+			$$\mathbf{\dot q} =  \frac{\sum_{i=1}^n w_i \mathbf{\dot q}_i}{\| \sum_{i=1}^n w_i \mathbf{\dot q}_i \|}$$
+			
+			\pdfnote{Lineares Blend Skinning Modell erklären}
+			
+		\end{frame}
+		
+				\begin{frame}{\Huge{Linear Blend Skinning}}
+					
+					\begin{figure}
+						\includegraphics[width=1.0\textwidth]{01_Skinning/Pictures/lbsgrad.png}
+					\end{figure}
+					
+					\blfootnote{Bildquelle: \cite{weights}}
+					
+					\pdfnote{Aufteilung anhand von Hitze}
+					
+				\end{frame}
+				
+						\begin{frame}{\Huge{Dual Quaternion Skinning}}
+							
+							\begin{figure}
+								\includegraphics[width=1.0\textwidth]{01_Skinning/Pictures/dqsgrad.png}
+							\end{figure}
+							
+							\blfootnote{Bildquelle: \cite{weights}}
+							
+							\pdfnote{Aufteilung anhand von Hitze}
+							
+						\end{frame}
+						
+				\begin{frame}{\Huge{Artefakte Dual Quaternionen}}
+					
+					\begin{figure}
+						\includegraphics[width=1.0\textwidth]{01_Skinning/Pictures/dqsgradartefakte.png}
+					\end{figure}
+					
+					\blfootnote{Bildquelle:\cite{kavan2008geometric}}
+					
+					\pdfnote{Video 1}
+					
+				\end{frame}
+				
+					\begin{frame}{\Huge{Fazit}}
+							
+							\begin{figure}
+								\includegraphics[width=0.8\textwidth]{01_Skinning/Pictures/lbsvsdqs.png}
+							\end{figure}
+							
+							\blfootnote{Bildquelle: \cite{weights}}
+							
+							\pdfnote{Zusammenfassung, video 2}
+							
+						\end{frame}
