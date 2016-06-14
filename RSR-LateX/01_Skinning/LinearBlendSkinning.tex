@@ -4,7 +4,7 @@ Linear Blend Skinning ist der am weiten verbreitetste Skinning-Algorithmus, verm
 
 \begin{equation}
 \label{formel}
-v'=\sum_{i=1}^{N}wiWji(v)
+v'=\sum_{i=1}^{N}w_{i}W_{ji}(v)
 \end{equation}
 
 \begin{figure}[t]
@@ -13,9 +13,9 @@ v'=\sum_{i=1}^{N}wiWji(v)
 	\label{lbsMatrix_fig1}
 \end{figure}
 
-Am besten ist dies zu verstehen, indem man die Matrix auf Abbildung 12. betrachtet. Hier wird sehr deutlich, dass es durch Multiplikation der Transformations-Matrix mit $vi$, immer nur ein Gewicht-Knochen Paar gibt.  
+Am besten ist dies zu verstehen, indem man die Matrix auf Abbildung 11. betrachtet. Hier wird sehr deutlich, dass es durch Multiplikation der Transformations-Matrix mit $v_{i}$, immer nur ein Gewicht-Knochen Paar gibt.  
 
-Dieser Algorithmus kommt auch Animationsfilmen, die es bis in die Kinos schaffen, zum Einsatz. Das einzige Problem dieses Algorithmus ist jedoch, dass er sich in der euklidischen Geometrie bewegt und damit Volumenverlusten und andere Artefakte möglich macht. Sehr eindrucksvoll lässt sich dies an einem einfachen Beispiel in Abbildung 12 illustrieren. Nehmen wir an, wir hätten ein einfaches Gelenk mit zwei Knochen $j1$ und $j2$. Punkt $v$ ist gleichermaßen mit einem Gewicht von 0.5 an sowohl $j1$ als auch $j2$ gebunden. Nun geschieht an $j2$ eine Drehung von 180°. Wie man in folgender Grafik gut erkennen kann landet $v$ genau auf dem Knochen und damit kollabiert die Haut auf einen Punkt. 
+Dieser Algorithmus kommt auch Animationsfilmen, die es bis in die Kinos schaffen, zum Einsatz. Das einzige Problem dieses Algorithmus ist jedoch, dass er sich in der euklidischen Geometrie bewegt und damit Volumenverlusten und andere Artefakte möglich macht. Sehr eindrucksvoll lässt sich dies an einem einfachen Beispiel in Abbildung 12 illustrieren. Nehmen wir an, wir hätten ein einfaches Gelenk mit zwei Knochen $j_{1}$ und $j_{2}$. Punkt $v$ ist gleichermaßen mit einem Gewicht von 0.5 an sowohl $j_{1}$ als auch $j_{2}$ gebunden. Nun geschieht an $j2$ eine Drehung von 180°. Wie man in folgender Grafik gut erkennen kann landet $v$ genau auf dem Knochen und damit kollabiert die Haut auf einen Punkt. 
 
 \begin{figure}[t]
 	\includegraphics[width=11cm]{01_Skinning/pics/rotationsartefakt.png}

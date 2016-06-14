@@ -1,10 +1,10 @@
 \subsection{Grundlegendes lineares Skinning-Modell} 
 
-Wie zuvor erläutert basieren die geometrischen Skinning-Verfahren darauf, passiv die Bewegungen des Skelettes mitzuverfolgen. Wenn der Gittergraph also die Bewegungen eines Knochen mitverfolgen soll, wäre der nächstliegendste Ansatz, jedem Punkt $v$ einen Knochen $i$ zuzuweisen. Nun wird die Transformation des Knochen $Wi$ an einem Punkt vollführt, um den transformierten Punkt $v'$ zu erhalten. 
+Wie zuvor erläutert basieren die geometrischen Skinning-Verfahren darauf, passiv die Bewegungen des Skelettes mitzuverfolgen. Wenn der Gittergraph also die Bewegungen eines Knochen mitverfolgen soll, wäre der nächstliegendste Ansatz, jedem Punkt $v$ einen Knochen $i$ zuzuweisen. Nun wird die Transformation des Knochen $W_{i}$ an einem Punkt vollführt, um den transformierten Punkt $v'$ zu erhalten. 
 
 \begin{equation}
 \label{formel}
-v'=Wi(v)
+v'=W_{i}(v)
 \end{equation}
 
 Wenn sich das Skelett bewegt, bedeutet das immer, dass sich einzelne Knochen bewegen. Wir müssen also für jeden Knochen isoliert betrachten, wie er sich bewegt. Dann beobachten wir, welche Punkte ihm zugeordnet werden. Diese Punkte bewegen wir auf die selbe Weise wie den Knochen. Als Resultat wird jeder Punkt an einem Knochen, der sich bewegt, verschoben, wohingegen die Haut an Stellen, wo der Knochen sich relativ zu seinem Vater-Knochen nicht bewegt, ruhig verharrt. 
