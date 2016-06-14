@@ -82,7 +82,7 @@ Die Lichtintensität am Punkt $x$ ergibt sich aus dem Licht, welches von $x'$ auf
 Mit Hilfe der Rendering-Gleichung kann also theoretisch die globale Beleuchtung eines jeden Punktes abhängig von allen anderen Punkten, berechnet werden. Dabei handelt es sich um ein blickwinkelunabhängiges Ergebnis. Das heißt, die Werte werden ohne Berücksichtigung der Position des Betrachters berechnet. Leider ist das Integral der Rendering Gleichung so komplex, dass es analytisch nicht gelöst werden kann. Es gibt aber Algorithmen, die die Komplexität reduzieren und an die Rendering-Gleichung angenäherte Ergebnisse liefern.
 
 \subsection{Rendering-Techniken}
-Wie bereits erwähnt ist die Rendering Gleichung analytisch nicht berechenbar. Da jedoch in der Realität Reflexionen zwischen Oberflächen einen Großteil der Beleuchtung einer Szene ausmachen, kann die globale Beleuchtung im Rendering nicht vernachlässigt werden. Gerade im Film wird sie zur realistischen Darstellung von Objekten benötigt. Eine professionelle Rendering-Technik muss jedoch noch einige weitere Fähigkeiten mitbringen. Catmull, Cook und Carpenter beschreiben diese in ihrem Artikel zum Pixar-eigenen Renderer Reyes wie folgt \cite{REYES}:
+Wie bereits erwähnt ist die Rendering-Gleichung analytisch nicht berechenbar. Da jedoch in der Realität Reflexionen zwischen Oberflächen einen Großteil der Beleuchtung einer Szene ausmachen, kann die globale Beleuchtung im Rendering nicht vernachlässigt werden. Gerade im Film wird sie zur realistischen Darstellung von Objekten benötigt. Eine professionelle Rendering-Technik muss jedoch noch einige weitere Fähigkeiten mitbringen. Catmull, Cook und Carpenter beschreiben diese in ihrem Artikel zum Pixar-eigenen Renderer Reyes wie folgt \cite{REYES}:
 
 \begin{itemize}
 	\item \textbf{Modellkomplexität.} In einem mit CGI versehenen Film sollen Bilder erzeugt werden, die visuell besonders ansprechend und detailreich sind. Das setzt voraus, dass Szenen mit einer Vielzahl von einzelnen Objekten, die wiederum unterteilt sein können, gerendert werden müssen.
@@ -91,7 +91,7 @@ Wie bereits erwähnt ist die Rendering Gleichung analytisch nicht berechenbar. Da
 	
 	\item \textbf{Komplexes Shading.} Die Reflexionseigenschaften verschiedener Materialien und Oberflächen sind äußert unterschiedlich und komplex. Eine gute Rendering-Technik gibt dem Anwender die Möglichkeit, selbst einen Shader zu implementieren. Dabei muss es auch möglich sein, Textur- oder Umgebungs-Maps einzusetzen.
 	
-	\item \textbf{Geschwindigkeit.} Um einen Film mit einer Länge von zwei Stunden und 24 Bildern pro Sekunde in einem Jahr zu rendern, wird eine Rendering-Dauer von drei Minuten pro Bild benötigt. Rendering Farms und verteiltes Rendering ermöglichen ein schnelles Erstellen synthetischer Bilder, eine professionelle Rendering-Technik muss parallelisierbar sein und gerade für komplexe Szenen hoch performant funktionieren.
+	\item \textbf{Geschwindigkeit.} Um einen Film mit einer Länge von zwei Stunden und 24 Bildern pro Sekunde in einem Jahr zu rendern, wird eine Rendering-Dauer von drei Minuten pro Bild benötigt. Rendering Farms und verteiltes Rendering ermöglichen ein schnelles Erstellen synthetischer Bilder, eine professionelle Rendering-Technik muss parallelisierbar sein und gerade für komplexe Szenen hochperformant funktionieren.
 	
 	\item \textbf{Bildqualität.} Die gerenderten Bilder müssen möglichst real erscheinen und dürfen zum Beispiel keine Treppenartefakte aufweisen.
 	
