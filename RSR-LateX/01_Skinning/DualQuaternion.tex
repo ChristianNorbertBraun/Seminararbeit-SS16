@@ -16,7 +16,7 @@ Ein Weg, dies zu erreichen, ist von \cite{kavan2008geometric}, genannt Dual Quat
 \mathbf{\dot q} =  \frac{\sum_{i=1}^n w_i \mathbf{\dot q}_i}{\| \sum_{i=1}^n w_i \mathbf{\dot q}_i \|}
 \end{equation}
 
-Wir machen also statt einer Verschmelzung aus Transformations-Matrizen, eine aus Dual Quaternionen, wie gewohnt gewichtet. Anschließend wird mit ${\| \sum_{i=1}^n w_i \mathbf{\dot q}_i \|}$ normalisiert. Am Schluss der Gleichung erhalten wir ein neues Dual Quaternion, mit dem wir den Punkt auf dem Gittergraphen verschieben können. Auf Abbildung 10, erkennt man das bei Linear Blend Skinning vorgestellte Problem, auf Abbildung 11 mit Dual Quaternion Blend Skinning.
+Wir machen also statt einer Verschmelzung aus Transformations-Matrizen, eine aus Dual Quaternionen, wie gewohnt gewichtet. Anschließend wird mit ${\| \sum_{i=1}^n w_i \mathbf{\dot q}_i \|}$ normalisiert. Am Schluss der Gleichung erhalten wir ein neues Dual Quaternion, mit dem wir den Punkt auf dem Gittergraphen verschieben können. Auf Abbildung 14, erkennt man das bei Linear Blend Skinning vorgestellte Problem, auf Abbildung 15 mit Dual Quaternion Blend Skinning.
 \begin{figure}[t]
 	\includegraphics[width=9cm]{01_Skinning/pics/lbsgrad.png}
 	\caption[180° Rotation LBS]{ 180° Rotation LBS. Entnommen von \cite{weights}}
@@ -31,7 +31,7 @@ Wir machen also statt einer Verschmelzung aus Transformations-Matrizen, eine aus
 
 Der große Vorteil dieser Herangehensweise ist die Vermeidung von Artefakten bei ähnlicher Geschwindigkeit wie beim Linear Blend Skinning. Auch die Implementierung ist nur unwesentlich schwieriger.
 
-Nachteilhaft ist allerdings, dass dieser Algorithmus in manchen Fällen mehr Speicher verbrauchen kann \cite{kavan2008geometric}. Dazu kommt, dass dieser Algorithmus nur feste Transformationen beherrscht, also zum Beispiel keine Skalierung. \cite{kavan2008geometric} Dies wirkt im ersten Moment nicht schlimm, weil reale Personen kein Volumen verlieren. Im Film ist es allerdings durchaus denkbar, dass ein Charakter sein Volumen oder die Größe einzelner Körperteile verändern kann, wodurch bei diesem Ansatz im schlimmsten Fall ein völlig neues Modell erstellt werden müsste. Einfacher wäre es vermutlich, für diese Bewegungen einen anderen Algorithmus zu verwenden. Ein weiteres Problem ist, dass bei Drehungen an einem Gelenk um mehr als 180° das kürzeste Weg zu Artefakten führen kann. \cite{kavan2008geometric} Dargestellt in Abbildung 12. 
+Nachteilhaft ist allerdings, dass dieser Algorithmus in manchen Fällen mehr Speicher verbrauchen kann \cite{kavan2008geometric}. Dazu kommt, dass dieser Algorithmus nur feste Transformationen beherrscht, also zum Beispiel keine Skalierung. \cite{kavan2008geometric} Dies wirkt im ersten Moment nicht schlimm, weil reale Personen kein Volumen verlieren. Im Film ist es allerdings durchaus denkbar, dass ein Charakter sein Volumen oder die Größe einzelner Körperteile verändern kann, wodurch bei diesem Ansatz im schlimmsten Fall ein völlig neues Modell erstellt werden müsste. Einfacher wäre es vermutlich, für diese Bewegungen einen anderen Algorithmus zu verwenden. Ein weiteres Problem ist, dass bei Drehungen an einem Gelenk um mehr als 180° das kürzeste Weg zu Artefakten führen kann. \cite{kavan2008geometric} Dargestellt in Abbildung 16. 
 
 \begin{figure}[tb]
 	\includegraphics[width=13cm]{01_Skinning/pics/dqsgradartefakte.png}
