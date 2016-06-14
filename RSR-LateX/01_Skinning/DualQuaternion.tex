@@ -33,7 +33,7 @@ Der große Vorteil dieser Herangehensweise ist die Vermeidung von Artefakten bei 
 
 Nachteilhaft ist allerdings, dass dieser Algorithmus in manchen Fällen mehr Speicher verbrauchen kann \cite{kavan2008geometric}. Dazu kommt, dass dieser Algorithmus nur feste Transformationen beherrscht, also zum Beispiel keine Skalierung. \cite{kavan2008geometric} Dies wirkt im ersten Moment nicht schlimm, weil reale Personen kein Volumen verlieren. Im Film ist es allerdings durchaus denkbar, dass ein Charakter sein Volumen oder die Größe einzelner Körperteile verändern kann, wodurch bei diesem Ansatz im schlimmsten Fall ein völlig neues Modell erstellt werden müsste. Einfacher wäre es vermutlich, für diese Bewegungen einen anderen Algorithmus zu verwenden. Ein weiteres Problem ist, dass bei Drehungen an einem Gelenk um mehr als 180° das kürzeste Weg zu Artefakten führen kann. \cite{kavan2008geometric} Dargestellt in Abbildung 12. 
 
-\begin{figure}[t]
+\begin{figure}[tb]
 	\includegraphics[width=13cm]{01_Skinning/pics/dqsgradartefakte.png}
 	\caption[Artefakte DQS bei mehr als 180° Rotation]{Artefakte DQS bei mehr als 180° Rotation Entnommen von \cite{kavan2008geometric}}
 	\label{weights_fig1}
